@@ -1,0 +1,19 @@
+#### antlr4
+/gen/
+### Intellji
+*.iml
+.idea/
+.asciidoctorconfig.adoc
+projects/net.splitcells.dem/src/main/antlr4/net/splitcells/dem/source/code/Java11Lexer.tokens
+### Eclipse
+.settings/
+.classpath
+.project
+### Maven ###
+target/
+### Python
+.pydevproject
+
+.vagrant/
+# The following is created by Maven during bild.
+.flattened-pom.xml
