@@ -1,0 +1,16 @@
+#!/usr/bin/env sh
+# SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
+# SPDX-FileCopyrightText: Contributors To The `net.splitcells.*` Projects
+set -e
+export JAVA_VERSION=11
+distroFolder="$(pwd)"
+cd ../net.splitcells.network.bom
+  mvn clean install
+cd ../net.splitcells.network
+  mvn clean install
+cd ../net.splitcells.network.media
+  mvn clean install
+cd ../net.splitcells.network.log
+  mvn clean install
+cd "$distroFolder"
+mvn clean install
