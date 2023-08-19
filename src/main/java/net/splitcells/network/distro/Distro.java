@@ -18,9 +18,14 @@ package net.splitcells.network.distro;
 import net.splitcells.dem.Dem;
 import net.splitcells.system.WebsiteViaJar;
 
+import static net.splitcells.dem.Dem.configValue;
+
 public class Distro {
     public static void main(String... args) {
-        WebsiteViaJar.projectsRenderer(WebsiteViaJar.config()).httpServer().start();
+        WebsiteViaJar.projectsRenderer(WebsiteViaJar.config()
+                .withIsSecured(false)
+                .withOpenPort(8443)
+        ).httpServer().start();
         Dem.waitIndefinitely();
     }
 }
