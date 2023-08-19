@@ -25,6 +25,8 @@ public class Distro {
         WebsiteViaJar.projectsRenderer(WebsiteViaJar.config()
                 .withIsSecured(false)
                 .withOpenPort(8443)
+                .withAdditionalProject(configValue(net.splitcells.network.media.FileSystem.class))
+                .withAdditionalProject(configValue(net.splitcells.network.log.FileSystem.class))
         ).httpServer().start();
         Dem.waitIndefinitely();
     }
