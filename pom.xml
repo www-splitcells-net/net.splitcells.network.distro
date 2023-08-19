@@ -2,7 +2,6 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <artifactId>network.distro</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
     <parent>
         <groupId>net.splitcells</groupId>
         <artifactId>pom-java-defaults</artifactId>
@@ -13,6 +12,16 @@
         <dependency>
             <groupId>net.splitcells</groupId>
             <artifactId>system</artifactId>
+            <version>${revision}</version>
+        </dependency>
+        <dependency>
+            <groupId>net.splitcells</groupId>
+            <artifactId>network.media</artifactId>
+            <version>${revision}</version>
+        </dependency>
+        <dependency>
+            <groupId>net.splitcells</groupId>
+            <artifactId>network.log</artifactId>
             <version>${revision}</version>
         </dependency>
     </dependencies>
