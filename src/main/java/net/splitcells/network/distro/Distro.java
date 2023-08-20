@@ -27,7 +27,7 @@ public class Distro {
         WebsiteViaJar.projectsRenderer(WebsiteViaJar.config()
                 .withIsSecured(false)
                 .withOpenPort(8443)
-                .withAdditionalProject(projectConfig("/",
+                .withAdditionalProject(projectConfig("/net/splitcells/network/media/",
                         configValue(net.splitcells.network.media.FileSystem.class)))
                 .withAdditionalProject(projectConfig("/net/splitcells/network/log/"
                         , configValue(net.splitcells.network.log.FileSystem.class)))
