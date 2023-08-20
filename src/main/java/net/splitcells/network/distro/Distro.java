@@ -17,16 +17,20 @@ package net.splitcells.network.distro;
 
 import net.splitcells.dem.Dem;
 import net.splitcells.system.WebsiteViaJar;
+import net.splitcells.website.server.ProjectConfig;
 
 import static net.splitcells.dem.Dem.configValue;
+import static net.splitcells.website.server.ProjectConfig.projectConfig;
 
 public class Distro {
     public static void main(String... args) {
         WebsiteViaJar.projectsRenderer(WebsiteViaJar.config()
                 .withIsSecured(false)
                 .withOpenPort(8443)
-                .withAdditionalProject(configValue(net.splitcells.network.media.FileSystem.class))
-                .withAdditionalProject(configValue(net.splitcells.network.log.FileSystem.class))
+                .withAdditionalProject(projectConfig("/",
+                        configValue(net.splitcells.network.media.FileSystem.class)))
+                .withAdditionalProject(projectConfig("/"
+                        , configValue(net.splitcells.network.log.FileSystem.class)))
         ).httpServer().start();
         Dem.waitIndefinitely();
     }
