@@ -29,7 +29,7 @@ public class Distro {
                 .withOpenPort(8443)
                 .withAdditionalProject(projectConfig("/",
                         configValue(net.splitcells.network.media.FileSystem.class)))
-                .withAdditionalProject(projectConfig("/net/splitcells/network/log/"
+                .withAdditionalProject(projectConfig("/"
                         , configValue(net.splitcells.network.log.FileSystem.class)))
         ).httpServer().start();
         Dem.waitIndefinitely();
