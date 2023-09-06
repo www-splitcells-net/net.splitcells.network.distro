@@ -17,6 +17,7 @@ package net.splitcells.network.distro;
 
 import net.splitcells.dem.Dem;
 import net.splitcells.system.WebsiteViaJar;
+import net.splitcells.website.binaries.BinaryFileSystem;
 import net.splitcells.website.server.Config;
 import net.splitcells.website.server.ProjectConfig;
 
@@ -36,6 +37,8 @@ public class Distro {
                 .withAdditionalProject(projectConfig("/",
                         configValue(net.splitcells.network.media.FileSystem.class)))
                 .withAdditionalProject(projectConfig("/"
-                        , configValue(net.splitcells.network.log.FileSystem.class)));
+                        , configValue(net.splitcells.network.log.FileSystem.class)))
+                .withAdditionalProject(projectConfig("/"
+                        , configValue(BinaryFileSystem.class)));
     }
 }
