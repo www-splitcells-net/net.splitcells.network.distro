@@ -12,5 +12,7 @@ cd ../net.splitcells.network.media
   mvn clean install
 cd ../net.splitcells.network.log
   mvn clean install
+cd ../net.splitcells.website.content.binaries
+  mvn clean install
 cd "$distroFolder"
 mvn clean install
