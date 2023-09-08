@@ -38,4 +38,46 @@
             <version>${revision}</version>
         </dependency>
     </dependencies>
+    <profiles>
+        <profile>
+            <id>uber-exe</id>
+            <activation>
+                <!-- This requires the profile `uber-jar` in order to create a jar with all of its dependencies. -->
+                <property>
+                    <name>uber.exe</name>
+                </property>
+            </activation>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>com.akathist.maven.plugins.launch4j</groupId>
+                        <artifactId>launch4j-maven-plugin</artifactId>
+                        <!-- Documentation: https://github.com/orphan-oss/launch4j-maven-plugin -->
+                        <executions>
+                            <execution>
+                                <id>windows-exe</id>
+                                <phase>package</phase>
+                                <goals>
+                                    <goal>launch4j</goal>
+                                </goals>
+                                <configuration>
+                                    <headerType>gui</headerType>
+                                    <outfile>target/splitcells-network-distro.exe</outfile>
+                                    <jar>target/${project.artifactId}-${revision}-spring-boot.jar</jar>
+                                    <errTitle>Splitcells Network Distro</errTitle>
+                                    <classPath>
+                                        <mainClass>org.springframework.boot.loader.JarLauncher</mainClass>
+                                    </classPath>
+                                    <jre>
+                                        <minVersion>1.11.0</minVersion>
+                                        <path>${project.basedir}/jre/windows</path>
+                                    </jre>
+                                </configuration>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+    </profiles>
 </project>

@@ -2,5 +2,8 @@
 # SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 # SPDX-FileCopyrightText: Contributors To The `net.splitcells.*` Projects
 set -e
-export JAVA_VERSION=11
-mvn clean install -Duber.jar=enabled -Duber.exe=enabled
+if [ ! -f jre/windows/bin/java.exe ]; then
+    echo "JRE for Windows exe is missing."
+    exit 1
+fi
+wine target/splitcells-network-distro.exe
