@@ -37,6 +37,10 @@
             <artifactId>website.content.binaries</artifactId>
             <version>${revision}</version>
         </dependency>
+        <dependency>
+            <groupId>com.formdev</groupId>
+            <artifactId>flatlaf</artifactId>
+        </dependency>
     </dependencies>
     <profiles>
         <profile>
