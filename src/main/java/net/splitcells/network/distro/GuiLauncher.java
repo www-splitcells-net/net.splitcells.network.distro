@@ -30,7 +30,8 @@ public class GuiLauncher {
     public static void main(String... args) {
         FlatLightLaf.setup();
         final var mainFrame = new JFrame("Splitcells Network Distro");
-        mainFrame.setSize(200, 200);
+        mainFrame.setSize(400, 200);
+        mainFrame.setResizable(false);
         {
             final var pane = mainFrame.getContentPane();
             final var layout = new GridLayout(2, 2);
@@ -49,8 +50,10 @@ public class GuiLauncher {
                     throw executionException(th);
                 }
             });
-            pane.add(new JButton("URL"));
-            pane.add(new JButton("http://localhost:8443/index"));
+            pane.add(new JLabel("URL"));
+            final var urlText = new JTextField("http://localhost:8443/index");
+            urlText.setEditable(false);
+            pane.add(urlText);
 
             pane.add(openButton);
             pane.add(exitButton);
