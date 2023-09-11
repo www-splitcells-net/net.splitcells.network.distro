@@ -16,8 +16,12 @@
 package net.splitcells.network.distro;
 
 import com.formdev.flatlaf.FlatLightLaf;
+import net.miginfocom.swing.MigLayout;
 
 import javax.swing.*;
+import javax.swing.border.Border;
+import javax.swing.border.CompoundBorder;
+import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.io.IOException;
 import java.net.URI;
@@ -27,14 +31,22 @@ import static net.splitcells.dem.resource.communication.log.Domsole.domsole;
 import static net.splitcells.dem.utils.ExecutionException.executionException;
 
 public class GuiLauncher {
+
+    /**
+     * <p>MigLayout is used, because it creates a nice look with minimal config.
+     * Initial experiments with Swings {@łink GridLayout} und co required a lot of work,
+     * without good results.
+     * Furthermore, on Linux {@łink GridLayout} and co. did not use FlatLaf's theme.</p>
+     *
+     * @param args
+     */
     public static void main(String... args) {
         FlatLightLaf.setup();
         final var mainFrame = new JFrame("Splitcells Network Distro");
-        mainFrame.setSize(400, 200);
         mainFrame.setResizable(false);
         {
             final var pane = mainFrame.getContentPane();
-            final var layout = new GridLayout(2, 2);
+            final var layout = new MigLayout("wrap 2");
             pane.setLayout(layout);
             final var exitButton = new JButton("Exit");
             exitButton.addActionListener(actionEvent -> {
@@ -50,16 +62,19 @@ public class GuiLauncher {
                     throw executionException(th);
                 }
             });
-            pane.add(new JLabel("URL"));
+            final var urlLabel = new JLabel("URL");
+            urlLabel.setHorizontalAlignment(SwingConstants.RIGHT);
             final var urlText = new JTextField("http://localhost:8443/index");
             urlText.setEditable(false);
+            pane.add(urlLabel);
             pane.add(urlText);
-
-            pane.add(openButton);
+            pane.add(new JLabel());
+            pane.add(openButton, "split 2");
             pane.add(exitButton);
         }
         // TODO HACK This is an quick hack. Please make clean program exit.
         mainFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        mainFrame.pack();
         mainFrame.setVisible(true);
     }
 }
