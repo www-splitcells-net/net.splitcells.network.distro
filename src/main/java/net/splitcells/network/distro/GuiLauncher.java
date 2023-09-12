@@ -16,37 +16,31 @@
 package net.splitcells.network.distro;
 
 import com.formdev.flatlaf.FlatLightLaf;
-import net.miginfocom.swing.MigLayout;
 
 import javax.swing.*;
-import javax.swing.border.Border;
-import javax.swing.border.CompoundBorder;
-import javax.swing.border.EmptyBorder;
 import java.awt.*;
-import java.io.IOException;
 import java.net.URI;
-import java.net.URISyntaxException;
 
 import static net.splitcells.dem.resource.communication.log.Domsole.domsole;
 import static net.splitcells.dem.utils.ExecutionException.executionException;
 
 public class GuiLauncher {
 
-    /**
-     * <p>MigLayout is used, because it creates a nice look with minimal config.
-     * Initial experiments with Swings {@łink GridLayout} und co required a lot of work,
-     * without good results.
-     * Furthermore, on Linux {@łink GridLayout} and co. did not use FlatLaf's theme.</p>
-     *
-     * @param args
-     */
+    private static final int DEFAULT_MARGIN = 5;
+    private static final int DEFAULT_PADDING = 5;
+
+    private static final String HELP_TEXT = "This application's only GUI is this launcher. "
+            + "This application is a server program. "
+            + "Therefore, the program has to be accessed via an internet browser: "
+            + "click on the `open` button or insert the `URL` into your favorite browser.";
+
     public static void main(String... args) {
         FlatLightLaf.setup();
         final var mainFrame = new JFrame("Splitcells Network Distro");
         mainFrame.setResizable(false);
         {
             final var pane = mainFrame.getContentPane();
-            final var layout = new MigLayout("wrap 2");
+            final var layout = new GridBagLayout();
             pane.setLayout(layout);
             final var exitButton = new JButton("Exit");
             exitButton.addActionListener(actionEvent -> {
@@ -66,15 +60,101 @@ public class GuiLauncher {
             urlLabel.setHorizontalAlignment(SwingConstants.RIGHT);
             final var urlText = new JTextField("http://localhost:8443/index");
             urlText.setEditable(false);
-            pane.add(urlLabel);
-            pane.add(urlText);
-            pane.add(new JLabel());
-            pane.add(openButton, "split 2");
-            pane.add(exitButton);
+            final var infoText = new JTextArea();
+            infoText.setText(HELP_TEXT);
+            infoText.setSize(50, 100);
+            infoText.setLineWrap(true);
+            infoText.setEditable(false);
+            infoText.setWrapStyleWord(true);
+            infoText.setRows(6);
+            infoText.setColumns(20);
+
+            pane.add(urlLabel, new GridBagConstraints(0
+                    , 0
+                    , 1
+                    , 1
+                    , 0
+                    , 0
+                    , GridBagConstraints.LINE_END
+                    , GridBagConstraints.BOTH
+                    , new Insets(DEFAULT_MARGIN, DEFAULT_MARGIN, DEFAULT_MARGIN, DEFAULT_MARGIN)
+                    , DEFAULT_PADDING
+                    , DEFAULT_PADDING));
+            pane.add(urlText, new GridBagConstraints(1
+                    , 0
+                    , 3
+                    , 1
+                    , 0
+                    , 0
+                    , GridBagConstraints.CENTER
+                    , GridBagConstraints.BOTH
+                    , new Insets(DEFAULT_MARGIN, DEFAULT_MARGIN, DEFAULT_MARGIN / 2, DEFAULT_MARGIN)
+                    , DEFAULT_PADDING
+                    , DEFAULT_PADDING
+            ));
+            pane.add(exitButton, new GridBagConstraints(0
+                    , 1
+                    , 1
+                    , 1
+                    , 0
+                    , 0
+                    , GridBagConstraints.LINE_END
+                    , 0
+                    , new Insets(DEFAULT_MARGIN, DEFAULT_MARGIN, DEFAULT_MARGIN / 2, DEFAULT_MARGIN)
+                    , DEFAULT_PADDING
+                    , DEFAULT_PADDING));
+            pane.add(openButton, new GridBagConstraints(0
+                    , 2
+                    , 1
+                    , 1
+                    , 0
+                    , 0
+                    , GridBagConstraints.LINE_END
+                    , 0
+                    , new Insets(DEFAULT_MARGIN / 2, DEFAULT_MARGIN, DEFAULT_MARGIN, DEFAULT_MARGIN)
+                    , DEFAULT_PADDING
+                    , DEFAULT_PADDING));
+            pane.add(new JLabel(" "), new GridBagConstraints(0
+                    , 3
+                    , 1
+                    , 1
+                    , 0
+                    , 0
+                    , GridBagConstraints.LINE_END
+                    , 0
+                    , new Insets(DEFAULT_MARGIN / 2, DEFAULT_MARGIN, DEFAULT_MARGIN, DEFAULT_MARGIN)
+                    , DEFAULT_PADDING
+                    , DEFAULT_PADDING));
+            pane.add(new JScrollPane(infoText), new GridBagConstraints(1
+                    , 1
+                    , 3
+                    , 3
+                    , 0
+                    , 0
+                    , GridBagConstraints.LINE_END
+                    , GridBagConstraints.BOTH
+                    , new Insets(DEFAULT_MARGIN, DEFAULT_MARGIN, DEFAULT_MARGIN, DEFAULT_MARGIN)
+                    , DEFAULT_PADDING
+                    , DEFAULT_PADDING));
         }
         // TODO HACK This is an quick hack. Please make clean program exit.
         mainFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         mainFrame.pack();
         mainFrame.setVisible(true);
+    }
+
+    private static GridBagConstraints gbc(int gridX, int gridY) {
+        return new GridBagConstraints(gridX
+                , gridY
+                , 1
+                , 1
+                , 0
+                , 0
+                , GridBagConstraints.CENTER
+                , GridBagConstraints.CENTER
+                , new Insets(10, 10, 10, 10)
+                , 10
+                , 10
+        );
     }
 }
