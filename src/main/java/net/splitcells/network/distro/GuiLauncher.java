@@ -31,7 +31,7 @@ public class GuiLauncher {
 
     private static final String HELP_TEXT = "This application's only GUI is this launcher. "
             + "This application is a server program. "
-            + "Therefore, the program has to be accessed via an internet browser: "
+            + "Therefore, the program has to be accessed via an Internet browser: "
             + "click on the `open` button or insert the `URL` into your favorite browser.";
 
     public static void main(String... args) {
@@ -52,7 +52,7 @@ public class GuiLauncher {
                 try {
                     Desktop.getDesktop().browse(new URI("http://localhost:8443/index"));
                 } catch (Throwable th) {
-                    domsole().appendWarning(th);
+                    domsole().appendWarning("Could not open the servers website via the desktops Internet browser.", th);
                     throw executionException(th);
                 }
             });
