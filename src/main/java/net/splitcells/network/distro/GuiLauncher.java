@@ -142,19 +142,4 @@ public class GuiLauncher {
         mainFrame.pack();
         mainFrame.setVisible(true);
     }
-
-    private static GridBagConstraints gbc(int gridX, int gridY) {
-        return new GridBagConstraints(gridX
-                , gridY
-                , 1
-                , 1
-                , 0
-                , 0
-                , GridBagConstraints.CENTER
-                , GridBagConstraints.CENTER
-                , new Insets(10, 10, 10, 10)
-                , 10
-                , 10
-        );
-    }
 }
