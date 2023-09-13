@@ -29,6 +29,11 @@ public class GuiLauncher {
     private static final int DEFAULT_MARGIN = 5;
     private static final int DEFAULT_PADDING = 5;
 
+    /**
+     * <p>TODO FIX Shutdown distro gracefully, instead of using {@link System#exit(int)}.</p>
+     *
+     * @param config
+     */
     public static void startGuiLauncher(GuiLauncherConfig config) {
         FlatLightLaf.setup();
         final var mainFrame = new JFrame("Splitcells Network Distro");
