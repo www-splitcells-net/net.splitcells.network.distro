@@ -133,7 +133,7 @@ public class GuiLauncher {
                     , DEFAULT_PADDING));
         }
         // TODO HACK This is an quick hack. Please make clean program exit.
-        mainFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         mainFrame.pack();
         mainFrame.setVisible(true);
     }
