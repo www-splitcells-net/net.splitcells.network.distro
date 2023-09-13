@@ -19,7 +19,10 @@ import static net.splitcells.network.distro.GuiLauncher.startGuiLauncher;
 import static net.splitcells.network.distro.GuiLauncherConfig.guiLauncherConfig;
 
 /**
- * IDEA Create a electron like GUI, which may be a better system integration: https://github.com/cuba-labs/java-electron-tutorial
+ * <p>IDEA Create a electron like GUI, which may be a better system integration: https://github.com/cuba-labs/java-electron-tutorial</p>
+ * <p>TODO FIX All external image links have to be redirected to a local resource or has to be blocked.
+ * The most prominent example of this is the front image of the README in the `net.splitcells.network` project.
+ * Otherwise, a real offline mode is not possible.</p>
  */
 public class DistroGuiLauncher {
     /**
