@@ -29,12 +29,7 @@ public class GuiLauncher {
     private static final int DEFAULT_MARGIN = 5;
     private static final int DEFAULT_PADDING = 5;
 
-    private static final String HELP_TEXT = "This application's only GUI is this launcher. "
-            + "This application is a server program. "
-            + "Therefore, the program has to be accessed via an Internet browser: "
-            + "click on the `open` button or insert the `URL` into your favorite browser.";
-
-    public static void main(String... args) {
+    public static void startGuiLauncher(GuiLauncherConfig config) {
         FlatLightLaf.setup();
         final var mainFrame = new JFrame("Splitcells Network Distro");
         mainFrame.setResizable(false);
@@ -50,7 +45,7 @@ public class GuiLauncher {
             final var openButton = new JButton("Open");
             openButton.addActionListener(actionEvent -> {
                 try {
-                    Desktop.getDesktop().browse(new URI("http://localhost:8443/index"));
+                    Desktop.getDesktop().browse(new URI(config.url()));
                 } catch (Throwable th) {
                     domsole().appendWarning("Could not open the servers website via the desktops Internet browser.", th);
                     throw executionException(th);
@@ -58,10 +53,10 @@ public class GuiLauncher {
             });
             final var urlLabel = new JLabel("URL");
             urlLabel.setHorizontalAlignment(SwingConstants.RIGHT);
-            final var urlText = new JTextField("http://localhost:8443/index");
+            final var urlText = new JTextField(config.url());
             urlText.setEditable(false);
             final var infoText = new JTextArea();
-            infoText.setText(HELP_TEXT);
+            infoText.setText(config.helpText());
             infoText.setSize(50, 100);
             infoText.setLineWrap(true);
             infoText.setEditable(false);
