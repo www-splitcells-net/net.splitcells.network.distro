@@ -52,6 +52,9 @@
                     <name>flatpak.build</name>
                 </property>
             </activation>
+            <properties>
+                <distribution.directory>${project.build.directory}/distributions/flatpak</distribution.directory>
+            </properties>
             <build>
                 <plugins>
                     <plugin>
@@ -70,17 +73,31 @@
                                     <generic>
                                     </generic>
                                 </release>
-                                <distributions>
-                                    <app>
-                                        <artifacts>
-                                            <artifact>
+                                <packagers>
+                                    <flatpak>
+                                        <enabled>true</enabled>
+                                        <active>ALWAYS</active>
+                                        <continueOnError>true</continueOnError>
+                                    </flatpak>
+                                </packagers>
+                                <assemble>
+                                    <enabled>true</enabled>
+                                    <active>ALWAYS</active>
+                                    <javaArchive>
+                                        <java-archive>
+                                            <enabled>true</enabled>
+                                            <active>ALWAYS</active>
+                                            <java>
+                                                <mainClass>${main.class}</mainClass>
+                                            </java>
+                                            <mainJar>
                                                 <path>
                                                     ${project.build.directory}/${project.artifactId}-${revision}-spring-boot.jar
                                                 </path>
-                                            </artifact>
-                                        </artifacts>
-                                    </app>
-                                </distributions>
+                                            </mainJar>
+                                        </java-archive>
+                                    </javaArchive>
+                                </assemble>
                             </jreleaser>
                         </configuration>
                     </plugin>
