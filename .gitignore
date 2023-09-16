@@ -18,3 +18,7 @@ target/
 .vagrant/
 # The following is created by Maven during bild.
 .flattened-pom.xml
+
+# Flatpak
+.flatpak-builder
+build-dir

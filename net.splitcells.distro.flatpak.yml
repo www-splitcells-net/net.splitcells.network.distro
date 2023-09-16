@@ -1,0 +1,23 @@
+app-id: net.splitcells.distro.flatpak
+runtime: org.freedesktop.Platform
+runtime-version: '21.08'
+sdk: org.freedesktop.Sdk
+sdk-extensions:
+  - org.freedesktop.Sdk.Extension.openjdk11
+command: /app/bin/java-archive
+modules:
+  - name: openjdk
+    buildsystem: simple
+    build-commands:
+      - /usr/lib/sdk/openjdk11/install.sh
+  - name: net.splitcells.distro.flatpak.module
+    buildsystem: simple
+    build-commands:
+      - cp -r ./main/* /app/
+    sources:
+      - type: dir
+        path: target/jreleaser/assemble/java-archive/java-archive/work/java-archive-0.0.1-SNAPSHOT
+        dest: main
+finish-args:
+  - "--env=PATH=/app/jre/bin:/usr/bin"
+  - "--env=JAVA_HOME=/app/jre"

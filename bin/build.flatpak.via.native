@@ -1,0 +1,12 @@
+#!/usr/bin/env sh
+# SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
+# SPDX-FileCopyrightText: Contributors To The `net.splitcells.*` Projects
+flatpak uninstall -y app/net.splitcells.distro.flatpak/x86_64/master
+set -e
+echo 'This command is used in order to test a flatpak manifest via flatpak-builder.'
+echo 'Building for flatpak normally is done via maven.'
+flatpak install flathub org.freedesktop.Platform//21.08 \
+  org.freedesktop.Sdk//22.08 \
+  org.freedesktop.Sdk.Extension.openjdk11/x86_64/21.08
+flatpak-builder --user --install --force-clean build-dir net.splitcells.distro.flatpak.yml
+flatpak run net.splitcells.distro.flatpak
