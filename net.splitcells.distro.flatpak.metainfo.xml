@@ -12,6 +12,13 @@
     <description>
         <p>We provide an open source ecosystem centered around optimization and operations research.</p>
     </description>
+    <screenshots>
+        <screenshot type="default">
+            <image type="source">
+                https://splitcells.net/net/splitcells/martins/avots/website/images/license.standard/net.splitcells.network.logo.jpg
+            </image>
+        </screenshot>
+    </screenshots>
     <url type="homepage">https://splitcells.net</url>
     <url type="bugtracker">https://github.com/www-splitcells-net/net.splitcells.network/issues</url>
     <developer_name>Mārtiņš Avots</developer_name>
