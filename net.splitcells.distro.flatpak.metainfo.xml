@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component type="desktop-application">
+    <id>net.splitcells.distro.flatpak</id>
+    <launchable type="desktop-id">net.splitcells.distro.flatpak.desktop</launchable>
+    <metadata_license>EPL-2.0 OR GPL-2.0-or-later</metadata_license>
+    <project_license>EPL-2.0 OR GPL-2.0-or-later</project_license>
+    <provides>
+        <id>net.splitcells.distro.flatpak.desktop</id>
+    </provides>
+    <name>Splitcells Network Distro</name>
+    <summary>We provide an open source ecosystem centered around optimization and operations research.</summary>
+    <description>
+        <p>We provide an open source ecosystem centered around optimization and operations research.</p>
+    </description>
+    <url type="homepage">https://splitcells.net</url>
+    <url type="bugtracker">https://github.com/www-splitcells-net/net.splitcells.network/issues</url>
+    <developer_name>Mārtiņš Avots</developer_name>
+</component>

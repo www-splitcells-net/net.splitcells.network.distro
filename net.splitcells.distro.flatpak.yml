@@ -5,6 +5,8 @@ sdk: org.freedesktop.Sdk
 sdk-extensions:
   - org.freedesktop.Sdk.Extension.openjdk11
 command: /app/bin/java-archive
+desktop-file: net.splitcells.distro.flatpak.desktop
+rename-icon: net.splitcells.distro.flatpak
 modules:
   - name: openjdk
     buildsystem: simple
@@ -14,10 +16,20 @@ modules:
     buildsystem: simple
     build-commands:
       - cp -r ./main/* /app/
+      - install -Dm644 icon.svg /app/share/icons/hicolor/scalable/apps/net.splitcells.distro.flatpak.svg
+      - install -Dm644 net.splitcells.distro.flatpak.desktop /app/share/applications/net.splitcells.distro.flatpak.desktop
+      - install -Dm 644 net.splitcells.distro.flatpak.metainfo.xml -t /app/share/metainfo
     sources:
       - type: dir
         path: target/jreleaser/assemble/java-archive/java-archive/work/java-archive-0.0.1-SNAPSHOT
         dest: main
+      - type: file
+        path: icon.svg
+      - type: file
+        path: net.splitcells.distro.flatpak.desktop
+      - type: file
+        path: net.splitcells.distro.flatpak.metainfo.xml
 finish-args:
   - "--env=PATH=/app/jre/bin:/usr/bin"
   - "--env=JAVA_HOME=/app/jre"
+# export XDG_DATA_DIRS=$XDG_DATA_DIRS:$HOME/.local/share/flatpak/exports/share/applications

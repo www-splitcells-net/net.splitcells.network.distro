@@ -8,5 +8,9 @@ echo 'Building for flatpak normally is done via maven.'
 flatpak install flathub org.freedesktop.Platform//21.08 \
   org.freedesktop.Sdk//22.08 \
   org.freedesktop.Sdk.Extension.openjdk11/x86_64/21.08
-flatpak-builder --user --install --force-clean build-dir net.splitcells.distro.flatpak.yml
+sudo flatpak-builder --system --install --force-clean build-dir net.splitcells.distro.flatpak.yml
 flatpak run net.splitcells.distro.flatpak
+sudo rm -rf build-dir
+sudo rm -rf .flatpak-builder
+
+# flatpak remote-add --no-gpg-verify --user local file:///home/splitcells/Documents/projects/flatpak-repo/
