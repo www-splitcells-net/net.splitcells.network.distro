@@ -50,10 +50,19 @@ public class GuiLauncher {
             final var openButton = new JButton("Open");
             openButton.addActionListener(actionEvent -> {
                 try {
-                    Desktop.getDesktop().browse(new URI(config.url()));
+                    if (Desktop.getDesktop().isSupported(Desktop.Action.BROWSE)) {
+                        Desktop.getDesktop().browse(new URI(config.url()));
+                    } else {
+                        Runtime.getRuntime().exec(new String[]{"xdg-open", config.url()}).onExit().join();
+                    }
                 } catch (Throwable th) {
-                    domsole().appendWarning("Could not open the servers website via the desktops Internet browser.", th);
-                    throw executionException(th);
+                    try {
+                        Runtime.getRuntime().exec(new String[]{"xdg-open", config.url()}).onExit().join();
+                    } catch (Throwable th2) {
+                        domsole().appendWarning("Could not open the servers website via the desktops Internet browser.", th);
+                        domsole().appendWarning("Could not open the servers website via the desktops Internet browser.", th2);
+                        throw executionException(th);
+                    }
                 }
             });
             final var urlLabel = new JLabel("URL");
