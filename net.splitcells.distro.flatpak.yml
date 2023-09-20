@@ -32,4 +32,6 @@ modules:
 finish-args:
   - "--env=PATH=/app/jre/bin:/usr/bin"
   - "--env=JAVA_HOME=/app/jre"
+  - "--socket=x11"
+  - "--share=network"
 # export XDG_DATA_DIRS=$XDG_DATA_DIRS:$HOME/.local/share/flatpak/exports/share/applications
