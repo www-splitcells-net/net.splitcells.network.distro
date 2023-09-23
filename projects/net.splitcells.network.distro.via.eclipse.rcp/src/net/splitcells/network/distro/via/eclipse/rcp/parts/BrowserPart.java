@@ -13,6 +13,8 @@ import org.eclipse.jface.viewers.TableViewer;
 import org.eclipse.jface.widgets.TextFactory;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.browser.Browser;
+import org.eclipse.swt.browser.ProgressAdapter;
+import org.eclipse.swt.browser.ProgressEvent;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.events.SelectionListener;
 import org.eclipse.swt.events.TraverseEvent;
@@ -30,6 +32,8 @@ import org.eclipse.swt.widgets.ToolItem;
 
 public class BrowserPart {
 
+	private static final String STARTING_PAGE = "http://splitcells.net";
+
 	@Inject
 	private MPart part;
 	@Inject
@@ -42,10 +46,12 @@ public class BrowserPart {
 		parent.setLayout(new GridLayout(1, false));
 
 		final var urlBar = new Composite(parent, SWT.NONE);
-		final var rLayout = new GridLayout(3, false);
+		final var rLayout = new GridLayout(4, false);
 		urlBar.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
 		urlBar.setLayout(rLayout);
 
+		final Button resetButton = new Button(urlBar, SWT.PUSH);
+		resetButton.setText("⟳");
 		final Button refreshButton = new Button(urlBar, SWT.PUSH);
 		refreshButton.setText("↻");
 		final Button urlUpdateButton = new Button(urlBar, SWT.PUSH);
@@ -53,12 +59,11 @@ public class BrowserPart {
 
 		address = new Text(urlBar, SWT.BORDER | SWT.SINGLE);
 		address.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
-		address.setText("http://splitcells.net");
 		address.setEditable(true);
 
 		browser = new Browser(parent, SWT.DEFAULT);
 		browser.setLayoutData(new GridData(GridData.FILL_BOTH));
-		updateUrl();
+		resetUrl();
 
 		refreshButton.addSelectionListener(new SelectionListener() {
 
@@ -78,7 +83,21 @@ public class BrowserPart {
 
 			@Override
 			public void widgetSelected(SelectionEvent e) {
-				updateUrl();
+				updateBrowserUrl();
+			}
+
+			@Override
+			public void widgetDefaultSelected(SelectionEvent e) {
+				// Nothing needs to be done.
+
+			}
+
+		});
+		resetButton.addSelectionListener(new SelectionListener() {
+
+			@Override
+			public void widgetSelected(SelectionEvent e) {
+				resetUrl();
 			}
 
 			@Override
@@ -92,8 +111,13 @@ public class BrowserPart {
 			@Override
 			public void keyTraversed(TraverseEvent event) {
 				if (event.detail == SWT.TRAVERSE_RETURN) {
-					updateUrl();
+					updateBrowserUrl();
 				}
+			}
+		});
+		browser.addProgressListener(new ProgressAdapter() {
+			public void completed(ProgressEvent event) {
+				updateAddressText();
 			}
 		});
 	}
@@ -105,10 +129,23 @@ public class BrowserPart {
 		});
 	}
 
-	private void updateUrl() {
+	private void updateBrowserUrl() {
 		display.asyncExec(() -> {
 			browser.setUrl(address.getText());
-			browser.refresh();
+		});
+	}
+	
+	private void updateAddressText() {
+		display.asyncExec(() -> {
+			address.setText(browser.getUrl());
+		});
+	}
+
+	private void resetUrl() {
+		Display.getDefault().asyncExec(() -> {
+			browser.setUrl(STARTING_PAGE);
+			address.setText(STARTING_PAGE);
+
 		});
 	}
 
