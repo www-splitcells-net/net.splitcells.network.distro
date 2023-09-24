@@ -3,6 +3,7 @@
 
 <product name="net.splitcells.network.distro.via.eclipse.rcp" id="net.splitcells.network.distro.via.eclipse.rcp.product" application="org.eclipse.e4.ui.workbench.swt.E4Application" version="1.0.0.qualifier" type="mixed" includeLaunchers="true" autoIncludeRequirements="true">
 
+
    <configIni use="default">
    </configIni>
 
@@ -15,6 +16,19 @@
 
    <windowImages/>
 
+   <splash
+      location="net.splitcells.network.distro.via.eclipse.rcp" />
+   <launcher>
+      <win useIco="false">
+         <bmp/>
+      </win>
+   </launcher>
+
+
+   <vm>
+   </vm>
+
+
    <plugins>
       <plugin id="net.splitcells.network.distro.via.eclipse.rcp"/>
    </plugins>
@@ -23,5 +37,12 @@
       <feature id="org.eclipse.e4.rcp"/>
    </features>
 
+
+   <preferencesInfo>
+      <targetfile overwrite="false"/>
+   </preferencesInfo>
+
+   <cssInfo>
+   </cssInfo>
 
 </product>

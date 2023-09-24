@@ -120,6 +120,12 @@ public class BrowserPart {
 				updateAddressText();
 			}
 		});
+		try {
+			// This is used for showing of the splash screen.
+			Thread.sleep(3000);
+		} catch (InterruptedException e) {
+			throw new RuntimeException(e);
+		}
 	}
 
 	private void refreshBrowser() {
