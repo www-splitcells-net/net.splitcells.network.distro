@@ -1,0 +1,4 @@
+# Committing Eclipse project meta files, as there is no Maven POM file.
+!.classpath
+!.settings
+!.project
