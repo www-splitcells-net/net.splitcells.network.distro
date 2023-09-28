@@ -46,7 +46,6 @@ public class BrowserPart {
 	@PostConstruct
 	public void createComposite(Composite parent) {
 		parent.setLayout(new GridLayout(1, false));
-		parent.sc
 
 		final var urlBar = new Composite(parent, SWT.NONE);
 		final var rLayout = new GridLayout(4, false);
