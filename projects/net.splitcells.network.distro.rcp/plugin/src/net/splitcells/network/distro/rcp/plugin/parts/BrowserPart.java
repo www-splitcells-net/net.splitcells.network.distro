@@ -26,6 +26,8 @@ import org.eclipse.swt.layout.RowLayout;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Display;
+import org.eclipse.swt.widgets.Event;
+import org.eclipse.swt.widgets.Listener;
 import org.eclipse.swt.widgets.Text;
 import org.eclipse.swt.widgets.ToolBar;
 import org.eclipse.swt.widgets.ToolItem;
@@ -52,10 +54,13 @@ public class BrowserPart {
 
 		final Button resetButton = new Button(urlBar, SWT.PUSH);
 		resetButton.setText("⟳");
+		resetButton.setToolTipText("Reset browser to starting page.");
 		final Button refreshButton = new Button(urlBar, SWT.PUSH);
 		refreshButton.setText("↻");
+		refreshButton.setToolTipText("Refresh current page.");
 		final Button urlUpdateButton = new Button(urlBar, SWT.PUSH);
 		urlUpdateButton.setText("+");
+		urlUpdateButton.setToolTipText("Load page of address bar.");
 
 		address = new Text(urlBar, SWT.BORDER | SWT.SINGLE);
 		address.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
