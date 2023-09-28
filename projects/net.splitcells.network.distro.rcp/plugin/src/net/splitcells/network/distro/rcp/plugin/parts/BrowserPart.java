@@ -46,6 +46,7 @@ public class BrowserPart {
 	@PostConstruct
 	public void createComposite(Composite parent) {
 		parent.setLayout(new GridLayout(1, false));
+		parent.sc
 
 		final var urlBar = new Composite(parent, SWT.NONE);
 		final var rLayout = new GridLayout(4, false);
@@ -66,7 +67,7 @@ public class BrowserPart {
 		address.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
 		address.setEditable(true);
 
-		browser = new Browser(parent, SWT.DEFAULT);
+		browser = new Browser(parent, SWT.DEFAULT | SWT.NO_SCROLL);
 		browser.setLayoutData(new GridData(GridData.FILL_BOTH));
 		resetUrl();
 
@@ -127,7 +128,7 @@ public class BrowserPart {
 		});
 		try {
 			// This is used for showing of the splash screen.
-			Thread.sleep(3000);
+			Thread.sleep(1000);
 		} catch (InterruptedException e) {
 			throw new RuntimeException(e);
 		}
