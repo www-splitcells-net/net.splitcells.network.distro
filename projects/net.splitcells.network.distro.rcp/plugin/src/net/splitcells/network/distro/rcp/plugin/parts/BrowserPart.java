@@ -1,4 +1,4 @@
-package net.splitcells.network.distro.via.eclipse.rcp.parts;
+package net.splitcells.network.distro.rcp.plugin.parts;
 
 import java.util.Arrays;
 import java.util.List;

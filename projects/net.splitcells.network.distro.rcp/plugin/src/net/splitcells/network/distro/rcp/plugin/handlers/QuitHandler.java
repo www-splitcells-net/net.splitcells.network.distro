@@ -1,4 +1,4 @@
-package net.splitcells.network.distro.via.eclipse.rcp.handlers;
+package net.splitcells.network.distro.rcp.plugin.handlers;
 
 import java.util.List;
 

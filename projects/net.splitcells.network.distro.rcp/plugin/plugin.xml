@@ -7,14 +7,18 @@
          point="org.eclipse.core.runtime.products">
       <product
             application="org.eclipse.e4.ui.workbench.swt.E4Application"
-            name="net.splitcells.network.distro.via.eclipse.rcp">
+            name="net.splitcells.network.distro.rcp.plugin">
+         <property
+               name="lifeCycleURI"
+               value="bundleclass://net.splitcells.network.distro.rcp.plugin/net.splitcells.network.distro.rcp.plugin.E4LifeCycle">
+         </property>
          <property
                name="applicationCSS"
-               value="platform:/plugin/net.splitcells.network.distro.via.eclipse.rcp/css/default.css">
+               value="platform:/plugin/net.splitcells.network.distro.rcp.plugin/css/default.css">
          </property>
          <property
                name="appName"
-               value="net.splitcells.network.distro.via.eclipse.rcp">
+               value="net.splitcells.network.distro.rcp.plugin">
          </property>
       </product>
    </extension>
