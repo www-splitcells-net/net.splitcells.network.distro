@@ -14,7 +14,7 @@
       </vmArgsMac>
    </launcherArgs>
 
-   <windowImages/>
+   <windowImages i256="../../../../net.splitcells.network.media/src/main/resources/html/net/splitcells/website/icons/bird-256x256.bmp"/>
 
    <splash
       location="net.splitcells.network.distro.rcp.plugin" />
@@ -100,5 +100,12 @@
       <plugin id="org.eclipse.equinox.common" autoStart="true" startLevel="2" />
       <plugin id="org.eclipse.equinox.event" autoStart="true" startLevel="3" />
    </configurations>
+
+   <preferencesInfo>
+      <targetfile overwrite="false"/>
+   </preferencesInfo>
+
+   <cssInfo>
+   </cssInfo>
 
 </product>
