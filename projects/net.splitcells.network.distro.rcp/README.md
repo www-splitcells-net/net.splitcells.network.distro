@@ -31,3 +31,6 @@
     for every plugin and product.
 * If a required feature of a plugin cannot be found during the build,
     try adding the dependency to the includeBundles of the target definition file.
+* A product based on features is a product, that has plugins and features.
+    A product based on plugins is a product, that has only plugins and
+    any mentioned feature in the product is silently ignored.
