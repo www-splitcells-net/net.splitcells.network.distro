@@ -1,3 +1,7 @@
+# RCP Problems
+* JRE is not bundled.
+* Eclipse IDE is not able to build project like Tycho.
+    Tycho is the definitive build.
 # RCP Development Guidelines
 * Build is based on Maven Tycho in order to support automatic builds or builds without Eclipse.
     It also makes it possible, to have a unified build infrastructure.
@@ -6,7 +10,7 @@
     If a POM is provided every detail needs to be configured.
     Otherwise, the build may fail.
     Therefore, avoiding POMs can be helpful.
-    The `flatten-maven-plugin` can be used in this case,
+    The flatten-maven-plugin can be used in this case,
     in order to generate a POM given a Tycho subproject without a POM.
 * If everything breaks, it easiest to recreate the project from scratch,
     in order to find the breaking point.
@@ -21,3 +25,5 @@
 * Split every component type into its own subproject.
     For example, create a subproject for the target-platform,
     for every plugin and product.
+* If a required feature of a plugin cannot be found during the build,
+    try adding the dependency to the includeBundles of the target definition file.
