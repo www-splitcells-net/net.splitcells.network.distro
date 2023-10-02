@@ -3,9 +3,9 @@
 	<artifactId>network.distro.rcp</artifactId>
 	<parent>
 		<groupId>net.splitcells</groupId>
-		<artifactId>pom-java-defaults</artifactId>
+		<artifactId>pom-java-minimal</artifactId>
 		<version>${revision}</version>
-		<relativePath>../../../net.splitcells.network/projects/net.splitcells.pom.java.defaults/pom.xml</relativePath>
+		<relativePath>../../../net.splitcells.network/projects/net.splitcells.pom.java.minimal/pom.xml</relativePath>
 	</parent>
 	<packaging>pom</packaging>
 	<properties>
@@ -55,14 +55,18 @@
 				<version>${tycho.version}</version>
 				<configuration>
 					<target>
+						<!-- <file>/home/splitcells/Documents/projects/net.splitcells.martins.avots.support.system/public/net.splitcells.network.distro/projects/net.splitcells.network.distro.rcp/target-platform/target-platform.target</file> -->
 						<artifact>
 							<groupId>net.splitcells</groupId>
-							<artifactId>target-platform</artifactId>
+							<artifactId>network.distro.rcp.target</artifactId>
 							<version>${revision}</version>
 						</artifact>
 					</target>
 					<executionEnvironment>org.eclipse.justj.openjdk.hotspot.jre.full-11</executionEnvironment>
+					<!--
+					
 					<executionEnvironmentDefault>org.eclipse.justj.openjdk.hotspot.jre.full-11</executionEnvironmentDefault>
+					-->
 					<!-- <resolveWithExecutionEnvironmentConstraints>false</resolveWithExecutionEnvironmentConstraints> -->
 
 					<dependency-resolution>

@@ -6,12 +6,15 @@
 			<repository location="https://download.eclipse.org/releases/2021-12"/>
 			<unit id="org.eclipse.equinox.sdk.feature.group" version="0.0.0"/>
 			<unit id="org.eclipse.platform.sdk" version="0.0.0"/>
+			<unit id="org.eclipse.sdk.feature.group" version="0.0.0"/>
 		</location>
 		<location includeAllPlatforms="false" includeConfigurePhase="true" includeMode="planner" includeSource="true" type="InstallableUnit">
 			<repository location="https://download.eclipse.org/justj/jres/11/updates/release"/>
-			<unit id="org.eclipse.justj.openjdk.hotspot.jre.full.feature.group" version="11.0.20.v20230831-1118"/>
+			<unit id="org.eclipse.justj.openjdk.hotspot.jre.full.feature.group" version="0.0.0"/>
 		</location>
 	</locations>
+	<!--
+	TODO Remove because of https://wiki.eclipse.org/Tycho_Messages_Explained#Target_File_Include_Bundles
 	<includeBundles>
 		<plugin id="com.ibm.icu"/>
 		<plugin id="com.ibm.icu.source"/>
@@ -458,5 +461,5 @@
 		<plugin id="org.w3c.dom.smil.source"/>
 		<plugin id="org.w3c.dom.svg"/>
 		<plugin id="org.w3c.dom.svg.source"/>
-	</includeBundles>
+	</includeBundles> -->
 </target>

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <?pde version="3.5"?>
 
-<product name="net.splitcells.network.distro.rcp.product" uid="net.splitcells.network.distro.rcp.product" id="net.splitcells.network.distro.rcp.plugin.product" application="org.eclipse.e4.ui.workbench.swt.E4Application" version="1.0.0.qualifier" useFeatures="true" includeLaunchers="true">
+<product name="net.splitcells.network.distro.rcp.product" uid="net.splitcells.network.distro.rcp.product" id="net.splitcells.network.distro.rcp.plugin.product" application="org.eclipse.e4.ui.workbench.swt.E4Application" version="1.0.0.qualifier" useFeatures="false" includeLaunchers="true">
 
    <configIni use="default">
    </configIni>
@@ -82,10 +82,14 @@
       <plugin id="org.eclipse.equinox.common"/>
       <plugin id="org.eclipse.equinox.concurrent"/>
       <plugin id="org.eclipse.equinox.event"/>
+      <plugin id="org.eclipse.equinox.event.source"/>
       <plugin id="org.eclipse.equinox.preferences"/>
       <plugin id="org.eclipse.equinox.registry"/>
       <plugin id="org.eclipse.jface"/>
       <plugin id="org.eclipse.jface.databinding"/>
+      <plugin id="org.eclipse.justj.openjdk.hotspot.jre.full.linux.x86_64" fragment="true"/>
+      <plugin id="org.eclipse.justj.openjdk.hotspot.jre.full.macosx.x86_64" fragment="true"/>
+      <plugin id="org.eclipse.justj.openjdk.hotspot.jre.full.win32.x86_64" fragment="true"/>
       <plugin id="org.eclipse.osgi"/>
       <plugin id="org.eclipse.osgi.compatibility.state" fragment="true"/>
       <plugin id="org.eclipse.osgi.services"/>
@@ -100,10 +104,6 @@
       <plugin id="org.w3c.dom.smil"/>
       <plugin id="org.w3c.dom.svg"/>
    </plugins>
-
-   <features>
-      <feature id="org.eclipse.justj.openjdk.hotspot.jre.full" installMode="root"/>
-   </features>
 
    <configurations>
       <plugin id="org.apache.felix.scr" autoStart="true" startLevel="2" />
