@@ -34,3 +34,10 @@
 * A product based on features is a product, that has plugins and features.
     A product based on plugins is a product, that has only plugins and
     any mentioned feature in the product is silently ignored.
+* In order to rule out, that dependencies and etc. are referenced with correct id:
+    delete local `.m2` repo and clean up git repo containing project.
+    After that, check every dependency used.
+    Especially, dependency between locally build modules.
+* Speculation: if in the product file `useFeatures="false"` is set,
+    then plugins in the product files are ignored and vice versa.
+* Use Maven debug flag `mvn [...] -X` in order to get meaningful build output during Tycho based builds.
