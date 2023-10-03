@@ -7,6 +7,7 @@
 * Eclipse IDE is not able to build project like Tycho.
     Tycho is the definitive build.
 # RCP Development Guidelines
+* `flatten-maven-plugin` is not compatible with Tycho.
 * Build is based on Maven Tycho in order to support automatic builds or builds without Eclipse.
     It also makes it possible, to have a unified build infrastructure.
 * Tycho based subprojects do not need a POM.
