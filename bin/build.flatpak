@@ -4,4 +4,5 @@
 set -e
 export JAVA_VERSION=11
 export JRELEASER_GENERIC_TOKEN='no token'
+cd projects/net.splitcells.network.distro
 mvn clean package jreleaser:assemble jreleaser:package -Duber.jar=enabled -Dflatpak.build=enabled

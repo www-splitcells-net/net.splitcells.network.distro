@@ -3,4 +3,7 @@
 # SPDX-FileCopyrightText: Contributors To The `net.splitcells.*` Projects
 set -e
 export JAVA_VERSION=11
-mvn clean install -Duber.jar=enabled -Duber.exe=enabled
+export JRELEASER_GENERIC_TOKEN='no token'
+cd projects/net.splitcells.network.distro
+mvn jreleaser:config -Duber.jar=enabled -Dflatpak.build=enabled
+
