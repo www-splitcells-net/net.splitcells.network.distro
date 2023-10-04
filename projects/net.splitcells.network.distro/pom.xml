@@ -6,7 +6,7 @@
         <groupId>net.splitcells</groupId>
         <artifactId>pom-java-defaults</artifactId>
         <version>${revision}</version>
-        <relativePath>../net.splitcells.network/projects/net.splitcells.pom.java.defaults/pom.xml</relativePath>
+        <relativePath>../../../net.splitcells.network/projects/net.splitcells.pom.java.defaults/pom.xml</relativePath>
     </parent>
     <properties>
         <uber_jar>enabled</uber_jar>
