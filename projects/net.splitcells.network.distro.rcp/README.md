@@ -5,6 +5,9 @@
 * The EPL-2.0 license of Eclipse's source code fits to the default license of the network project,
     which was =EPL-2.0 OR GPL-2.0-or-later during the RCP's creation.
 * Alternatives have a lot lower popularity and therefore a higher chance of being marked as insecure.
+# Notes
+* Keep in mind,
+    that the binary executable is not signed and only its popularity prevent issues with security software.
 # Future RCP plans.
 * Update dependencies semi-automatically.
 # RCP Problems
