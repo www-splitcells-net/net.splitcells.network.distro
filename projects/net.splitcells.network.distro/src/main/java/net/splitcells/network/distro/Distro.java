@@ -16,18 +16,22 @@
 package net.splitcells.network.distro;
 
 import net.splitcells.dem.Dem;
+import net.splitcells.dem.environment.resource.Service;
 import net.splitcells.system.WebsiteViaJar;
 import net.splitcells.website.binaries.BinaryFileSystem;
 import net.splitcells.website.server.Config;
-import net.splitcells.website.server.ProjectConfig;
 
 import static net.splitcells.dem.Dem.configValue;
 import static net.splitcells.website.server.ProjectConfig.projectConfig;
 
 public class Distro {
     public static void main(String... args) {
-        WebsiteViaJar.projectsRenderer(config()).httpServer().start();
+        service().start();
         Dem.waitIndefinitely();
+    }
+
+    public static Service service() {
+        return WebsiteViaJar.projectsRenderer(config()).httpServer();
     }
 
     public static Config config() {

@@ -3,6 +3,7 @@ package net.splitcells.network.distro.rcp.plugin.parts;
 import java.util.Arrays;
 import java.util.List;
 import javax.annotation.PostConstruct;
+import javax.annotation.PreDestroy;
 import javax.inject.Inject;
 
 import org.eclipse.e4.ui.di.Focus;
@@ -32,9 +33,12 @@ import org.eclipse.swt.widgets.Text;
 import org.eclipse.swt.widgets.ToolBar;
 import org.eclipse.swt.widgets.ToolItem;
 
+import net.splitcells.dem.environment.resource.Service;
+import net.splitcells.network.distro.rcp.plugin.E4LifeCycle;
+
 public class BrowserPart {
 
-	private static final String STARTING_PAGE = "http://splitcells.net";
+	private static final String STARTING_PAGE = "http://localhost:8443/";
 
 	@Inject
 	private MPart part;
@@ -42,9 +46,13 @@ public class BrowserPart {
 	private Display display;
 	private Text address;
 	private Browser browser;
+	private Service distroService;
 
 	@PostConstruct
 	public void createComposite(Composite parent) {
+		distroService = net.splitcells.network.distro.Distro.service();
+		distroService.start();
+		
 		parent.setLayout(new GridLayout(1, false));
 
 		final var urlBar = new Composite(parent, SWT.NONE);
@@ -125,12 +133,6 @@ public class BrowserPart {
 				updateAddressText();
 			}
 		});
-		try {
-			// This is used for showing of the splash screen.
-			Thread.sleep(1000);
-		} catch (InterruptedException e) {
-			throw new RuntimeException(e);
-		}
 	}
 
 	private void refreshBrowser() {
@@ -145,7 +147,7 @@ public class BrowserPart {
 			browser.setUrl(address.getText());
 		});
 	}
-	
+
 	private void updateAddressText() {
 		display.asyncExec(() -> {
 			address.setText(browser.getUrl());
@@ -163,5 +165,12 @@ public class BrowserPart {
 	@Persist
 	public void save() {
 		part.setDirty(false);
+	}
+
+	@PreDestroy
+	public void preDestroy() {
+		if (distroService != null) {
+			distroService.close();
+		}
 	}
 }
