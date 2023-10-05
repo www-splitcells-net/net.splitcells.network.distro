@@ -1,3 +1,10 @@
+# Eclipse RCP Usage Reasons
+* Eclipse provides one of few really trustworthy Java GUI launcher binaries (=`eclipse.exe`).
+    It also provides binaries for different operation systems and CPU architectures.
+* Eclipse build process can bundle JRE.
+* The EPL-2.0 license of Eclipse's source code fits to the default license of the network project,
+    which was =EPL-2.0 OR GPL-2.0-or-later during the RCP's creation.
+* Alternatives have a lot lower popularity and therefore a higher chance of being marked as insecure.
 # Future RCP plans.
 * Update dependencies semi-automatically.
 # RCP Problems
