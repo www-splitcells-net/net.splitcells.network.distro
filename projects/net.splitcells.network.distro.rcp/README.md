@@ -1,9 +1,6 @@
 # Future RCP plans.
-* Update dependencies semi automatically.
-* Consider using Swing or JavaFX with browser window and a generic executable launcher instead.
-    Eclipse currently creates many untraceable build issues.
+* Update dependencies semi-automatically.
 # RCP Problems
-* JRE is not bundled.
 * Eclipse IDE is not able to build project like Tycho.
     Tycho is the definitive build.
 # RCP Development Guidelines
