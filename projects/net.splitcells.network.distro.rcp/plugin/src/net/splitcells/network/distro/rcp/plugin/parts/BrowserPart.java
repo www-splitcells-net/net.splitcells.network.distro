@@ -36,6 +36,9 @@ import org.eclipse.swt.widgets.ToolItem;
 import net.splitcells.dem.environment.resource.Service;
 import net.splitcells.network.distro.rcp.plugin.E4LifeCycle;
 
+/**
+ * TODO IDEA Add splash screen progress text description in order to signal loading of server.
+ */
 public class BrowserPart {
 
 	private static final String STARTING_PAGE = "http://localhost:8443/";
