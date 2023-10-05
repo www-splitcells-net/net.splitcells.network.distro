@@ -6,7 +6,7 @@
 		<groupId>net.splitcells</groupId>
 		<artifactId>network.distro.rcp</artifactId>
 		<version>${revision}</version>
-		<relativePath>../</relativePath>
+		<relativePath>../pom.xml</relativePath>
 	</parent>
 	<build>
 		<plugins>
