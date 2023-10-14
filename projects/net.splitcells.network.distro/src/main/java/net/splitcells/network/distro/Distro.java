@@ -43,6 +43,9 @@ public class Distro {
                 .withAdditionalProject(projectConfig("/"
                         , configValue(net.splitcells.network.log.FileSystem.class)))
                 .withAdditionalProject(projectConfig("/"
-                        , configValue(BinaryFileSystem.class)));
+                        , configValue(BinaryFileSystem.class)))
+                .withAdditionalProject(projectConfig("/"
+                        , configValue(net.splitcells.network.community.FileSystem.class)))
+                ;
     }
 }
