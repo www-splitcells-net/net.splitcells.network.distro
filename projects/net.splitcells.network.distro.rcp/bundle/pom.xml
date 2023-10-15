@@ -1,4 +1,6 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<artifactId>net.splitcells.network.distro.rcp.bundle</artifactId>
 	<packaging>bundle</packaging>
@@ -30,6 +32,13 @@
 			<artifactId>assertj-core</artifactId>
 			<scope>compile</scope>
 			<version>3.13.2</version>
+		</dependency>
+		<dependency>
+			<!-- TODO TOFIX For whatever reason,
+				this dependency is not imported via `net.splitcells.network.distro.rcp`.-->
+			<groupId>net.sf.saxon</groupId>
+			<artifactId>Saxon-HE</artifactId>
+			<version>9.8.0-11</version>
 		</dependency>
 	</dependencies>
 	<build>
