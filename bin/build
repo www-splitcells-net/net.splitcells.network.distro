@@ -14,5 +14,7 @@ cd ../net.splitcells.network.log
   mvn clean install
 cd ../net.splitcells.website.content.binaries
   mvn clean install
+cd ../net.splitcells.network.community
+  mvn clean install
 cd "$distroFolder/projects/net.splitcells.network.distro"
 mvn clean install
