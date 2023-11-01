@@ -16,5 +16,7 @@ cd ../net.splitcells.website.content.binaries
   mvn clean install
 cd ../net.splitcells.network.community
   mvn clean install
-cd "$distroFolder/projects/net.splitcells.network.distro"
-mvn clean install
+cd "$distroFolder"
+  bin/build.jar.uber
+cd "$distroFolder"
+  bin/build.rcp
