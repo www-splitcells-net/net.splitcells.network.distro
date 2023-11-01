@@ -1,0 +1,10 @@
+#!/usr/bin/env sh
+# SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
+# SPDX-FileCopyrightText: Contributors To The `net.splitcells.*` Projects
+set -e
+export JAVA_VERSION=11
+distroFolder="$(pwd)"
+cd "$distroFolder/projects/net.splitcells.network.distro.rcp/bundle"
+  mvn clean install # This is required, as otherwise the build of the RCP, will not find the bundle
+cd "$distroFolder/projects/net.splitcells.network.distro.rcp"
+  mvn clean install
