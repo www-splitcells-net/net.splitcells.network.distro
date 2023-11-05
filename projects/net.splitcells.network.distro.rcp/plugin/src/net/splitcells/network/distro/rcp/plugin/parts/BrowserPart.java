@@ -53,7 +53,10 @@ public class BrowserPart {
 	@PostConstruct
 	public void createComposite(Composite parent) {
 		distroService = net.splitcells.network.distro.Distro.service();
-		distroService.start();
+		
+		net.splitcells.dem.Dem.process(() -> {
+			distroService.start();
+		}, net.splitcells.network.distro.Distro::configuratorForUsers);
 		
 		parent.setLayout(new GridLayout(1, false));
 

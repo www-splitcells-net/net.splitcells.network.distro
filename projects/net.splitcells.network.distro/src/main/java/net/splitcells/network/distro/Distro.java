@@ -17,16 +17,23 @@ package net.splitcells.network.distro;
 
 import net.splitcells.dem.Dem;
 import net.splitcells.dem.environment.Environment;
+import net.splitcells.dem.environment.resource.Console;
 import net.splitcells.dem.environment.resource.Service;
 import net.splitcells.dem.resource.FileSystemViaClassResourcesFactory;
 import net.splitcells.system.WebsiteViaJar;
 import net.splitcells.website.binaries.BinaryFileSystem;
 import net.splitcells.website.server.Config;
 
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.nio.file.Path;
 import java.util.function.Consumer;
 
 import static net.splitcells.dem.Dem.configValue;
+import static net.splitcells.dem.lang.perspective.PerspectiveI.perspective;
 import static net.splitcells.dem.resource.FileSystemViaClassResourcesAndSpringFactory.fileSystemViaClassResourcesAndSpringFactory;
+import static net.splitcells.dem.resource.communication.Sender.stringSender;
+import static net.splitcells.dem.utils.ExecutionException.executionException;
 import static net.splitcells.website.server.ProjectConfig.projectConfig;
 
 public class Distro {
@@ -40,6 +47,28 @@ public class Distro {
     public static void configurator(Environment env) {
         env.config().withConfigValue(FileSystemViaClassResourcesFactory.class
                 , fileSystemViaClassResourcesAndSpringFactory());
+    }
+
+    /**
+     * <p>Provides a config for users, so the users can be supported.
+     * For instance, this config creates a log file,
+     * that can be analysed by supporters.</p>
+     *
+     * @param env Adapts the given config.
+     */
+    public static void configuratorForUsers(Environment env) {
+        configurator(env);
+        final var logFile = Path.of("./net.splitcells.network.distro.log");
+        if (net.splitcells.dem.resource.Files.is_file(logFile)) {
+            logFile.toFile().delete();
+        }
+        try {
+            env.config().withConfigValue(Console.class
+                    , stringSender(new FileOutputStream(logFile.toFile())));
+        } catch (FileNotFoundException e) {
+            throw executionException(perspective("Could not delete local log file.")
+                    .withProperty("logFile", logFile.toString()), e);
+        }
     }
 
     public static Service service() {
