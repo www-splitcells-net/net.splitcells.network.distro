@@ -16,18 +16,30 @@
 package net.splitcells.network.distro;
 
 import net.splitcells.dem.Dem;
+import net.splitcells.dem.environment.Environment;
 import net.splitcells.dem.environment.resource.Service;
+import net.splitcells.dem.resource.FileSystemViaClassResourcesFactory;
 import net.splitcells.system.WebsiteViaJar;
 import net.splitcells.website.binaries.BinaryFileSystem;
 import net.splitcells.website.server.Config;
 
+import java.util.function.Consumer;
+
 import static net.splitcells.dem.Dem.configValue;
+import static net.splitcells.dem.resource.FileSystemViaClassResourcesAndSpringFactory.fileSystemViaClassResourcesAndSpringFactory;
 import static net.splitcells.website.server.ProjectConfig.projectConfig;
 
 public class Distro {
     public static void main(String... args) {
-        service().start();
-        Dem.waitIndefinitely();
+        Dem.process(() -> {
+            service().start();
+            Dem.waitIndefinitely();
+        }, Distro::configurator);
+    }
+
+    public static void configurator(Environment env) {
+        env.config().withConfigValue(FileSystemViaClassResourcesFactory.class
+                , fileSystemViaClassResourcesAndSpringFactory());
     }
 
     public static Service service() {
