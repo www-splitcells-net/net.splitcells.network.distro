@@ -56,7 +56,8 @@ public class Distro {
     /**
      * <p>Provides a config for users, so the users can be supported.
      * For instance, this config creates a log file,
-     * that can be analysed by supporters.</p>
+     * that can be analysed by supporters.
+     * This is used for GUI applications.</p>
      * <p>Logs are written in the user friendly CommonMark format.
      * Many websites have a nice rendering of CommonMark documents,
      * which in turn should improve the interactions with non technical users.</p>

@@ -15,6 +15,8 @@
  */
 package net.splitcells.network.distro;
 
+import net.splitcells.dem.Dem;
+
 import static net.splitcells.network.distro.GuiLauncher.startGuiLauncher;
 import static net.splitcells.network.distro.GuiLauncherConfig.guiLauncherConfig;
 
@@ -40,6 +42,9 @@ public class DistroGuiLauncher {
                         + "This application is a server program. "
                         + "Therefore, the program has to be accessed via an Internet browser: "
                         + "click on the `open` button or insert the `URL` into your favorite browser."));
-        Distro.main(args);
+        Dem.process(() -> {
+            Distro.service().start();
+            Dem.waitIndefinitely();
+        }, Distro::configuratorForUsers);
     }
 }
