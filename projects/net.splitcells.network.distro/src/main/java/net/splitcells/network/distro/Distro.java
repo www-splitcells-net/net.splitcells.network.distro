@@ -20,6 +20,8 @@ import net.splitcells.dem.environment.Environment;
 import net.splitcells.dem.environment.resource.Console;
 import net.splitcells.dem.environment.resource.Service;
 import net.splitcells.dem.resource.FileSystemViaClassResources;
+import net.splitcells.dem.resource.communication.log.Domsole;
+import net.splitcells.dem.resource.communication.log.MessageFilter;
 import net.splitcells.system.WebsiteViaJar;
 import net.splitcells.website.binaries.BinaryFileSystem;
 import net.splitcells.website.server.Config;
@@ -30,9 +32,11 @@ import java.nio.file.Path;
 import java.util.function.Consumer;
 
 import static net.splitcells.dem.Dem.configValue;
+import static net.splitcells.dem.Dem.environment;
 import static net.splitcells.dem.lang.perspective.PerspectiveI.perspective;
 import static net.splitcells.dem.resource.FileSystemViaClassResourcesAndSpringFactory.fileSystemViaClassResourcesAndSpringFactory;
 import static net.splitcells.dem.resource.communication.Sender.stringSender;
+import static net.splitcells.dem.resource.communication.log.CommonMarkDui.commonMarkDui;
 import static net.splitcells.dem.utils.ExecutionException.executionException;
 import static net.splitcells.website.server.ProjectConfig.projectConfig;
 
@@ -53,12 +57,14 @@ public class Distro {
      * <p>Provides a config for users, so the users can be supported.
      * For instance, this config creates a log file,
      * that can be analysed by supporters.</p>
-     *
+     * <p>Logs are written in the user friendly CommonMark format.
+     * Many websites have a nice rendering of CommonMark documents,
+     * which in turn should improve the interactions with non technical users.</p>
      * @param env Adapts the given config.
      */
     public static void configuratorForUsers(Environment env) {
         configurator(env);
-        final var logFile = Path.of("./net.splitcells.network.distro.log");
+        final var logFile = Path.of("./net.splitcells.network.distro.log.md");
         if (net.splitcells.dem.resource.Files.is_file(logFile)) {
             logFile.toFile().delete();
         }
@@ -69,6 +75,8 @@ public class Distro {
             throw executionException(perspective("Could not delete local log file.")
                     .withProperty("logFile", logFile.toString()), e);
         }
+        env.config().withConfigValue(Domsole.class, commonMarkDui(environment().config().configValue(Console.class)
+                , environment().config().configValue(MessageFilter.class)));
     }
 
     public static Service service() {
