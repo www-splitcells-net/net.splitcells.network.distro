@@ -19,7 +19,7 @@ import net.splitcells.dem.Dem;
 import net.splitcells.dem.environment.Environment;
 import net.splitcells.dem.environment.resource.Console;
 import net.splitcells.dem.environment.resource.Service;
-import net.splitcells.dem.resource.FileSystemViaClassResourcesFactory;
+import net.splitcells.dem.resource.FileSystemViaClassResources;
 import net.splitcells.system.WebsiteViaJar;
 import net.splitcells.website.binaries.BinaryFileSystem;
 import net.splitcells.website.server.Config;
@@ -45,7 +45,7 @@ public class Distro {
     }
 
     public static void configurator(Environment env) {
-        env.config().withConfigValue(FileSystemViaClassResourcesFactory.class
+        env.config().withConfigValue(FileSystemViaClassResources.class
                 , fileSystemViaClassResourcesAndSpringFactory());
     }
 
