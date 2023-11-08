@@ -24,3 +24,5 @@ target/
 .flatpak-builder
 build-dir
 .polyglot.META-INF
+
+net.splitcells.network.distro.log.md
