@@ -22,6 +22,9 @@ import net.splitcells.dem.environment.resource.Service;
 import net.splitcells.dem.resource.FileSystemViaClassResources;
 import net.splitcells.dem.resource.communication.log.Domsole;
 import net.splitcells.dem.resource.communication.log.MessageFilter;
+import net.splitcells.network.community.NetworkCommunityFileSystem;
+import net.splitcells.network.log.NetworkLogFileSystem;
+import net.splitcells.network.media.NetworkMediaFileSystem;
 import net.splitcells.system.WebsiteViaJar;
 import net.splitcells.website.binaries.BinaryFileSystem;
 import net.splitcells.website.server.Config;
@@ -61,6 +64,7 @@ public class Distro {
      * <p>Logs are written in the user friendly CommonMark format.
      * Many websites have a nice rendering of CommonMark documents,
      * which in turn should improve the interactions with non technical users.</p>
+     *
      * @param env Adapts the given config.
      */
     public static void configuratorForUsers(Environment env) {
@@ -89,13 +93,13 @@ public class Distro {
                 .withIsSecured(false)
                 .withOpenPort(8443)
                 .withAdditionalProject(projectConfig("/",
-                        configValue(net.splitcells.network.media.FileSystem.class)))
+                        configValue(NetworkMediaFileSystem.class)))
                 .withAdditionalProject(projectConfig("/"
-                        , configValue(net.splitcells.network.log.FileSystem.class)))
+                        , configValue(NetworkLogFileSystem.class)))
                 .withAdditionalProject(projectConfig("/"
                         , configValue(BinaryFileSystem.class)))
                 .withAdditionalProject(projectConfig("/net/splitcells/network/community/"
-                        , configValue(net.splitcells.network.community.FileSystem.class)))
+                        , configValue(NetworkCommunityFileSystem.class)))
                 ;
     }
 }
