@@ -1,6 +1,7 @@
 package net.splitcells.network.distro.rcp.plugin.parts;
 
 import java.util.Arrays;
+import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
@@ -48,14 +49,13 @@ public class BrowserPart {
 	private Display display;
 	private Text address;
 	private Browser browser;
-	private Service distroService;
+	private List<Service> distroService = new ArrayList<>();
 
 	@PostConstruct
 	public void createComposite(Composite parent) {
-		distroService = net.splitcells.network.distro.Distro.service();
-		
 		net.splitcells.dem.Dem.process(() -> {
-			distroService.start();
+			distroService.add(net.splitcells.network.distro.Distro.service());
+			distroService.get(0).start();
 		}, net.splitcells.network.distro.Distro::configuratorForUsers);
 		
 		parent.setLayout(new GridLayout(1, false));
@@ -174,8 +174,8 @@ public class BrowserPart {
 
 	@PreDestroy
 	public void preDestroy() {
-		if (distroService != null) {
-			distroService.close();
+		if (!distroService.isEmpty()) {
+			distroService.get(0).close();
 		}
 	}
 }
