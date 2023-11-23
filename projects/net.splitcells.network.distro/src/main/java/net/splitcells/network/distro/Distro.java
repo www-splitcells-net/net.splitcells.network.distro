@@ -52,8 +52,6 @@ public class Distro {
     }
 
     public static void configurator(Environment env) {
-        env.config().withConfigValue(FileSystemViaClassResources.class
-                , fileSystemViaClassResourcesAndSpringFactory());
     }
 
     /**
