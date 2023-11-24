@@ -79,7 +79,7 @@ public class BrowserPart {
 		address.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
 		address.setEditable(true);
 
-		browser = new Browser(parent, SWT.DEFAULT | SWT.NO_SCROLL);
+		browser = new Browser(parent, SWT.DEFAULT);
 		browser.setLayoutData(new GridData(GridData.FILL_BOTH));
 		resetUrl();
 
