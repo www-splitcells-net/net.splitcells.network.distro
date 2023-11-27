@@ -20,7 +20,8 @@ import net.splitcells.dem.environment.Environment;
 import net.splitcells.dem.environment.resource.Console;
 import net.splitcells.dem.environment.resource.Service;
 import net.splitcells.dem.resource.FileSystemViaClassResources;
-import net.splitcells.dem.resource.communication.log.Domsole;
+import net.splitcells.dem.resource.communication.log.Log;
+import net.splitcells.dem.resource.communication.log.Logs;
 import net.splitcells.dem.resource.communication.log.MessageFilter;
 import net.splitcells.network.community.NetworkCommunityFileSystem;
 import net.splitcells.network.log.NetworkLogFileSystem;
@@ -39,7 +40,7 @@ import static net.splitcells.dem.Dem.environment;
 import static net.splitcells.dem.lang.perspective.PerspectiveI.perspective;
 import static net.splitcells.dem.resource.FileSystemViaClassResourcesAndSpringFactory.fileSystemViaClassResourcesAndSpringFactory;
 import static net.splitcells.dem.resource.communication.Sender.stringSender;
-import static net.splitcells.dem.resource.communication.log.CommonMarkDui.commonMarkDui;
+import static net.splitcells.dem.resource.communication.log.CommonMarkLog.commonMarkDui;
 import static net.splitcells.dem.utils.ExecutionException.executionException;
 import static net.splitcells.website.server.ProjectConfig.projectConfig;
 
@@ -78,7 +79,7 @@ public class Distro {
             throw executionException(perspective("Could not delete local log file.")
                     .withProperty("logFile", logFile.toString()), e);
         }
-        env.config().withConfigValue(Domsole.class, commonMarkDui(environment().config().configValue(Console.class)
+        env.config().withConfigValue(Logs.class, commonMarkDui(environment().config().configValue(Console.class)
                 , environment().config().configValue(MessageFilter.class)));
     }
 

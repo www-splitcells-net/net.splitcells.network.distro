@@ -21,7 +21,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.net.URI;
 
-import static net.splitcells.dem.resource.communication.log.Domsole.domsole;
+import static net.splitcells.dem.resource.communication.log.Logs.logs;
 import static net.splitcells.dem.utils.ExecutionException.executionException;
 
 public class GuiLauncher {
@@ -59,8 +59,8 @@ public class GuiLauncher {
                     try {
                         Runtime.getRuntime().exec(new String[]{"xdg-open", config.url()}).onExit().join();
                     } catch (Throwable th2) {
-                        domsole().appendWarning("Could not open the servers website via the desktops Internet browser.", th);
-                        domsole().appendWarning("Could not open the servers website via the desktops Internet browser.", th2);
+                        logs().appendWarning("Could not open the servers website via the desktops Internet browser.", th);
+                        logs().appendWarning("Could not open the servers website via the desktops Internet browser.", th2);
                         throw executionException(th);
                     }
                 }
