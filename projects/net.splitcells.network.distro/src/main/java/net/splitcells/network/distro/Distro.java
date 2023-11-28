@@ -41,6 +41,7 @@ import static net.splitcells.dem.lang.perspective.PerspectiveI.perspective;
 import static net.splitcells.dem.resource.FileSystemViaClassResourcesAndSpringFactory.fileSystemViaClassResourcesAndSpringFactory;
 import static net.splitcells.dem.resource.communication.Sender.stringSender;
 import static net.splitcells.dem.resource.communication.log.CommonMarkLog.commonMarkDui;
+import static net.splitcells.dem.resource.communication.log.LogLevel.TRACE;
 import static net.splitcells.dem.utils.ExecutionException.executionException;
 import static net.splitcells.website.server.ProjectConfig.projectConfig;
 
@@ -68,6 +69,7 @@ public class Distro {
      */
     public static void configuratorForUsers(Environment env) {
         configurator(env);
+        env.config().withConfigValue(MessageFilter.class, logMessage -> logMessage.priority().greaterThan(TRACE));
         final var logFile = Path.of("./net.splitcells.network.distro.log.md");
         if (net.splitcells.dem.resource.Files.is_file(logFile)) {
             logFile.toFile().delete();
