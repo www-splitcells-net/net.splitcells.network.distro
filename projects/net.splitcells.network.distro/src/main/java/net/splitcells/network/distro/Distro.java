@@ -99,7 +99,7 @@ public class Distro {
                         , configValue(NetworkLogFileSystem.class)))
                 .withAdditionalProject(projectConfig("/"
                         , configValue(BinaryFileSystem.class)))
-                .withAdditionalProject(projectConfig("/net/splitcells/network/community/"
+                .withAdditionalProject(projectConfig("/"
                         , configValue(NetworkCommunityFileSystem.class)))
                 ;
     }
