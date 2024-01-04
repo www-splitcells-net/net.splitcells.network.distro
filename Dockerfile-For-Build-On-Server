@@ -5,4 +5,4 @@ VOLUME /home/distro/Documents/
 VOLUME /home/distro/.ssh/
 WORKDIR /home/distro/Documents/projects/net.splitcells.martins.avots.support.system/public/net.splitcells.network.distro
 ENTRYPOINT ["/usr/bin/sh"]
-CMD ["-c", "/home/distro/Documents/projects/net.splitcells.martins.avots.support.system/public/net.splitcells.network.distro/bin/build"]
+CMD ["-c", "/home/distro/Documents/projects/net.splitcells.martins.avots.support.system/public/net.splitcells.network.distro/bin/build.on.server"]
