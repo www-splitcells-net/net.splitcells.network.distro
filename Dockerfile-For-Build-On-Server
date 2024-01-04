@@ -1,0 +1,8 @@
+FROM docker.io/eclipse-temurin:21-jdk-jammy
+RUN apt update
+RUN apt install --yes maven git python3
+VOLUME /home/deployment/Documents/
+VOLUME /home/deployment/.ssh/
+WORKDIR /home/deployment/Documents/projects/net.splitcells.martins.avots.support.system/public/net.splitcells.network.deployment
+ENTRYPOINT ["/usr/bin/sh"]
+CMD ["-c", "/home/deployment/Documents/projects/net.splitcells.martins.avots.support.system/public/net.splitcells.network.deployment/bin/build"]

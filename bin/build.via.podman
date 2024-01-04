@@ -1,0 +1,14 @@
+#!/usr/bin/env sh
+# SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
+# SPDX-FileCopyrightText: Contributors To The `net.splitcells.*` Projects
+set -e
+cd ~/Documents/projects/net.splitcells.martins.avots.support.system/public/net.splitcells.network.deployment
+podman build -f ./Dockerfile --tag localhost/net-splitcells-deployment-build
+podman run --name net-splitcells-deployment-build \
+  --rm \
+  -v /home/$USER/Documents:/home/deployment/Documents \
+  -v /home/$USER/.ssh:/home/deployment/.ssh \
+  -v /home/$USER/.ssh:/root/.ssh \
+  localhost/net-splitcells-deployment-build
+
+
