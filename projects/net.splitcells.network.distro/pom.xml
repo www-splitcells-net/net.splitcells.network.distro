@@ -163,8 +163,8 @@
                                 </goals>
                                 <configuration>
                                     <headerType>gui</headerType>
-                                    <outfile>${project.build.directory}/splitcells-network-distro.exe</outfile>
-                                    <jar>${project.build.directory}/${project.artifactId}-${revision}-spring-boot.jar
+                                    <outfile>${project.build.directory}/net-splitcells-network-distro.exe</outfile>
+                                    <jar>${project.build.directory}/net.splitcells.network.distro.jar
                                     </jar>
                                     <errTitle>Splitcells Network Distro</errTitle>
                                     <classPath>
