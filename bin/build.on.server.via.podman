@@ -3,12 +3,14 @@
 # SPDX-FileCopyrightText: Contributors To The `net.splitcells.*` Projects
 set -e
 cd ~/Documents/projects/net.splitcells.martins.avots.support.system/public/net.splitcells.network.distro
+mkdir -p $HOME/Documents/projects/net.splitcells.martins.avots.support.system/net.splitcells.live.build/.m2
 podman build -f ./Dockerfile-For-Build-On-Server --tag localhost/net-splitcells-distro-build
 podman run --name net-splitcells-distro-build \
   --rm \
-  -v /home/$USER/Documents:/home/distro/Documents \
-  -v /home/$USER/.ssh:/home/distro/.ssh \
-  -v /home/$USER/.ssh:/root/.ssh \
+  -v $HOME/Documents:/home/distro/Documents \
+  -v $HOME/.ssh:/home/distro/.ssh \
+  -v $HOME/.ssh:/root/.ssh \
+  -v $HOME/Documents/projects/net.splitcells.martins.avots.support.system/net.splitcells.live.build/.m2:/root/.m2 \
   localhost/net-splitcells-distro-build
 
 

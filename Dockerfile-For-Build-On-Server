@@ -1,8 +1,10 @@
 FROM docker.io/eclipse-temurin:21-jdk-jammy
 RUN apt update
 RUN apt install --yes maven git python3
+# TODO Remove usage of /home/distro/ because the home folder is root.
 VOLUME /home/distro/Documents/
 VOLUME /home/distro/.ssh/
+VOLUME /root/.m2
 WORKDIR /home/distro/Documents/projects/net.splitcells.martins.avots.support.system/public/net.splitcells.network.distro
 ENTRYPOINT ["/usr/bin/sh"]
 CMD ["-c", "/home/distro/Documents/projects/net.splitcells.martins.avots.support.system/public/net.splitcells.network.distro/bin/build.on.server"]
