@@ -5,8 +5,8 @@ set -e
 cd ~/Documents/projects/net.splitcells.martins.avots.support.system/public/net.splitcells.network.distro
 # Prepare file system.
 mkdir -p ~/Documents/projects/net.splitcells.martins.avots.support.system/net.splitcells.network.distro.builder/m2
-mkdir -p ./target
-rm -rf ./target/*
+mkdir -p ./target/net.splitcells.distro.build
+rm -rf ./target/net.splitcells.distro.build/*
 # Build server program.
 podman build -f ./Dockerfile-For-Build-On-Server --tag localhost/net-splitcells-distro-build
 podman run --name net-splitcells-distro-build \
