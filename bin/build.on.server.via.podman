@@ -17,4 +17,3 @@ podman run --name net-splitcells-distro-build \
   -v ./target/net.splitcells.distro.build:/root/Documents/projects/net.splitcells.distro.build \
   localhost/net-splitcells-distro-build
 podman build -f ./Dockerfile-For-Server --tag localhost/net-splitcells-live
-EXPOSE 80

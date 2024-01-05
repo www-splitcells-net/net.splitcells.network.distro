@@ -6,3 +6,4 @@ COPY target/net.splitcells.distro.build/target/lib/*.jar /root/Documents/project
 WORKDIR /root/Documents/projects/net.splitcells.live
 ENTRYPOINT ["/opt/java/openjdk/bin/java"]
 CMD ["-cp", "./jars/*"]
+EXPOSE 80
