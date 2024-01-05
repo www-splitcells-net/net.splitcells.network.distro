@@ -2,10 +2,6 @@
 # SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 # SPDX-FileCopyrightText: Contributors To The `net.splitcells.*` Projects
 set -e
-cd ~
-pwd
-echo $(pwd)
-exit
   test -d ~/Documents/projects/net.splitcells.martins.avots.support.system/public/net.splitcells.network.distro || export USER=distro
   test -d ~/Documents/projects/net.splitcells.martins.avots.support.system/public/net.splitcells.network.distro || export HOME=/home/distro/
 git pull # Ensure, that current repo is up to date.
