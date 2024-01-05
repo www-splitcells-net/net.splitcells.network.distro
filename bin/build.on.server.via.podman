@@ -3,7 +3,7 @@
 # SPDX-FileCopyrightText: Contributors To The `net.splitcells.*` Projects
 set -e
 cd ~/Documents/projects/net.splitcells.martins.avots.support.system/public/net.splitcells.network.distro
-mkdir -p ~/Documents/projects/net.splitcells.martins.avots.support.system/net.splitcells.live.build/.m2
+mkdir -p ~/Documents/projects/net.splitcells.martins.avots.support.system/net.splitcells.live.build/m2
 podman build -f ./Dockerfile-For-Build-On-Server --tag localhost/net-splitcells-distro-build
 podman run --name net-splitcells-distro-build \
   --rm \
