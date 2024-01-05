@@ -44,6 +44,7 @@
         </dependency>
     </dependencies>
     <build>
+        <finalName>net.splitcells.network.distro</finalName>
         <plugins>
             <plugin>
                 <groupId>org.springframework.boot</groupId>
@@ -57,6 +58,21 @@
                         <configuration>
                             <classifier>spring-boot</classifier>
                             <mainClass>net.splitcells.network.distro.DistroGuiLauncher</mainClass>
+                            <finalName>net.splitcells.network.distro.gui</finalName>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <artifactId>maven-dependency-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <phase>install</phase>
+                        <goals>
+                            <goal>copy-dependencies</goal>
+                        </goals>
+                        <configuration>
+                            <outputDirectory>${project.build.directory}/lib</outputDirectory>
                         </configuration>
                     </execution>
                 </executions>
