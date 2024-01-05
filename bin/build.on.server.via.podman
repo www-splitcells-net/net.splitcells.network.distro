@@ -16,4 +16,6 @@ podman run --name net-splitcells-distro-build \
   -v $HOME/Documents/projects/net.splitcells.martins.avots.support.system/net.splitcells.network.distro.builder/m2:/root/.m2 \
   -v ./target/net.splitcells.distro.build:/root/Documents/projects/net.splitcells.distro.build \
   localhost/net-splitcells-distro-build
+# Create server container.
 podman build -f ./Dockerfile-For-Server --tag localhost/net-splitcells-live
+podman run --name net-splitcells-live --rm --publish 8080:8443 --detach localhost/net-splitcells-live
