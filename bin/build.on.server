@@ -2,15 +2,15 @@
 # SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 # SPDX-FileCopyrightText: Contributors To The `net.splitcells.*` Projects
 set -e
-git pull # Ensure, that current repo is up to date.
+#git pull # Ensure, that current repo is up to date.
 mkdir -p ~/Documents/projects/net.splitcells.distro.build/
   rm -rf ~/Documents/projects/net.splitcells.distro.build/*
 mkdir -p ~/Documents/projects/net.splitcells.martins.avots.support.system/public
   cd ~/Documents/projects/net.splitcells.martins.avots.support.system/public
-  test -d net.splitcells.network && sh -c "cd net.splitcells.network; git pull --ff-only"
-  test -d net.splitcells.network || git clone git@github.com:www-splitcells-net/net.splitcells.network.git
-  net.splitcells.network/bin/net.splitcells.osi.repos.peers | xargs -i sh -c "test -d {} || git clone git@github.com:www-splitcells-net/{}.git"
-  net.splitcells.network/bin/net.splitcells.osi.repos.peers | xargs -i sh -c "cd ~/Documents/projects/net.splitcells.martins.avots.support.system/public/{} && git pull --ff-only"
+  # test -d net.splitcells.network && sh -c "cd net.splitcells.network; git pull --ff-only"
+  # test -d net.splitcells.network || git clone git@github.com:www-splitcells-net/net.splitcells.network.git
+  # net.splitcells.network/bin/net.splitcells.osi.repos.peers | xargs -i sh -c "test -d {} || git clone git@github.com:www-splitcells-net/{}.git"
+  # net.splitcells.network/bin/net.splitcells.osi.repos.peers | xargs -i sh -c "cd ~/Documents/projects/net.splitcells.martins.avots.support.system/public/{} && git pull --ff-only"
 cd ~/Documents/projects/net.splitcells.martins.avots.support.system/public/net.splitcells.network.distro
   bin/build.dependencies
   bin/build.jar.uber
