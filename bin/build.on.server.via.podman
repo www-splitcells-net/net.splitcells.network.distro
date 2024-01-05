@@ -11,7 +11,7 @@ podman run --name net-splitcells-distro-build \
   -v $HOME/Documents:/root/Documents \
   -v $HOME/.ssh:/root/.ssh \
   -v $HOME/Documents/projects/net.splitcells.martins.avots.support.system/net.splitcells.network.distro.builder/m2:/root/.m2 \
-  -v $HOME/Documents/projects/net.splitcells.martins.avots.support.system/net.splitcells.network.distro.builder/net.splitcells.distro.build:/root/Documents/projects/net.splitcells.distro.build/ \
+  -v $HOME/Documents/projects/net.splitcells.martins.avots.support.system/net.splitcells.network.distro.builder/net.splitcells.distro.build:/root/Documents/projects/net.splitcells.martins.avots.support.system/public/net.splitcells.network.distro/projects/net.splitcells.network.distro \
   localhost/net-splitcells-distro-build
 
 
