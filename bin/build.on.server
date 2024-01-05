@@ -15,4 +15,4 @@ cd ~/Documents/projects/net.splitcells.martins.avots.support.system/public/net.s
   bin/build.dependencies
   bin/build.jar.uber
   cp -r ~/Documents/projects/net.splitcells.martins.avots.support.system/public/net.splitcells.network.distro/projects/net.splitcells.network.distro/target \
-    ~/Documents/projects/net.splitcells.distro.build/
+    ~/Documents/projects/net.splitcells.distro.build
