@@ -4,6 +4,7 @@
 set -e
   test -d ~/Documents/projects/net.splitcells.martins.avots.support.system/public/net.splitcells.network.distro || export USER=distro
   test -d ~/Documents/projects/net.splitcells.martins.avots.support.system/public/net.splitcells.network.distro || export HOME=/home/distro/
+git pull # Ensure, that current repo is up to date.
 mkdir -p ~/Documents/projects/net.splitcells.martins.avots.support.system/public
   cd ~/Documents/projects/net.splitcells.martins.avots.support.system/public
   test -d net.splitcells.network \
