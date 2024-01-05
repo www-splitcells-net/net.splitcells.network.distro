@@ -3,8 +3,6 @@
 # SPDX-FileCopyrightText: Contributors To The `net.splitcells.*` Projects
 set -e
 git pull # Ensure, that current repo is up to date.
-mkdir -p ~/Documents/projects/net.splitcells.distro.build/
-  rm -rf ~/Documents/projects/net.splitcells.distro.build/*
 mkdir -p ~/Documents/projects/net.splitcells.martins.avots.support.system/public
   cd ~/Documents/projects/net.splitcells.martins.avots.support.system/public
   test -d net.splitcells.network && sh -c "cd net.splitcells.network; git pull --ff-only"
@@ -14,5 +12,3 @@ mkdir -p ~/Documents/projects/net.splitcells.martins.avots.support.system/public
 cd ~/Documents/projects/net.splitcells.martins.avots.support.system/public/net.splitcells.network.distro
   bin/build.dependencies
   bin/build.jar.uber
-  cp -r ~/Documents/projects/net.splitcells.martins.avots.support.system/public/net.splitcells.network.distro/projects/net.splitcells.network.distro/target \
-    ~/Documents/projects/net.splitcells.distro.build
