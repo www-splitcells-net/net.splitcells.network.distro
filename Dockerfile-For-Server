@@ -1,8 +1,8 @@
 FROM docker.io/eclipse-temurin:21-jdk-jammy
 RUN apt update
 # TODO Remove usage of /home/distro/ because the home folder is root.
-COPY target/net.splitcells.distro.build/target/net.splitcells.network.distro.jar /root/Documents/projects/net.splitcells.live/jars/
-COPY target/net.splitcells.distro.build/target/lib/*.jar /root/Documents/projects/net.splitcells.live/jars/
+COPY projects/net.splitcells.network.distro/target/net.splitcells.network.distro.jar /root/Documents/projects/net.splitcells.live/jars/
+COPY projects/net.splitcells.network.distro/target/lib/*.jar /root/Documents/projects/net.splitcells.live/jars/
 WORKDIR /root/Documents/projects/net.splitcells.live
 ENTRYPOINT ["/opt/java/openjdk/bin/java"]
 CMD ["-cp", "./jars/*", "net.splitcells.network.distro.Distro"]
