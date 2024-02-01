@@ -16,7 +16,11 @@
 package net.splitcells.network.distro.javafx;
 
 import javafx.application.Application;
+import javafx.scene.Node;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.scene.control.TextField;
+import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.web.WebEngine;
 import javafx.scene.web.WebView;
@@ -28,11 +32,18 @@ import java.util.concurrent.Semaphore;
 
 public class JavaFxGuiLauncher extends Application {
     private static final String DEFAULT_URL = "http://localhost:8443/index.html";
+    private static final String DEFAULT_STYLE = "-fx-font-size: 18;";
 
     public static void main(String... args) {
         Application.launch(args);
     }
 
+    /**
+     * {@link WebView#setPrefSize(double, double)} is not set to {@link Double#MAX_VALUE},
+     * because big numbers can cause an exception.
+     *
+     * @param primaryStage
+     */
     @Override
     public void start(Stage primaryStage) {
         final var initSemaphore = new Semaphore(1);
@@ -53,11 +64,27 @@ public class JavaFxGuiLauncher extends Application {
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
-        WebView browser = new WebView();
-        WebEngine webEngine = browser.getEngine();
+        primaryStage.setTitle("Splitcells Network JavaFX Distro");
+        final var webView = new WebView();
+        final var webEngine = webView.getEngine();
         webEngine.load(DEFAULT_URL);
-        VBox vBox = new VBox(browser);
-        Scene scene = new Scene(vBox);
+        webView.setPrefSize(5000, 5000);
+        //webView.set
+        final var resetButton = new Button("⟳");
+        resetButton.setStyle(DEFAULT_STYLE);
+        final var refreshButton = new Button("↻");
+        refreshButton.setStyle(DEFAULT_STYLE);
+        final var loadUrlButton = new Button("⏎");
+        loadUrlButton.setStyle(DEFAULT_STYLE);
+        final var url = new TextField();
+        url.setStyle(DEFAULT_STYLE);
+        final var gridPane = new GridPane();
+        gridPane.add(resetButton, 0, 0);
+        gridPane.add(refreshButton, 1, 0);
+        gridPane.add(loadUrlButton, 2, 0);
+        gridPane.add(url, 3, 0);
+        gridPane.add(webView, 0, 1, 4, 1);
+        Scene scene = new Scene(gridPane);
         primaryStage.setScene(scene);
         primaryStage.show();
     }
