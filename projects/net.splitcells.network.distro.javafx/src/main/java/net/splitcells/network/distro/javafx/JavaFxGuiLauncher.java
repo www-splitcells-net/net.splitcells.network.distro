@@ -52,13 +52,15 @@ public class JavaFxGuiLauncher extends Application {
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
-        new Thread(() -> {
+        final var backendThread = new Thread(() -> {
             Dem.process(() -> {
                 Distro.service().start();
                 initSemaphore.release();
                 Dem.waitIndefinitely();
             }, Distro::configuratorForUsers);
-        }).start();
+        });
+        backendThread.setDaemon(true);
+        backendThread.start();
         try {
             initSemaphore.acquire();
         } catch (InterruptedException e) {
