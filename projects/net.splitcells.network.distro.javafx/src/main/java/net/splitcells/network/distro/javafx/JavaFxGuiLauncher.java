@@ -81,9 +81,9 @@ public class JavaFxGuiLauncher extends Application {
         webEngine.load(DEFAULT_URL);
         webView.setPrefSize(5000, 5000);
         //webView.set
-        final var resetButton = new Button("⟳");
+        final var resetButton = new Button("↻");
         resetButton.setStyle(DEFAULT_STYLE);
-        final var refreshButton = new Button("↻");
+        final var refreshButton = new Button("⟳");
         refreshButton.setStyle(DEFAULT_STYLE);
         final var loadUrlButton = new Button("⏎");
         loadUrlButton.setStyle(DEFAULT_STYLE);
