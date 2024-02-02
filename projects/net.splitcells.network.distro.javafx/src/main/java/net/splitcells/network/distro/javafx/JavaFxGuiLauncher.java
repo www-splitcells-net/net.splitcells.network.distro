@@ -90,6 +90,12 @@ public class JavaFxGuiLauncher extends Application {
         final var url = new TextField();
         url.setStyle(DEFAULT_STYLE);
         {
+            resetButton.setOnAction(new EventHandler<ActionEvent>() {
+                @Override
+                public void handle(ActionEvent actionEvent) {
+                    webEngine.load(DEFAULT_URL);
+                }
+            });
             loadUrlButton.setOnAction(new EventHandler<ActionEvent>() {
                 @Override
                 public void handle(ActionEvent actionEvent) {
