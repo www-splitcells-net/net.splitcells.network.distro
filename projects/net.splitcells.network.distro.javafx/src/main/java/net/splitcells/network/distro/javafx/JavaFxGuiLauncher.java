@@ -16,6 +16,8 @@
 package net.splitcells.network.distro.javafx;
 
 import javafx.application.Application;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -80,6 +82,19 @@ public class JavaFxGuiLauncher extends Application {
         loadUrlButton.setStyle(DEFAULT_STYLE);
         final var url = new TextField();
         url.setStyle(DEFAULT_STYLE);
+        {
+            loadUrlButton.setOnAction(new EventHandler<ActionEvent>() {
+                @Override
+                public void handle(ActionEvent actionEvent) {
+                    var userInput = url.getCharacters().toString();
+                    if (!userInput.startsWith("http")) {
+                        userInput = "http://" + userInput;
+                    }
+                    webEngine.load(userInput);
+                    url.setText(webEngine.getLocation());
+                }
+            });
+        }
         final var gridPane = new GridPane();
         gridPane.add(resetButton, 0, 0);
         gridPane.add(refreshButton, 1, 0);
