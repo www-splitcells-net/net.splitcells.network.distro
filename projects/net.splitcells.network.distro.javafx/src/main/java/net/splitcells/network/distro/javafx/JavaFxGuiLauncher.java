@@ -16,6 +16,8 @@
 package net.splitcells.network.distro.javafx;
 
 import javafx.application.Application;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.Node;
@@ -35,12 +37,22 @@ import net.splitcells.dem.Dem;
 import net.splitcells.network.distro.Distro;
 
 import java.util.concurrent.Semaphore;
+import java.util.regex.Pattern;
 
 import static net.splitcells.dem.utils.ExecutionException.executionException;
 
+/**
+ * The user is prevent from opening any page online,
+ * in order to avoid confusion and prevent the user from uploading data to the public unknowingly.
+ */
 public class JavaFxGuiLauncher extends Application {
-    private static final String DEFAULT_URL = "http://localhost:8443/index.html";
+
+    private static final String BASE_URL = "http://localhost:8443/";
+    private static final String DEFAULT_URL = BASE_URL + "index.html";
     private static final String DEFAULT_STYLE = "-fx-font-size: 18;";
+
+    private static final String PUBLIC_WEBSITE = "https://splitcells.net/";
+    private static final String PUBLIC_WEBSITE2 = "http://splitcells.net/";
 
     public static void main(String... args) {
         Application.launch(args);
@@ -103,20 +115,28 @@ public class JavaFxGuiLauncher extends Application {
             loadUrlButton.setOnAction(new EventHandler<ActionEvent>() {
                 @Override
                 public void handle(ActionEvent actionEvent) {
-                    webEngine.load(enhanceUserEnteredUrl(url.getCharacters().toString()));
+                    webEngine.load(containUserUrl(url.getCharacters().toString()));
                 }
             });
             webEngine.setOnStatusChanged(new EventHandler<WebEvent<String>>() {
                 @Override
                 public void handle(WebEvent<String> stringWebEvent) {
-                    url.setText(webEngine.getLocation());
+                    url.setText(containUserUrl(webEngine.getLocation()));
+                }
+            });
+            webEngine.locationProperty().addListener(new ChangeListener<String>() {
+                @Override
+                public void changed(ObservableValue<? extends String> observableValue, String oldValue, String newValue) {
+                    newValue = containUserUrl(newValue);
+                    url.setText(newValue);
+                    webEngine.load(newValue);
                 }
             });
             url.setOnKeyPressed(new EventHandler<KeyEvent>() {
                 @Override
                 public void handle(KeyEvent keyEvent) {
                     if (keyEvent.getCode().getCode() == 10) {
-                        webEngine.load(enhanceUserEnteredUrl(url.getCharacters().toString()));
+                        webEngine.load(containUserUrl(url.getCharacters().toString()));
                     }
                 }
             });
@@ -143,5 +163,19 @@ public class JavaFxGuiLauncher extends Application {
             return "http://" + userInput;
         }
         return userInput;
+    }
+
+
+    private static String containUserUrl(String url) {
+        url = enhanceUserEnteredUrl(url);
+        if (url.startsWith(PUBLIC_WEBSITE)) {
+            url = BASE_URL + url.substring(PUBLIC_WEBSITE.length());
+        } else if (url.startsWith(PUBLIC_WEBSITE2)) {
+            url = BASE_URL + url.substring(PUBLIC_WEBSITE2.length());
+        }
+        if (!url.startsWith(BASE_URL)) {
+            url = DEFAULT_URL;
+        }
+        return url;
     }
 }
