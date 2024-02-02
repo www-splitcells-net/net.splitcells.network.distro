@@ -29,10 +29,13 @@ import javafx.scene.web.WebEngine;
 import javafx.scene.web.WebEvent;
 import javafx.scene.web.WebView;
 import javafx.stage.Stage;
+import javafx.stage.WindowEvent;
 import net.splitcells.dem.Dem;
 import net.splitcells.network.distro.Distro;
 
 import java.util.concurrent.Semaphore;
+
+import static net.splitcells.dem.utils.ExecutionException.executionException;
 
 public class JavaFxGuiLauncher extends Application {
     private static final String DEFAULT_URL = "http://localhost:8443/index.html";
@@ -50,17 +53,19 @@ public class JavaFxGuiLauncher extends Application {
      */
     @Override
     public void start(Stage primaryStage) {
-        final var initSemaphore = new Semaphore(1);
-        try {
-            initSemaphore.acquire();
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
-        }
+        final var initSemaphore = new Semaphore(0);
+        final var serviceSemaphore = new Semaphore(0);
         final var backendThread = new Thread(() -> {
             Dem.process(() -> {
-                Distro.service().start();
-                initSemaphore.release();
-                Dem.waitIndefinitely();
+                try (final var service = Distro.service()) {
+                    service.start();
+                    initSemaphore.release();
+                    try {
+                        serviceSemaphore.acquire();
+                    } catch (InterruptedException e) {
+                        throw executionException(e);
+                    }
+                }
             }, Distro::configuratorForUsers);
         });
         backendThread.setDaemon(true);
@@ -116,6 +121,12 @@ public class JavaFxGuiLauncher extends Application {
         Scene scene = new Scene(gridPane);
         primaryStage.setScene(scene);
         primaryStage.show();
+        primaryStage.setOnCloseRequest(new EventHandler<WindowEvent>() {
+            @Override
+            public void handle(WindowEvent windowEvent) {
+                serviceSemaphore.release();
+            }
+        });
     }
 
     private static String enhanceUserEnteredUrl(String userInput) {
