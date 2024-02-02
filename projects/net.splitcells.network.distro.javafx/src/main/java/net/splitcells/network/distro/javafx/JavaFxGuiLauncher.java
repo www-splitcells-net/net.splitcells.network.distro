@@ -22,9 +22,11 @@ import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.web.WebEngine;
+import javafx.scene.web.WebEvent;
 import javafx.scene.web.WebView;
 import javafx.stage.Stage;
 import net.splitcells.dem.Dem;
@@ -86,12 +88,22 @@ public class JavaFxGuiLauncher extends Application {
             loadUrlButton.setOnAction(new EventHandler<ActionEvent>() {
                 @Override
                 public void handle(ActionEvent actionEvent) {
-                    var userInput = url.getCharacters().toString();
-                    if (!userInput.startsWith("http")) {
-                        userInput = "http://" + userInput;
-                    }
-                    webEngine.load(userInput);
+                    webEngine.load(enhanceUserEnteredUrl(url.getCharacters().toString()));
                     url.setText(webEngine.getLocation());
+                }
+            });
+            webEngine.setOnStatusChanged(new EventHandler<WebEvent<String>>() {
+                @Override
+                public void handle(WebEvent<String> stringWebEvent) {
+                    url.setText(webEngine.getLocation());
+                }
+            });
+            url.setOnKeyPressed(new EventHandler<KeyEvent>() {
+                @Override
+                public void handle(KeyEvent keyEvent) {
+                    if (keyEvent.getCode().getCode() == 10) {
+                        webEngine.load(enhanceUserEnteredUrl(url.getCharacters().toString()));
+                    }
                 }
             });
         }
@@ -104,5 +116,12 @@ public class JavaFxGuiLauncher extends Application {
         Scene scene = new Scene(gridPane);
         primaryStage.setScene(scene);
         primaryStage.show();
+    }
+
+    private static String enhanceUserEnteredUrl(String userInput) {
+        if (!userInput.startsWith("http")) {
+            return "http://" + userInput;
+        }
+        return userInput;
     }
 }
