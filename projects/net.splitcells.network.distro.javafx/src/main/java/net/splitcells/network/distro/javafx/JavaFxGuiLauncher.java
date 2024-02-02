@@ -100,7 +100,6 @@ public class JavaFxGuiLauncher extends Application {
                 @Override
                 public void handle(ActionEvent actionEvent) {
                     webEngine.load(enhanceUserEnteredUrl(url.getCharacters().toString()));
-                    url.setText(webEngine.getLocation());
                 }
             });
             webEngine.setOnStatusChanged(new EventHandler<WebEvent<String>>() {
