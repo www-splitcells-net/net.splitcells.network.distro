@@ -22,6 +22,7 @@ import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
+import javafx.scene.control.Tooltip;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
@@ -83,9 +84,12 @@ public class JavaFxGuiLauncher extends Application {
         //webView.set
         final var resetButton = new Button("↻");
         resetButton.setStyle(DEFAULT_STYLE);
+        resetButton.setTooltip(new Tooltip("Open starting page, in order to reset the user interface."));
         final var refreshButton = new Button("⟳");
         refreshButton.setStyle(DEFAULT_STYLE);
+        refreshButton.setTooltip(new Tooltip("Refresh the current page."));
         final var loadUrlButton = new Button("⏎");
+        loadUrlButton.setTooltip(new Tooltip("Open page of entered URL."));
         loadUrlButton.setStyle(DEFAULT_STYLE);
         final var url = new TextField();
         url.setStyle(DEFAULT_STYLE);
