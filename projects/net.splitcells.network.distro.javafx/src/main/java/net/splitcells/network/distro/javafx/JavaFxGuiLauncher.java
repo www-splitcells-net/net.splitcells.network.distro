@@ -118,8 +118,8 @@ public class JavaFxGuiLauncher extends Application {
             });
         }
         final var gridPane = new GridPane();
-        gridPane.add(resetButton, 0, 0);
-        gridPane.add(refreshButton, 1, 0);
+        gridPane.add(refreshButton, 0, 0);
+        gridPane.add(resetButton, 1, 0);
         gridPane.add(loadUrlButton, 2, 0);
         gridPane.add(url, 3, 0);
         gridPane.add(webView, 0, 1, 4, 1);
