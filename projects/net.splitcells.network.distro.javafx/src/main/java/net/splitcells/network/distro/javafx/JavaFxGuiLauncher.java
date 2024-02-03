@@ -16,6 +16,7 @@
 package net.splitcells.network.distro.javafx;
 
 import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
@@ -102,9 +103,41 @@ public class JavaFxGuiLauncher extends Application {
         final var loadUrlButton = new Button("⏎");
         loadUrlButton.setTooltip(new Tooltip("Open page of entered URL."));
         loadUrlButton.setStyle(DEFAULT_STYLE);
+        final var previousInHistory = new Button("↢");
+        previousInHistory.setStyle(DEFAULT_STYLE);
+        previousInHistory.setTooltip(new Tooltip("Go backwards in page history."));
+        final var nextInHistory = new Button("↣");
+        nextInHistory.setStyle(DEFAULT_STYLE);
         final var url = new TextField();
         url.setStyle(DEFAULT_STYLE);
         {
+            nextInHistory.setOnAction(new EventHandler<ActionEvent>() {
+                @Override
+                public void handle(ActionEvent actionEvent) {
+                    /* TODO This does not work. "go(1)" always throws an exception,
+                     * even if the user goes backward in the history before.
+                     * "history.forward()" does not do anything
+                     *
+                     *  webEngine.getHistory().go(1);
+                     * webEngine.executeScript("history.forward()");
+                     * Platform.runLater(() -> {
+                     *    webEngine.executeScript("history.forward()");
+                     * });
+                     */
+                }
+            });
+            previousInHistory.setOnAction(new EventHandler<ActionEvent>() {
+                @Override
+                public void handle(ActionEvent actionEvent) {
+                    webEngine.getHistory().go(-1);
+                }
+            });
+            previousInHistory.setOnAction(new EventHandler<ActionEvent>() {
+                @Override
+                public void handle(ActionEvent actionEvent) {
+                    webEngine.getHistory().go(-1);
+                }
+            });
             resetButton.setOnAction(new EventHandler<ActionEvent>() {
                 @Override
                 public void handle(ActionEvent actionEvent) {
@@ -141,11 +174,13 @@ public class JavaFxGuiLauncher extends Application {
             });
         }
         final var gridPane = new GridPane();
-        gridPane.add(refreshButton, 0, 0);
-        gridPane.add(resetButton, 1, 0);
-        gridPane.add(loadUrlButton, 2, 0);
-        gridPane.add(url, 3, 0);
-        gridPane.add(webView, 0, 1, 4, 1);
+        gridPane.add(previousInHistory, 0, 0);
+        // TODO This button is disabled, as its functionality does not work: gridPane.add(nextInHistory, 1, 0);
+        gridPane.add(refreshButton, 1, 0);
+        gridPane.add(resetButton, 2, 0);
+        gridPane.add(loadUrlButton, 3, 0);
+        gridPane.add(url, 4, 0);
+        gridPane.add(webView, 0, 1, 5, 1);
         Scene scene = new Scene(gridPane);
         primaryStage.setScene(scene);
         primaryStage.show();
