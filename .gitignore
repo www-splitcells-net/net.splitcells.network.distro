@@ -26,3 +26,5 @@ build-dir
 .polyglot.META-INF
 
 net.splitcells.network.distro.log.md
+# Log files created by Java crash dumps.
+*.log
