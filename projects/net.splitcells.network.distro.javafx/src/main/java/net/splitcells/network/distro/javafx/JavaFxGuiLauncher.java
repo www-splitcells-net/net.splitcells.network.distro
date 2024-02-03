@@ -93,7 +93,6 @@ public class JavaFxGuiLauncher extends Application {
         final var webEngine = webView.getEngine();
         webEngine.load(DEFAULT_URL);
         webView.setPrefSize(5000, 5000);
-        //webView.set
         final var resetButton = new Button("↻");
         resetButton.setStyle(DEFAULT_STYLE);
         resetButton.setTooltip(new Tooltip("Open starting page, in order to reset the user interface."));
