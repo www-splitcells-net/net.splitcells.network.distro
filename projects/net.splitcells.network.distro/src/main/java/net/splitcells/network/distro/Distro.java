@@ -57,10 +57,9 @@ public class Distro {
     }
 
     /**
-     * <p>Provides a config for users, so the users can be supported.
-     * For instance, this config creates a log file,
-     * that can be analysed by supporters.
-     * This is used for GUI applications.</p>
+     * <p>Provides a config for users, that run the software locally, without access to the public.
+     * It also helps users to get support by providing log files.
+     * This is used for GUI applications for instance.</p>
      * <p>Logs are written in the user friendly CommonMark format.
      * Many websites have a nice rendering of CommonMark documents,
      * which in turn should improve the interactions with non technical users.</p>
@@ -87,6 +86,22 @@ public class Distro {
 
     public static Service service() {
         return WebsiteViaJar.projectsRenderer(config()).httpServer();
+    }
+
+    /**
+     * @return Provide a webserver for users running this software locally.
+     * @see #configuratorForUsers(Environment)
+     */
+    public static Service serviceForUsers() {
+        return WebsiteViaJar.projectsRenderer(configForUsers()).httpServer();
+    }
+
+    /**
+     * @return Provide a webserver configuration for users running this software locally.
+     * @see #configuratorForUsers(Environment)
+     */
+    public static Config configForUsers() {
+        return config().withIsServerForGeneralPublic(false);
     }
 
     public static Config config() {

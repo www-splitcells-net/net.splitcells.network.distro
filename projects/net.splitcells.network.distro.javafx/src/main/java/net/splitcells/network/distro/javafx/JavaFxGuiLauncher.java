@@ -71,7 +71,7 @@ public class JavaFxGuiLauncher extends Application {
         final var serviceSemaphore = new Semaphore(0);
         final var backendThread = new Thread(() -> {
             Dem.process(() -> {
-                try (final var service = Distro.service()) {
+                try (final var service = Distro.serviceForUsers()) {
                     service.start();
                     initSemaphore.release();
                     try {
