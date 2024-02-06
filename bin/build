@@ -5,4 +5,3 @@ set -e
 export JAVA_VERSION=21
 bin/build.dependencies
 bin/build.jar.uber
-bin/build.rcp
