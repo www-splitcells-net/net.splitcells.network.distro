@@ -12,5 +12,6 @@
     <modules>
         <module>projects/net.splitcells.network.distro</module>
         <module>projects/net.splitcells.network.distro.javafx</module>
+        <module>projects/net.splitcells.network.distro.javafx.share</module>
     </modules>
 </project>
