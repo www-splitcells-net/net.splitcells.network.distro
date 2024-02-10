@@ -42,17 +42,17 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-dependency-plugin</artifactId>
-                <configuration>
-                    <outputDirectory>${project.build.directory}/lib</outputDirectory>
-                    <includeGroupIds>org.openjfx</includeGroupIds>
-                </configuration>
                 <executions>
                     <execution>
-                        <id>copy-dependencies</id>
+                        <id>copy-javafx-dependencies</id>
                         <phase>package</phase>
                         <goals>
                             <goal>copy-dependencies</goal>
                         </goals>
+                        <configuration>
+                            <outputDirectory>${project.build.directory}/javafx-lib</outputDirectory>
+                            <includeGroupIds>org.openjfx</includeGroupIds>
+                        </configuration>
                     </execution>
                 </executions>
             </plugin>
@@ -65,7 +65,7 @@
                     <archive>
                         <manifest>
                             <addClasspath>true</addClasspath>
-                            <classpathPrefix>lib/</classpathPrefix>
+                            <classpathPrefix>javafx-lib/</classpathPrefix>
                         </manifest>
                     </archive>
                 </configuration>
