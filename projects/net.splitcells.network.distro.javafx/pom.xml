@@ -88,6 +88,32 @@
                     </execution>
                 </executions>
             </plugin>
+
+            <plugin>
+                <groupId>org.jreleaser</groupId>
+                <artifactId>jdks-maven-plugin</artifactId>
+                <version>1.10.0</version>
+                <!-- Adoptium API: https://api.adoptium.net/q/swagger-ui/#/Assets/searchReleasesByVersion -->
+                <executions>
+                    <execution>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>setup-jdks</goal>
+                        </goals>
+                        <configuration>
+                            <jdks>
+                                <jdk>
+                                    <name>eclipse-adoptium-jre-linux</name>
+                                    <platform>linux</platform>
+                                    <url>${eclipse.adoptium.jre.linux.version.url}</url>
+                                    <checksum>${eclipse.adoptium.jre.linux.version.checksum}</checksum>
+                                </jdk>
+                            </jdks>
+                            <outputDirectory>${project.basedir}/jres</outputDirectory>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
         </plugins>
     </build>
 </project>
