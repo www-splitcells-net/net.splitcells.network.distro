@@ -16,20 +16,16 @@
 package net.splitcells.network.distro.javafx;
 
 import javafx.application.Application;
-import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
-import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Tooltip;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.GridPane;
-import javafx.scene.layout.VBox;
-import javafx.scene.web.WebEngine;
 import javafx.scene.web.WebEvent;
 import javafx.scene.web.WebView;
 import javafx.stage.Stage;
@@ -38,7 +34,6 @@ import net.splitcells.dem.Dem;
 import net.splitcells.network.distro.Distro;
 
 import java.util.concurrent.Semaphore;
-import java.util.regex.Pattern;
 
 import static net.splitcells.dem.utils.ExecutionException.executionException;
 
@@ -71,7 +66,7 @@ public class JavaFxGuiLauncher extends Application {
         final var serviceSemaphore = new Semaphore(0);
         final var backendThread = new Thread(() -> {
             Dem.process(() -> {
-                try (final var service = Distro.serviceForUsers()) {
+                try (final var service = Distro.serviceForLocalUsers()) {
                     service.start();
                     initSemaphore.release();
                     try {
@@ -80,7 +75,7 @@ public class JavaFxGuiLauncher extends Application {
                         throw executionException(e);
                     }
                 }
-            }, Distro::configuratorForUsers);
+            }, Distro::configuratorForLocalUsers);
         });
         backendThread.setDaemon(true);
         backendThread.start();

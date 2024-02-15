@@ -19,8 +19,6 @@ import net.splitcells.dem.Dem;
 import net.splitcells.dem.environment.Environment;
 import net.splitcells.dem.environment.resource.Console;
 import net.splitcells.dem.environment.resource.Service;
-import net.splitcells.dem.resource.FileSystemViaClassResources;
-import net.splitcells.dem.resource.communication.log.Log;
 import net.splitcells.dem.resource.communication.log.Logs;
 import net.splitcells.dem.resource.communication.log.MessageFilter;
 import net.splitcells.network.community.NetworkCommunityFileSystem;
@@ -33,12 +31,10 @@ import net.splitcells.website.server.Config;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.nio.file.Path;
-import java.util.function.Consumer;
 
 import static net.splitcells.dem.Dem.configValue;
 import static net.splitcells.dem.Dem.environment;
 import static net.splitcells.dem.lang.perspective.PerspectiveI.perspective;
-import static net.splitcells.dem.resource.FileSystemViaClassResourcesAndSpringFactory.fileSystemViaClassResourcesAndSpringFactory;
 import static net.splitcells.dem.resource.communication.Sender.stringSender;
 import static net.splitcells.dem.resource.communication.log.CommonMarkLog.commonMarkDui;
 import static net.splitcells.dem.resource.communication.log.LogLevel.TRACE;
@@ -66,7 +62,7 @@ public class Distro {
      *
      * @param env Adapts the given config.
      */
-    public static void configuratorForUsers(Environment env) {
+    public static void configuratorForLocalUsers(Environment env) {
         configurator(env);
         env.config().withConfigValue(MessageFilter.class, logMessage -> logMessage.priority().greaterThan(TRACE));
         final var logFile = Path.of("./net.splitcells.network.distro.log.md");
@@ -90,17 +86,17 @@ public class Distro {
 
     /**
      * @return Provide a webserver for users running this software locally.
-     * @see #configuratorForUsers(Environment)
+     * @see #configuratorForLocalUsers(Environment)
      */
-    public static Service serviceForUsers() {
-        return WebsiteViaJar.projectsRenderer(configForUsers()).httpServer();
+    public static Service serviceForLocalUsers() {
+        return WebsiteViaJar.projectsRenderer(configForLocalUsers()).httpServer();
     }
 
     /**
      * @return Provide a webserver configuration for users running this software locally.
-     * @see #configuratorForUsers(Environment)
+     * @see #configuratorForLocalUsers(Environment)
      */
-    public static Config configForUsers() {
+    public static Config configForLocalUsers() {
         return config().withIsServerForGeneralPublic(false);
     }
 

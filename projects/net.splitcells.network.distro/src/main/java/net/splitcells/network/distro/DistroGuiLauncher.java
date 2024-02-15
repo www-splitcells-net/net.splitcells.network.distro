@@ -45,6 +45,6 @@ public class DistroGuiLauncher {
         Dem.process(() -> {
             Distro.service().start();
             Dem.waitIndefinitely();
-        }, Distro::configuratorForUsers);
+        }, Distro::configuratorForLocalUsers);
     }
 }
