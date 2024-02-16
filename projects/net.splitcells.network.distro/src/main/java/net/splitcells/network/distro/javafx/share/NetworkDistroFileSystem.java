@@ -20,8 +20,8 @@ import net.splitcells.dem.resource.FileSystemView;
 
 import static net.splitcells.dem.resource.FileSystemViaClassResources.fileSystemViaClassResources;
 
-public class JavaFxFileSystem extends OptionI<FileSystemView> {
-    public JavaFxFileSystem() {
-        super(() -> fileSystemViaClassResources(JavaFxFileSystem.class, "net.splitcells", "network.distro.javafx.share"));
+public class NetworkDistroFileSystem extends OptionI<FileSystemView> {
+    public NetworkDistroFileSystem() {
+        super(() -> fileSystemViaClassResources(NetworkDistroFileSystem.class, "net.splitcells", "network.distro"));
     }
 }
