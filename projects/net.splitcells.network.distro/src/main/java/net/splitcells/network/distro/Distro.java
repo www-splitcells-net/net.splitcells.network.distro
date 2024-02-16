@@ -112,6 +112,8 @@ public class Distro {
                         , configValue(BinaryFileSystem.class)))
                 .withAdditionalProject(projectConfig("/"
                         , configValue(NetworkCommunityFileSystem.class)))
+                .withAdditionalProject(projectConfig("/"
+                        , configValue(NetworkDistroFileSystem.class)))
                 ;
     }
 }

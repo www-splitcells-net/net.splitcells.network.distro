@@ -80,7 +80,7 @@
                             <goal>single</goal>
                         </goals>
                         <configuration>
-                            <appendAssemblyId>false</appendAssemblyId>
+                            <classifier>zip</classifier>
                             <descriptors>
                                 <descriptor>src/main/assembly/linux-zip.xml</descriptor>
                             </descriptors>
@@ -88,7 +88,6 @@
                     </execution>
                 </executions>
             </plugin>
-
             <plugin>
                 <groupId>org.jreleaser</groupId>
                 <artifactId>jdks-maven-plugin</artifactId>

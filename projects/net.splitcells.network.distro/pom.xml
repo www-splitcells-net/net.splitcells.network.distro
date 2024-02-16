@@ -14,5 +14,36 @@
             <artifactId>network.distro.java</artifactId>
             <version>${revision}</version>
         </dependency>
+        <dependency>
+            <groupId>net.splitcells</groupId>
+            <artifactId>network.distro.javafx</artifactId>
+            <version>${revision}</version>
+            <classifier>zip</classifier>
+            <type>zip</type>
+        </dependency>
     </dependencies>
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-dependency-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>copy-javafx-dependencies</id>
+                        <phase>process-resources</phase>
+                        <goals>
+                            <goal>copy-dependencies</goal>
+                        </goals>
+                        <configuration>
+                            <outputDirectory>${project.build.directory}/classes/${project.groupId}.${project.artifactId}.resources/src/main/zip/net/splitcells/network/distro/downloads/linux</outputDirectory>
+                            <includeGroupIds>net.splitcells</includeGroupIds>
+                            <includeArtifactIds>network.distro.javafx</includeArtifactIds>
+                            <includeClassifiers>zip</includeClassifiers>
+                            <includeTypes>zip</includeTypes>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
 </project>
