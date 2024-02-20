@@ -18,7 +18,7 @@
             <groupId>net.splitcells</groupId>
             <artifactId>network.distro.javafx</artifactId>
             <version>${revision}</version>
-            <classifier>zip</classifier>
+            <classifier>linux-zip</classifier>
             <type>zip</type>
         </dependency>
     </dependencies>
@@ -38,7 +38,7 @@
                             <outputDirectory>${project.build.directory}/classes/${project.groupId}.${project.artifactId}.resources/src/main/zip/net/splitcells/network/distro/downloads/linux</outputDirectory>
                             <includeGroupIds>net.splitcells</includeGroupIds>
                             <includeArtifactIds>network.distro.javafx</includeArtifactIds>
-                            <includeClassifiers>zip</includeClassifiers>
+                            <includeClassifiers>linux-zip</includeClassifiers>
                             <includeTypes>zip</includeTypes>
                             <prependGroupId>true</prependGroupId>
                         </configuration>

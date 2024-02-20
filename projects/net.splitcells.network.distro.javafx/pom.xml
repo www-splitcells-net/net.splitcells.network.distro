@@ -80,7 +80,6 @@
                             <goal>single</goal>
                         </goals>
                         <configuration>
-                            <classifier>zip</classifier>
                             <descriptors>
                                 <descriptor>src/main/assembly/linux-zip.xml</descriptor>
                             </descriptors>
