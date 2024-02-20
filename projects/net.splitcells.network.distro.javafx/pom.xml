@@ -15,7 +15,7 @@
     <dependencies>
         <dependency>
             <groupId>net.splitcells</groupId>
-            <artifactId>java</artifactId>
+            <artifactId>network.distro.java</artifactId>
             <version>${revision}</version>
         </dependency>
         <dependency>
