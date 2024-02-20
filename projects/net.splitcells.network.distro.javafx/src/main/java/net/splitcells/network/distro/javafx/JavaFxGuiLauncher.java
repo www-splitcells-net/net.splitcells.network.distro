@@ -31,7 +31,7 @@ import javafx.scene.web.WebView;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 import net.splitcells.dem.Dem;
-import net.splitcells.network.distro.Distro;
+import net.splitcells.network.distro.java.Distro;
 
 import java.util.concurrent.Semaphore;
 
