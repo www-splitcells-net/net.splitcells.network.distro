@@ -16,6 +16,7 @@
 package net.splitcells.network.distro;
 
 import net.splitcells.dem.Dem;
+import net.splitcells.network.distro.java.Distro;
 
 import static net.splitcells.network.distro.GuiLauncher.startGuiLauncher;
 import static net.splitcells.network.distro.GuiLauncherConfig.guiLauncherConfig;

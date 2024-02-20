@@ -46,7 +46,7 @@ public class Distro {
         Dem.process(() -> {
             service().start();
             Dem.waitIndefinitely();
-        }, Distro::configurator);
+        }, net.splitcells.network.distro.java.Distro::configurator);
     }
 
     public static void configurator(Environment env) {
@@ -63,21 +63,7 @@ public class Distro {
      * @param env Adapts the given config.
      */
     public static void configuratorForLocalUsers(Environment env) {
-        configurator(env);
-        env.config().withConfigValue(MessageFilter.class, logMessage -> logMessage.priority().greaterThan(TRACE));
-        final var logFile = Path.of("./net.splitcells.network.distro.log.md");
-        if (net.splitcells.dem.resource.Files.is_file(logFile)) {
-            logFile.toFile().delete();
-        }
-        try {
-            env.config().withConfigValue(Console.class
-                    , stringSender(new FileOutputStream(logFile.toFile())));
-        } catch (FileNotFoundException e) {
-            throw executionException(perspective("Could not delete local log file.")
-                    .withProperty("logFile", logFile.toString()), e);
-        }
-        env.config().withConfigValue(Logs.class, commonMarkDui(environment().config().configValue(Console.class)
-                , environment().config().configValue(MessageFilter.class)));
+        net.splitcells.network.distro.java.Distro.configuratorForLocalUsers(env);
     }
 
     public static Service service() {
@@ -89,7 +75,7 @@ public class Distro {
      * @see #configuratorForLocalUsers(Environment)
      */
     public static Service serviceForLocalUsers() {
-        return WebsiteViaJar.projectsRenderer(configForLocalUsers()).httpServer();
+        return net.splitcells.network.distro.java.Distro.serviceForLocalUsers();
     }
 
     /**
@@ -97,21 +83,11 @@ public class Distro {
      * @see #configuratorForLocalUsers(Environment)
      */
     public static Config configForLocalUsers() {
-        return config().withIsServerForGeneralPublic(false);
+        return net.splitcells.network.distro.java.Distro.configForLocalUsers();
     }
 
     public static Config config() {
-        return WebsiteViaJar.config()
-                .withIsSecured(false)
-                .withOpenPort(8443)
-                .withAdditionalProject(projectConfig("/",
-                        configValue(NetworkMediaFileSystem.class)))
-                .withAdditionalProject(projectConfig("/"
-                        , configValue(NetworkLogFileSystem.class)))
-                .withAdditionalProject(projectConfig("/"
-                        , configValue(BinaryFileSystem.class)))
-                .withAdditionalProject(projectConfig("/"
-                        , configValue(NetworkCommunityFileSystem.class)))
+        return net.splitcells.network.distro.java.Distro.config()
                 .withAdditionalProject(projectConfig("/"
                         , configValue(NetworkDistroFileSystem.class)))
                 ;
