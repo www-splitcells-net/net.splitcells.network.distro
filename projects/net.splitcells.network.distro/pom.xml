@@ -40,6 +40,7 @@
                             <includeArtifactIds>network.distro.javafx</includeArtifactIds>
                             <includeClassifiers>zip</includeClassifiers>
                             <includeTypes>zip</includeTypes>
+                            <prependGroupId>true</prependGroupId>
                         </configuration>
                     </execution>
                 </executions>
