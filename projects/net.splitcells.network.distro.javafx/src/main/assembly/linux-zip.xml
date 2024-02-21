@@ -23,7 +23,7 @@
             <outputDirectory>/javafx-lib</outputDirectory>
         </fileSet>
         <fileSet>
-            <directory>${project.basedir}/jres/eclipse-temurin-jre-linux/${eclipse.adoptium.jre.linux.version.name}</directory>
+            <directory>${project.basedir}/jres/eclipse-adoptium-jre-linux/${eclipse.adoptium.jre.linux.version.name}</directory>
             <outputDirectory>/jre</outputDirectory>
         </fileSet>
     </fileSets>
