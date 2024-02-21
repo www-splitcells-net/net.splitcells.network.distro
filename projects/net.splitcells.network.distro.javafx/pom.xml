@@ -94,7 +94,7 @@
                 <!-- Adoptium API: https://api.adoptium.net/q/swagger-ui/#/Assets/searchReleasesByVersion -->
                 <executions>
                     <execution>
-                        <phase>package</phase>
+                        <phase>generate-resources</phase>
                         <goals>
                             <goal>setup-jdks</goal>
                         </goals>
