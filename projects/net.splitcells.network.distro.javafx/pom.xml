@@ -75,6 +75,7 @@
                 <artifactId>maven-assembly-plugin</artifactId>
                 <executions>
                     <execution>
+                        <id>assemble-linux-zip</id>
                         <phase>package</phase>
                         <goals>
                             <goal>single</goal>
@@ -82,6 +83,18 @@
                         <configuration>
                             <descriptors>
                                 <descriptor>src/main/assembly/linux-zip.xml</descriptor>
+                            </descriptors>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>assemble-windows-zip</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>single</goal>
+                        </goals>
+                        <configuration>
+                            <descriptors>
+                                <descriptor>src/main/assembly/windows-zip.xml</descriptor>
                             </descriptors>
                         </configuration>
                     </execution>
@@ -94,6 +107,7 @@
                 <!-- Adoptium API: https://api.adoptium.net/q/swagger-ui/#/Assets/searchReleasesByVersion -->
                 <executions>
                     <execution>
+                        <id>download-linux-jre</id>
                         <phase>generate-resources</phase>
                         <goals>
                             <goal>setup-jdks</goal>
@@ -105,6 +119,24 @@
                                     <platform>linux</platform>
                                     <url>${eclipse.adoptium.jre.linux.version.url}</url>
                                     <checksum>${eclipse.adoptium.jre.linux.version.checksum}</checksum>
+                                </jdk>
+                            </jdks>
+                            <outputDirectory>${project.basedir}/jres</outputDirectory>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>download-windows-jre</id>
+                        <phase>generate-resources</phase>
+                        <goals>
+                            <goal>setup-jdks</goal>
+                        </goals>
+                        <configuration>
+                            <jdks>
+                                <jdk>
+                                    <name>eclipse-adoptium-jre-windows</name>
+                                    <platform>windows</platform>
+                                    <url>${eclipse.adoptium.jre.windows.version.url}</url>
+                                    <checksum>${eclipse.adoptium.jre.windows.version.checksum}</checksum>
                                 </jdk>
                             </jdks>
                             <outputDirectory>${project.basedir}/jres</outputDirectory>
