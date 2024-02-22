@@ -21,6 +21,20 @@
             <classifier>linux-zip</classifier>
             <type>zip</type>
         </dependency>
+        <dependency>
+            <groupId>net.splitcells</groupId>
+            <artifactId>network.distro.javafx</artifactId>
+            <version>${revision}</version>
+            <classifier>windows-zip</classifier>
+            <type>zip</type>
+        </dependency>
+        <dependency>
+            <groupId>net.splitcells</groupId>
+            <artifactId>network.distro.javafx</artifactId>
+            <version>${revision}</version>
+            <classifier>macos-zip</classifier>
+            <type>zip</type>
+        </dependency>
     </dependencies>
     <build>
         <plugins>
@@ -35,7 +49,7 @@
                             <goal>copy-dependencies</goal>
                         </goals>
                         <configuration>
-                            <outputDirectory>${project.build.directory}/classes/${project.groupId}.${project.artifactId}.resources/src/main/zip/net/splitcells/network/distro/downloads/linux</outputDirectory>
+                            <outputDirectory>${project.build.directory}/classes/${project.groupId}.${project.artifactId}.resources/src/main/zip/net/splitcells/network/distro/downloads</outputDirectory>
                             <includeGroupIds>net.splitcells</includeGroupIds>
                             <includeArtifactIds>network.distro.javafx</includeArtifactIds>
                             <includeClassifiers>linux-zip,windows-zip,macos-zip</includeClassifiers>
