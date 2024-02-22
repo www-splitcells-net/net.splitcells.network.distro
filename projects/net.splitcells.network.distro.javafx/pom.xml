@@ -98,6 +98,18 @@
                             </descriptors>
                         </configuration>
                     </execution>
+                    <execution>
+                        <id>assemble-macos-zip</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>single</goal>
+                        </goals>
+                        <configuration>
+                            <descriptors>
+                                <descriptor>src/main/assembly/macos-zip.xml</descriptor>
+                            </descriptors>
+                        </configuration>
+                    </execution>
                 </executions>
             </plugin>
             <plugin>
@@ -137,6 +149,24 @@
                                     <platform>windows</platform>
                                     <url>${eclipse.adoptium.jre.windows.version.url}</url>
                                     <checksum>${eclipse.adoptium.jre.windows.version.checksum}</checksum>
+                                </jdk>
+                            </jdks>
+                            <outputDirectory>${project.basedir}/jres</outputDirectory>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>download-macos-jre</id>
+                        <phase>generate-resources</phase>
+                        <goals>
+                            <goal>setup-jdks</goal>
+                        </goals>
+                        <configuration>
+                            <jdks>
+                                <jdk>
+                                    <name>eclipse-adoptium-jre-macos</name>
+                                    <platform>osx</platform>
+                                    <url>${eclipse.adoptium.jre.macos.version.url}</url>
+                                    <checksum>${eclipse.adoptium.jre.macos.version.checksum}</checksum>
                                 </jdk>
                             </jdks>
                             <outputDirectory>${project.basedir}/jres</outputDirectory>
