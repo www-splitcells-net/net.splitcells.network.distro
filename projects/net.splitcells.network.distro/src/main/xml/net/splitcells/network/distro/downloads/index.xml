@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<article xmlns="http://splitcells.net/sew.xsd">
+    <meta>
+        <title>Splitcells™ Network Distro Downloads</title>
+    </meta>
+    <paragraph>
+        You can download the Network Distro as an application, that you can run locally on your own computer.
+        No internet connection is required, in order to run this software.
+        In order to use the program, download the version corresponding to your type of computer.
+    </paragraph>
+    <list>
+        <link>
+            <text>Splitcells Network Distro JavaFX for Linux</text>
+            <file>/net/splitcells/network/distro/downloads/net.splitcells.network.distro.javafx-0.0.1-SNAPSHOT-linux-zip.zip</file>
+        </link>
+        <link>
+            <text>Splitcells Network Distro JavaFX for Windows</text>
+            <file>/net/splitcells/network/distro/downloads/net.splitcells.network.distro.javafx-0.0.1-SNAPSHOT-windows-zip.zip</file>
+        </link>
+        <link>
+            <text>Splitcells Network Distro JavaFX for macOS</text>
+            <file>/net/splitcells/network/distro/downloads/net.splitcells.network.distro.javafx-0.0.1-SNAPSHOT-macos-zip.zip</file>
+        </link>
+    </list>
+</article>
