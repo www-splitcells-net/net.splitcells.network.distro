@@ -19,7 +19,7 @@
             <outputDirectory>/deployable-jars</outputDirectory>
         </fileSet>
         <fileSet>
-            <directory>${project.build.directory}/javafx-lib</directory>
+            <directory>${project.build.directory}/javafx-lib-for-windows</directory>
             <outputDirectory>/javafx-lib</outputDirectory>
         </fileSet>
         <fileSet>
