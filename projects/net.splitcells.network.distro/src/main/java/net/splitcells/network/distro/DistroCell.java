@@ -16,12 +16,21 @@
 package net.splitcells.network.distro;
 
 
+import net.splitcells.dem.Dem;
 import net.splitcells.dem.environment.Cell;
 import net.splitcells.dem.environment.Environment;
+import net.splitcells.website.server.ServerCell;
+
+import static net.splitcells.dem.Dem.serve;
+import static net.splitcells.network.distro.Distro.service;
 
 public class DistroCell implements Cell {
+    public static void main(String... args) {
+        serve(DistroCell.class);
+    }
+
     @Override
-    public void accept(Environment environment) {
-        
+    public void accept(Environment env) {
+        env.withCell(ServerCell.class);
     }
 }
