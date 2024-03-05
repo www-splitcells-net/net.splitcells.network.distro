@@ -30,6 +30,16 @@ public class DistroCell implements Cell {
     }
 
     @Override
+    public String groupId() {
+        return "net.splitcells";
+    }
+
+    @Override
+    public String artifactId() {
+        return "network.distro";
+    }
+
+    @Override
     public void accept(Environment env) {
         env.withCell(ServerCell.class);
     }
