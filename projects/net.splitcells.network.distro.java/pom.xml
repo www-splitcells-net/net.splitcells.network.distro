@@ -39,6 +39,11 @@
             <version>${revision}</version>
         </dependency>
         <dependency>
+            <groupId>net.splitcells</groupId>
+            <artifactId>network.hub</artifactId>
+            <version>${revision}</version>
+        </dependency>
+        <dependency>
             <groupId>com.formdev</groupId>
             <artifactId>flatlaf</artifactId>
         </dependency>

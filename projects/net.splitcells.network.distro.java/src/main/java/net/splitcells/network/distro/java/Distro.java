@@ -22,6 +22,7 @@ import net.splitcells.dem.environment.resource.Service;
 import net.splitcells.dem.resource.communication.log.Logs;
 import net.splitcells.dem.resource.communication.log.MessageFilter;
 import net.splitcells.network.community.NetworkCommunityFileSystem;
+import net.splitcells.network.hub.NetworkHubFileSystem;
 import net.splitcells.network.log.NetworkLogFileSystem;
 import net.splitcells.network.media.NetworkMediaFileSystem;
 import net.splitcells.system.WebsiteViaJar;
@@ -112,6 +113,8 @@ public class Distro {
                         , configValue(BinaryFileSystem.class)))
                 .withAdditionalProject(projectConfig("/"
                         , configValue(NetworkCommunityFileSystem.class)))
+                .withAdditionalProject(projectConfig("/"
+                        , configValue(NetworkHubFileSystem.class)))
                 ;
     }
 }
