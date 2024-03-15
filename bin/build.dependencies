@@ -14,3 +14,5 @@ cd ../net.splitcells.website.content.binaries
   mvn clean install
 cd ../net.splitcells.network.community
   mvn clean install
+cd ../net.splitcells.network.hub
+  mvn clean install
