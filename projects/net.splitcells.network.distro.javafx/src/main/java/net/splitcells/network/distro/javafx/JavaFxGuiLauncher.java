@@ -24,6 +24,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Tooltip;
+import javafx.scene.image.Image;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.web.WebEvent;
@@ -32,6 +33,7 @@ import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 import net.splitcells.dem.Dem;
 import net.splitcells.network.distro.java.Distro;
+import net.splitcells.network.media.NetworkMediaFileSystem;
 
 import java.util.concurrent.Semaphore;
 
@@ -184,6 +186,7 @@ public class JavaFxGuiLauncher extends Application {
         gridPane.add(webView, 0, 1, 5, 1);
         Scene scene = new Scene(gridPane);
         primaryStage.setScene(scene);
+        primaryStage.getIcons().add(new Image(Dem.configValue(NetworkMediaFileSystem.class).inputStream("src/main/resources/html/net/splitcells/website/icons/icon.png")));
         primaryStage.show();
         primaryStage.setOnCloseRequest(new EventHandler<WindowEvent>() {
             @Override
