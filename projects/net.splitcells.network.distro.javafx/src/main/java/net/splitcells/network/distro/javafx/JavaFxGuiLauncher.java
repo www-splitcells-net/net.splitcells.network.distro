@@ -188,6 +188,7 @@ public class JavaFxGuiLauncher extends Application {
         primaryStage.setScene(scene);
         primaryStage.getIcons().add(new Image(Dem.configValue(NetworkMediaFileSystem.class).inputStream("src/main/resources/html/net/splitcells/website/icons/icon.png")));
         primaryStage.show();
+        primaryStage.setMaximized(true);
         primaryStage.setOnCloseRequest(new EventHandler<WindowEvent>() {
             @Override
             public void handle(WindowEvent windowEvent) {
