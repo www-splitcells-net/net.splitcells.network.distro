@@ -113,7 +113,7 @@ public class Distro {
                         , configValue(BinaryFileSystem.class)))
                 .withAdditionalProject(projectConfig("/"
                         , configValue(NetworkCommunityFileSystem.class)))
-                .withAdditionalProject(projectConfig("/"
+                .withAdditionalProjectAtStart(projectConfig("/net/splitcells/network/hub/"
                         , configValue(NetworkHubFileSystem.class)))
                 ;
     }
