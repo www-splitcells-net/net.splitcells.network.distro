@@ -1,1 +1,1 @@
-jre/bin/java --module-path "./javafx-lib" --add-modules javafx.controls,javafx.web -cp './deployable-jars/*' net.splitcells.network.distro.javafx.JavaFxGuiLauncher
+jre\bin\java.exe --module-path ".\javafx-lib" --add-modules javafx.controls,javafx.web -cp ".\deployable-jars\*" net.splitcells.network.distro.javafx.JavaFxGuiLauncher
