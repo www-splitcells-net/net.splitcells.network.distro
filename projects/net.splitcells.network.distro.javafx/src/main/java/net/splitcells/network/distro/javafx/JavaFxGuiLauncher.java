@@ -139,6 +139,12 @@ public class JavaFxGuiLauncher extends Application {
                     webEngine.load(DEFAULT_URL);
                 }
             });
+            refreshButton.setOnAction(new EventHandler<ActionEvent>() {
+                @Override
+                public void handle(ActionEvent actionEvent) {
+                    webEngine.load(containUserUrl(webEngine.getLocation()));
+                }
+            });
             loadUrlButton.setOnAction(new EventHandler<ActionEvent>() {
                 @Override
                 public void handle(ActionEvent actionEvent) {
