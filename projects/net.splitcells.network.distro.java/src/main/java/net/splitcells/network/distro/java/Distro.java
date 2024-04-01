@@ -101,8 +101,13 @@ public class Distro {
         return config().withIsServerForGeneralPublic(false);
     }
 
+    @Deprecated
     public static Config config() {
-        return WebsiteViaJar.config()
+        return config(WebsiteViaJar.config());
+    }
+
+    public static Config config(Config arg) {
+        return arg
                 .withIsSecured(false)
                 .withOpenPort(8443)
                 .withAdditionalProject(projectConfig("/",

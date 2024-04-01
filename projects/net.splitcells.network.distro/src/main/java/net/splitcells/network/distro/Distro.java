@@ -86,10 +86,12 @@ public class Distro {
         return net.splitcells.network.distro.java.Distro.configForLocalUsers();
     }
 
+    @Deprecated
     public static Config config() {
-        return net.splitcells.network.distro.java.Distro.config()
-                .withAdditionalProject(projectConfig("/"
-                        , configValue(NetworkDistroFileSystem.class)))
-                ;
+        return config(net.splitcells.network.distro.java.Distro.config());
+    }
+
+    public static Config config(Config arg) {
+        return arg.withAdditionalProject(projectConfig("/", configValue(NetworkDistroFileSystem.class)));
     }
 }
