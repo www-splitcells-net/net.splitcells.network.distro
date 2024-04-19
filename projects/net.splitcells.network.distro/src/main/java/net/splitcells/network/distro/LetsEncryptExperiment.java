@@ -15,11 +15,18 @@
  */
 package net.splitcells.network.distro;
 
-import net.bytebuddy.implementation.bytecode.Throw;
+import net.splitcells.dem.Dem;
+import net.splitcells.dem.data.set.Set;
 import net.splitcells.dem.resource.Paths;
-import net.splitcells.dem.resource.communication.Domsole;
 import net.splitcells.dem.resource.communication.log.LogLevel;
 import net.splitcells.dem.resource.communication.log.Logs;
+import net.splitcells.dem.utils.StringUtils;
+import net.splitcells.website.Formats;
+import net.splitcells.website.server.Config;
+import net.splitcells.website.server.processor.BinaryMessage;
+import net.splitcells.website.server.projects.ProjectsRendererI;
+import net.splitcells.website.server.projects.extension.ProjectsRendererExtension;
+import net.splitcells.website.server.projects.extension.ProjectsRendererExtensions;
 import org.bouncycastle.jce.provider.BouncyCastleProvider;
 import org.shredzone.acme4j.Account;
 import org.shredzone.acme4j.AccountBuilder;
@@ -27,6 +34,7 @@ import org.shredzone.acme4j.Authorization;
 import org.shredzone.acme4j.Certificate;
 import org.shredzone.acme4j.Session;
 import org.shredzone.acme4j.Status;
+import org.shredzone.acme4j.challenge.Http01Challenge;
 import org.shredzone.acme4j.util.KeyPairUtils;
 
 import java.io.FileReader;
@@ -37,14 +45,66 @@ import java.security.KeyPair;
 import java.security.Security;
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
+import java.util.Optional;
 
+import static net.splitcells.dem.Dem.configValue;
+import static net.splitcells.dem.Dem.sleepAtLeast;
+import static net.splitcells.dem.data.set.Sets.setOfUniques;
 import static net.splitcells.dem.lang.perspective.PerspectiveI.perspective;
 import static net.splitcells.dem.utils.ExecutionException.executionException;
 import static net.splitcells.dem.utils.NotImplementedYet.notImplementedYet;
 
 public class LetsEncryptExperiment {
     public static void main(String... args) {
-        System.out.println(new LetsEncryptExperiment("contacts@splitcells.net").certificate("live.splitcells.net"));
+        Dem.process(() -> {
+            Distro.service().start();
+            sleepAtLeast(3000l);
+            System.out.println(new LetsEncryptExperiment("contacts@splitcells.net").certificate("live.splitcells.net"));
+        }, env -> {
+            env.config()
+                    .withInitedOption(CurrentAcmeAuthorization.class)
+                    .configValue(ProjectsRendererExtensions.class)
+                    .withAppended(new ProjectsRendererExtension() {
+                        private final String challengeResponsePath = "/.well-known/acme-challenge/";
+
+                        @Override
+                        public Optional<BinaryMessage> renderFile(String path, ProjectsRendererI projectsRenderer, Config config) {
+                            final var currentAcmeChallenge = configValue(CurrentAcmeAuthorization.class);
+                            if (currentAcmeChallenge.value().isEmpty()) {
+                                return Optional.empty();
+                            }
+                            final var currentPath = challengeResponsePath
+                                    + currentAcmeChallenge.value().get()
+                                    .findChallenge(Http01Challenge.class)
+                                    .orElseThrow()
+                                    .getToken();
+                            if (currentPath.equals(path)) {
+                                return Optional.of(BinaryMessage.binaryMessage(
+                                        StringUtils.toBytes(configValue(CurrentAcmeAuthorization.class)
+                                                .value()
+                                                .orElseThrow()
+                                                .findChallenge(Http01Challenge.class)
+                                                .orElseThrow()
+                                                .getAuthorization())
+                                        , Formats.TEXT_PLAIN));
+                            }
+                            return Optional.empty();
+                        }
+
+                        @Override
+                        public Set<Path> projectPaths(ProjectsRendererI projectsRenderer) {
+                            final var currentAcmeChallenge = configValue(CurrentAcmeAuthorization.class);
+                            if (currentAcmeChallenge.value().isPresent()) {
+                                return setOfUniques(Path.of(challengeResponsePath.substring(1)
+                                        + currentAcmeChallenge.value().get()
+                                        .findChallenge(Http01Challenge.class)
+                                        .orElseThrow()
+                                        .getToken()));
+                            }
+                            return setOfUniques();
+                        }
+                    });
+        });
     }
 
     private final String sessionUrl = "acme://letsencrypt.org";
@@ -76,26 +136,44 @@ public class LetsEncryptExperiment {
             order.execute(domainKeyPair);
             for (int i = 0; i < 10; ++i) {
                 if (Status.INVALID.equals(order.getStatus())) {
-                    throw executionException("Creating the certificate failed");
+                    throw executionException("Creating the certificate failed.");
                 }
                 if (Status.VALID.equals(order.getStatus())) {
                     return order.getCertificate();
                 }
                 final var now = Instant.now();
                 final var updateTime = order.fetch().orElseGet(() -> Instant.now().plusSeconds(3L));
-                Thread.sleep(now.until(updateTime, ChronoUnit.MILLIS));
+                sleepAtLeast(now.until(updateTime, ChronoUnit.MILLIS));
             }
         } catch (Throwable t) {
             throw executionException(t);
         }
-        throw notImplementedYet();
+        throw executionException("Could not fetch certificate.");
     }
 
     private void authorize(Authorization auth) {
-        if (Status.VALID.equals(auth.getStatus())) {
-            return;
+        try {
+            if (Status.VALID.equals(auth.getStatus())) {
+                return;
+            }
+            configValue(CurrentAcmeAuthorization.class).withValue(Optional.of(auth));
+            final var challenge = auth.findChallenge(Http01Challenge.class).orElseThrow();
+            System.out.println(challenge.getToken());
+            for (int i = 0; i < 50; ++i) {
+                if (Status.INVALID.equals(challenge.getStatus())) {
+                    throw executionException("Could not complete ACME challenge.");
+                }
+                if (Status.VALID.equals(challenge.getStatus())) {
+                    return;
+                }
+                final var now = Instant.now();
+                final var updateTime = challenge.fetch().orElseGet(() -> Instant.now().plusSeconds(3L));
+                sleepAtLeast(now.until(updateTime, ChronoUnit.MILLIS));
+            }
+        } catch (Throwable t) {
+            throw executionException(t);
         }
-        throw notImplementedYet();
+        throw executionException("Could not fetch certificate.");
     }
 
     public KeyPair userKeyPair() {
