@@ -92,6 +92,9 @@ public class LetsEncryptExperiment {
     }
 
     private void authorize(Authorization auth) {
+        if (Status.VALID.equals(auth.getStatus())) {
+            return;
+        }
         throw notImplementedYet();
     }
 
