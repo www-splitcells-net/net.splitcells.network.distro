@@ -53,6 +53,7 @@ import static net.splitcells.dem.data.set.Sets.setOfUniques;
 import static net.splitcells.dem.lang.perspective.PerspectiveI.perspective;
 import static net.splitcells.dem.utils.ExecutionException.executionException;
 import static net.splitcells.dem.utils.NotImplementedYet.notImplementedYet;
+import static net.splitcells.network.distro.AcmeChallengeFile.acmeChallengeFile;
 
 public class LetsEncryptExperiment {
     public static void main(String... args) {
@@ -64,47 +65,12 @@ public class LetsEncryptExperiment {
             env.config()
                     .withInitedOption(CurrentAcmeAuthorization.class)
                     .configValue(ProjectsRendererExtensions.class)
-                    .withAppended(new ProjectsRendererExtension() {
-                        private final String challengeResponsePath = "/.well-known/acme-challenge/";
-
-                        @Override
-                        public Optional<BinaryMessage> renderFile(String path, ProjectsRendererI projectsRenderer, Config config) {
-                            final var currentAcmeChallenge = configValue(CurrentAcmeAuthorization.class);
-                            if (currentAcmeChallenge.value().isEmpty()) {
-                                return Optional.empty();
-                            }
-                            final var currentPath = challengeResponsePath
-                                    + currentAcmeChallenge.value().get()
-                                    .findChallenge(Http01Challenge.class)
-                                    .orElseThrow()
-                                    .getToken();
-                            if (currentPath.equals(path)) {
-                                return Optional.of(BinaryMessage.binaryMessage(
-                                        StringUtils.toBytes(configValue(CurrentAcmeAuthorization.class)
-                                                .value()
-                                                .orElseThrow()
-                                                .findChallenge(Http01Challenge.class)
-                                                .orElseThrow()
-                                                .getAuthorization())
-                                        , Formats.TEXT_PLAIN));
-                            }
-                            return Optional.empty();
-                        }
-
-                        @Override
-                        public Set<Path> projectPaths(ProjectsRendererI projectsRenderer) {
-                            final var currentAcmeChallenge = configValue(CurrentAcmeAuthorization.class);
-                            if (currentAcmeChallenge.value().isPresent()) {
-                                return setOfUniques(Path.of(challengeResponsePath.substring(1)
-                                        + currentAcmeChallenge.value().get()
-                                        .findChallenge(Http01Challenge.class)
-                                        .orElseThrow()
-                                        .getToken()));
-                            }
-                            return setOfUniques();
-                        }
-                    });
+                    .withAppended(acmeChallengeFile());
         });
+    }
+
+    public static void certificate(String domain, String email) {
+        System.out.println("Retrieved certificate: " + new LetsEncryptExperiment("contacts@splitcells.net").certificate("live.splitcells.net"));
     }
 
     private final String sessionUrl = "acme://letsencrypt.org";
