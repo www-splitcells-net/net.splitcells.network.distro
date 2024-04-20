@@ -95,7 +95,7 @@ public class Certificate {
             order.getAuthorizations().forEach(this::authorize);
             order.execute(domainKeyPair);
             for (int i = 0; i < 10; ++i) {
-                logs().append(perspective("Waiting for " + sessionUrl + " to execute the challenge.")
+                logs().append(perspective("Waiting for `" + sessionUrl + "` to execute the challenge.")
                                 .withProperty("status", order.getStatus().toString())
                                 .withProperty("error", order.getError().map(e -> e.toString()).orElse("No error is present."))
                         , LogLevel.INFO);
@@ -107,7 +107,9 @@ public class Certificate {
                 }
                 final var now = Instant.now();
                 final var updateTime = order.fetch().orElseGet(() -> Instant.now().plusSeconds(3L));
-                sleepAtLeast(now.until(updateTime, ChronoUnit.MILLIS));
+                final var waitDuration = now.until(updateTime, ChronoUnit.MILLIS);
+                logs().append("Waiting " + waitDuration + " milliseconds for challenge update from `" + sessionUrl + "`.");
+                sleepAtLeast(waitDuration);
             }
         } catch (Throwable t) {
             throw executionException(t);
