@@ -44,6 +44,7 @@ import static net.splitcells.dem.Dem.configValue;
 import static net.splitcells.dem.Dem.sleepAtLeast;
 import static net.splitcells.dem.data.set.Sets.setOfUniques;
 import static net.splitcells.dem.lang.perspective.PerspectiveI.perspective;
+import static net.splitcells.dem.resource.communication.log.Logs.logs;
 import static net.splitcells.dem.utils.ExecutionException.executionException;
 import static net.splitcells.dem.utils.NotImplementedYet.notImplementedYet;
 import static net.splitcells.network.distro.java.acme.AcmeChallengeFile.acmeChallengeFile;
@@ -94,6 +95,10 @@ public class Certificate {
             order.getAuthorizations().forEach(this::authorize);
             order.execute(domainKeyPair);
             for (int i = 0; i < 10; ++i) {
+                logs().append(perspective("Waiting for " + sessionUrl + " to execute the challenge.")
+                                .withProperty("status", order.getStatus().toString())
+                                .withProperty("error", order.getError().map(e -> e.toString()).orElse("No error is present."))
+                        , LogLevel.INFO);
                 if (Status.INVALID.equals(order.getStatus())) {
                     throw executionException("Creating the certificate failed.");
                 }
@@ -183,7 +188,7 @@ public class Certificate {
                     .useKeyPair(userKeyPair);
             accountBuilder.addEmail(email);
             Account account = accountBuilder.create(session);
-            Logs.logs().append(perspective("Created a new account for generating public certificates via ACME.")
+            logs().append(perspective("Created a new account for generating public certificates via ACME.")
                             .withProperty("account location", account.getLocation().toString())
                             .withProperty("email", email)
                     , LogLevel.INFO);
