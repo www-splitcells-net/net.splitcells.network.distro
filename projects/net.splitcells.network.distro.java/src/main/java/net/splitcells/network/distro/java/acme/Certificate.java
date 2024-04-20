@@ -13,25 +13,18 @@
  * SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
  * SPDX-FileCopyrightText: Contributors To The `net.splitcells.*` Projects
  */
-package net.splitcells.network.distro;
+package net.splitcells.network.distro.java.acme;
 
 import net.splitcells.dem.Dem;
-import net.splitcells.dem.data.set.Set;
 import net.splitcells.dem.resource.Paths;
 import net.splitcells.dem.resource.communication.log.LogLevel;
 import net.splitcells.dem.resource.communication.log.Logs;
-import net.splitcells.dem.utils.StringUtils;
-import net.splitcells.website.Formats;
-import net.splitcells.website.server.Config;
-import net.splitcells.website.server.processor.BinaryMessage;
-import net.splitcells.website.server.projects.ProjectsRendererI;
-import net.splitcells.website.server.projects.extension.ProjectsRendererExtension;
+import net.splitcells.network.distro.java.Distro;
 import net.splitcells.website.server.projects.extension.ProjectsRendererExtensions;
 import org.bouncycastle.jce.provider.BouncyCastleProvider;
 import org.shredzone.acme4j.Account;
 import org.shredzone.acme4j.AccountBuilder;
 import org.shredzone.acme4j.Authorization;
-import org.shredzone.acme4j.Certificate;
 import org.shredzone.acme4j.Session;
 import org.shredzone.acme4j.Status;
 import org.shredzone.acme4j.challenge.Http01Challenge;
@@ -53,14 +46,14 @@ import static net.splitcells.dem.data.set.Sets.setOfUniques;
 import static net.splitcells.dem.lang.perspective.PerspectiveI.perspective;
 import static net.splitcells.dem.utils.ExecutionException.executionException;
 import static net.splitcells.dem.utils.NotImplementedYet.notImplementedYet;
-import static net.splitcells.network.distro.AcmeChallengeFile.acmeChallengeFile;
+import static net.splitcells.network.distro.java.acme.AcmeChallengeFile.acmeChallengeFile;
 
-public class LetsEncryptExperiment {
+public class Certificate {
     public static void main(String... args) {
         Dem.process(() -> {
             Distro.service().start();
             sleepAtLeast(3000l);
-            System.out.println(new LetsEncryptExperiment("contacts@splitcells.net").certificate("live.splitcells.net"));
+            System.out.println(new Certificate("contacts@splitcells.net").certificate("live.splitcells.net"));
         }, env -> {
             env.config()
                     .withInitedOption(CurrentAcmeAuthorization.class)
@@ -70,7 +63,7 @@ public class LetsEncryptExperiment {
     }
 
     public static void certificate(String domain, String email) {
-        System.out.println("Retrieved certificate: " + new LetsEncryptExperiment("contacts@splitcells.net").certificate("live.splitcells.net"));
+        System.out.println("Retrieved certificate: " + new Certificate("contacts@splitcells.net").certificate("live.splitcells.net"));
     }
 
     private final String sessionUrl = "acme://letsencrypt.org";
@@ -78,12 +71,12 @@ public class LetsEncryptExperiment {
     private final Path userKeyPairPath = Paths.userHome("acme-user-key-pair");
     private final Path domainKeyPairPath = Paths.userHome("acme-domain-key-pair");
 
-    private LetsEncryptExperiment(String emailArg) {
+    private Certificate(String emailArg) {
         Security.addProvider(new BouncyCastleProvider());
         email = emailArg;
     }
 
-    public Certificate certificate(String domain) {
+    public org.shredzone.acme4j.Certificate certificate(String domain) {
         try {
             final var userKeyPair = userKeyPair();
             final var domainKeyPair = domainKeyPair();
@@ -95,7 +88,7 @@ public class LetsEncryptExperiment {
         }
     }
 
-    private Certificate certificate(String domain, Account account, KeyPair domainKeyPair) {
+    private org.shredzone.acme4j.Certificate certificate(String domain, Account account, KeyPair domainKeyPair) {
         try {
             final var order = account.newOrder().domain(domain).create();
             order.getAuthorizations().forEach(this::authorize);

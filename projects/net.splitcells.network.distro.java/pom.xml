@@ -47,6 +47,10 @@
             <groupId>com.formdev</groupId>
             <artifactId>flatlaf</artifactId>
         </dependency>
+        <dependency>
+            <groupId>org.shredzone.acme4j</groupId>
+            <artifactId>acme4j-client</artifactId>
+        </dependency>
     </dependencies>
     <build>
         <finalName>net.splitcells.network.distro</finalName>

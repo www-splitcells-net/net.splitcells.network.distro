@@ -13,9 +13,10 @@
  * SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
  * SPDX-FileCopyrightText: Contributors To The `net.splitcells.*` Projects
  */
-package net.splitcells.network.distro;
+package net.splitcells.network.distro.java.acme;
 
 import net.splitcells.dem.data.set.Set;
+import net.splitcells.dem.data.set.Sets;
 import net.splitcells.dem.utils.StringUtils;
 import net.splitcells.website.Formats;
 import net.splitcells.website.server.Config;
@@ -69,7 +70,7 @@ public class AcmeChallengeFile implements ProjectsRendererExtension {
     public Set<Path> projectPaths(ProjectsRendererI projectsRenderer) {
         final var currentAcmeChallenge = configValue(CurrentAcmeAuthorization.class);
         if (currentAcmeChallenge.value().isPresent()) {
-            return setOfUniques(Path.of(challengeResponsePath.substring(1)
+            return Sets.setOfUniques(Path.of(challengeResponsePath.substring(1)
                     + currentAcmeChallenge.value().get()
                     .findChallenge(Http01Challenge.class)
                     .orElseThrow()

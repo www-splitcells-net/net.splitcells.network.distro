@@ -22,12 +22,14 @@ import net.splitcells.dem.environment.resource.Service;
 import net.splitcells.dem.resource.communication.log.Logs;
 import net.splitcells.dem.resource.communication.log.MessageFilter;
 import net.splitcells.network.community.NetworkCommunityFileSystem;
+import net.splitcells.network.distro.java.acme.CurrentAcmeAuthorization;
 import net.splitcells.network.hub.NetworkHubFileSystem;
 import net.splitcells.network.log.NetworkLogFileSystem;
 import net.splitcells.network.media.NetworkMediaFileSystem;
 import net.splitcells.system.WebsiteViaJar;
 import net.splitcells.website.binaries.BinaryFileSystem;
 import net.splitcells.website.server.Config;
+import net.splitcells.website.server.projects.extension.ProjectsRendererExtensions;
 
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -40,6 +42,7 @@ import static net.splitcells.dem.resource.communication.Sender.stringSender;
 import static net.splitcells.dem.resource.communication.log.CommonMarkLog.commonMarkDui;
 import static net.splitcells.dem.resource.communication.log.LogLevel.TRACE;
 import static net.splitcells.dem.utils.ExecutionException.executionException;
+import static net.splitcells.network.distro.java.acme.AcmeChallengeFile.acmeChallengeFile;
 import static net.splitcells.website.server.ProjectConfig.projectConfig;
 
 public class Distro {
@@ -51,6 +54,13 @@ public class Distro {
     }
 
     public static void configurator(Environment env) {
+    }
+
+    public static void ensureSslCertificatePresence(Environment env) {
+        env.config()
+                .withInitedOption(CurrentAcmeAuthorization.class)
+                .configValue(ProjectsRendererExtensions.class)
+                .withAppended(acmeChallengeFile());
     }
 
     /**

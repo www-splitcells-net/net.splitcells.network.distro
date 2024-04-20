@@ -17,32 +17,16 @@ package net.splitcells.network.distro;
 
 import net.splitcells.dem.Dem;
 import net.splitcells.dem.environment.Environment;
-import net.splitcells.dem.environment.resource.Console;
 import net.splitcells.dem.environment.resource.Service;
-import net.splitcells.dem.resource.communication.log.Logs;
-import net.splitcells.dem.resource.communication.log.MessageFilter;
-import net.splitcells.network.community.NetworkCommunityFileSystem;
-import net.splitcells.network.log.NetworkLogFileSystem;
-import net.splitcells.network.media.NetworkMediaFileSystem;
+import net.splitcells.network.distro.java.acme.CurrentAcmeAuthorization;
 import net.splitcells.system.WebsiteViaJar;
-import net.splitcells.website.binaries.BinaryFileSystem;
 import net.splitcells.website.server.Config;
 import net.splitcells.website.server.projects.extension.ProjectsRendererExtensions;
 
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.nio.file.Path;
-
 import static net.splitcells.dem.Dem.configValue;
-import static net.splitcells.dem.Dem.environment;
-import static net.splitcells.dem.Dem.sleepAtLeast;
 import static net.splitcells.dem.lang.perspective.PerspectiveI.perspective;
-import static net.splitcells.dem.resource.communication.Sender.stringSender;
-import static net.splitcells.dem.resource.communication.log.CommonMarkLog.commonMarkDui;
-import static net.splitcells.dem.resource.communication.log.LogLevel.TRACE;
 import static net.splitcells.dem.utils.ExecutionException.executionException;
-import static net.splitcells.network.distro.AcmeChallengeFile.acmeChallengeFile;
-import static net.splitcells.network.distro.LetsEncryptExperiment.certificate;
+import static net.splitcells.network.distro.java.acme.AcmeChallengeFile.acmeChallengeFile;
 import static net.splitcells.website.server.ProjectConfig.projectConfig;
 
 public class Distro {
@@ -55,13 +39,6 @@ public class Distro {
 
     public static void configurator(Environment env) {
         net.splitcells.network.distro.java.Distro.configurator(env);
-    }
-
-    public static void ensureSslCertificatePresence(Environment env) {
-        env.config()
-                .withInitedOption(CurrentAcmeAuthorization.class)
-                .configValue(ProjectsRendererExtensions.class)
-                .withAppended(acmeChallengeFile());
     }
 
     /**
