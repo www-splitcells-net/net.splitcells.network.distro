@@ -158,6 +158,8 @@ public class Distro {
      * a new class loader with the same type and arguments would also be enough.
      * In order to easy development, it was decided to just use one slf4j config for now,
      * and to implement more complex settings, when a concrete need for that arises.</p>
+     * <p>IDEA Consider storing logs in database, so that SQL can be used for analysis:
+     * https://stackoverflow.com/questions/59573185/springboot-to-store-logs-in-h2-db-logback-configuration-error-detected</p>
      *
      * @param env Adjust env to use slf4j as a {@link Console}.
      */
