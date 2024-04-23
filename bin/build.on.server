@@ -2,5 +2,5 @@
 # SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 # SPDX-FileCopyrightText: Contributors To The `net.splitcells.*` Projects
 set -e
-cd ../net.splitcells.network.worker
-  bin/execute --name="test" --command='sh -c "cd /root/Documents/projects/net.splitcells.martins.avots.support.system/public/net.splitcells.network.distro/ && bin/build"'
+cd ../net.splitcells.network
+  bin/worker.execute --name="test" --command='sh -c "cd /root/Documents/projects/net.splitcells.martins.avots.support.system/public/net.splitcells.network.distro/ && bin/build"'
