@@ -152,6 +152,8 @@ public class Distro {
      * the given {@link Environment}.
      * This means, that this config is shared across all {@link Dem#process(Runnable, Consumer)}
      * instances by default.</p>
+     * <p>slf4j is used in order to integrate logs of frameworks into the logging output.
+     * Some frameworks detect the presence of slf4j and enable appropriate logging.</p>
      * <p>IDEA It may be a good idea, to provide one config for each {@link Dem#process(Runnable, Consumer)},
      * but no trivial method for starting a thread with a copy of the current class loader was found.
      * Instead of a copy of the current class loader,
