@@ -4,7 +4,7 @@
         <file>${user.home}/.local/state/${net.splitcells.dem.environment.config.ProgramName}/logs/execution-current.log</file>
         <!--<file>/home/splitcells/.local/state/logs/execution-current.log</file>-->
         <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
-            <fileNamePattern>${user.home}/.state/logs/execution-%d{dd-MM-yyyy}.%i.log</fileNamePattern>
+            <fileNamePattern>${user.home}/.local/state/${net.splitcells.dem.environment.config.ProgramName}/logs/execution-%d{yyyy-MM-dd}-%i.log</fileNamePattern>
             <MaxHistory>7</MaxHistory>
             <timeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
                 <maxFileSize>1GB</maxFileSize>
