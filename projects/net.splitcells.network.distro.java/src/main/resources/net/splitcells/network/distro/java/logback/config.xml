@@ -2,15 +2,11 @@
 <configuration>
     <appender name="log" class="ch.qos.logback.core.rolling.RollingFileAppender">
         <file>${user.home}/.local/state/${net.splitcells.dem.environment.config.ProgramName}/logs/execution-current.txt</file>
-        <!--<file>/home/splitcells/.local/state/logs/execution-current.log</file>-->
-        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+        <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
             <fileNamePattern>${user.home}/.local/state/${net.splitcells.dem.environment.config.ProgramName}/logs/execution-%d{yyyy-MM-dd}-%i.txt</fileNamePattern>
-            <MaxHistory>7</MaxHistory>
-            <timeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
-                <maxFileSize>1GB</maxFileSize>
-            </timeBasedFileNamingAndTriggeringPolicy>
-            <minIndex>1</minIndex>
-            <maxIndex>7</maxIndex>
+            <maxHistory>7</maxHistory>
+            <maxFileSize>1GB</maxFileSize>
+            <totalSizeCap>10GB</totalSizeCap>
         </rollingPolicy>
         <encoder>
             <pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} -%kvp- %msg%n</pattern>
