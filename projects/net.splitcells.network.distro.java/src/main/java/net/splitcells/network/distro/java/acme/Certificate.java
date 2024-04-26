@@ -98,6 +98,7 @@ public class Certificate {
                 logs().append(perspective("Waiting for `" + sessionUrl + "` to execute the challenge.")
                                 .withProperty("status", order.getStatus().toString())
                                 .withProperty("error", order.getError().map(e -> e.toString()).orElse("No error is present."))
+                                .withProperty("status check count", "" + i)
                         , LogLevel.INFO);
                 if (Status.INVALID.equals(order.getStatus())) {
                     throw executionException("Creating the certificate failed.");
