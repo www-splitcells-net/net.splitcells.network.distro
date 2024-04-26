@@ -94,7 +94,7 @@ public class Certificate {
             final var order = account.newOrder().domain(domain).create();
             order.getAuthorizations().forEach(this::authorize);
             order.execute(domainKeyPair);
-            for (int i = 0; i < 10; ++i) {
+            for (int i = 0; i < 100; ++i) {
                 logs().append(perspective("Waiting for `" + sessionUrl + "` to execute the challenge.")
                                 .withProperty("status", order.getStatus().toString())
                                 .withProperty("error", order.getError().map(e -> e.toString()).orElse("No error is present."))
