@@ -182,6 +182,7 @@ public class Certificate {
                 throw executionException(t);
             }
         }
+        net.splitcells.dem.resource.Files.createDirectory(userKeyPairPath.getParent());
         try (FileWriter fw = new FileWriter(userKeyPairPath.toFile())) {
             final var newUserKeypair = KeyPairUtils.createKeyPair();
             KeyPairUtils.writeKeyPair(newUserKeypair, fw);
@@ -204,6 +205,7 @@ public class Certificate {
                 throw executionException(t);
             }
         }
+        net.splitcells.dem.resource.Files.createDirectory(domainKeyPairPath.getParent());
         try (FileWriter fw = new FileWriter(domainKeyPairPath.toFile())) {
             final var newUserKeypair = KeyPairUtils.createKeyPair(4096);
             KeyPairUtils.writeKeyPair(newUserKeypair, fw);
