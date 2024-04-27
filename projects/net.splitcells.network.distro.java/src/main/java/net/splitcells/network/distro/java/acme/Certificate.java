@@ -102,7 +102,9 @@ public class Certificate {
             order.getAuthorizations().forEach(this::authorize);
             order.execute(domainKeyPair);
             // From experience this can take a lot of time. So any time limit, does not make any sense for now.
+            int i = 0;
             while (true) {
+                ++i
                 logs().append(perspective("Waiting for `" + sessionUrl + "` to provide certificate.")
                                 .withProperty("status", order.getStatus().toString())
                                 .withProperty("error", order.getError().map(e -> e.toString()).orElse("No error is present."))
@@ -141,7 +143,9 @@ public class Certificate {
                             .withProperty("token", challenge.getToken())
                     , LogLevel.INFO);
             // From experience this can take a lot of time. So any time limit, does not make any sense for now.
+            int i = 0;
             while (true) {
+                ++i;
                 logs().append(perspective("Waiting for `" + sessionUrl + "` to execute the challenge.")
                                 .withProperty("status", challenge.getStatus().toString())
                                 .withProperty("error", challenge.getError().map(e -> e.toString())
