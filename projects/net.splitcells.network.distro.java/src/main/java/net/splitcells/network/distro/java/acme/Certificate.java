@@ -16,6 +16,7 @@
 package net.splitcells.network.distro.java.acme;
 
 import net.splitcells.dem.Dem;
+import net.splitcells.dem.environment.config.ProgramName;
 import net.splitcells.dem.resource.Paths;
 import net.splitcells.dem.resource.communication.log.LogLevel;
 import net.splitcells.dem.resource.communication.log.Logs;
@@ -72,8 +73,10 @@ public class Certificate {
 
     private final String sessionUrl = "acme://letsencrypt.org";
     private final String email;
-    private final Path userKeyPairPath = Paths.userHome("acme-user-key-pair");
-    private final Path domainKeyPairPath = Paths.userHome("acme-domain-key-pair");
+    // TODO Create portable file storage concept.
+    private final Path userKeyPairPath = Paths.userHome(".local", "state", configValue(ProgramName.class), "acme-user-key-pair");
+    // TODO Create portable file storage concept.
+    private final Path domainKeyPairPath = Paths.userHome(".local", "state", configValue(ProgramName.class), "acme-domain-key-pair");
 
     private Certificate(String emailArg) {
         Security.addProvider(new BouncyCastleProvider());
