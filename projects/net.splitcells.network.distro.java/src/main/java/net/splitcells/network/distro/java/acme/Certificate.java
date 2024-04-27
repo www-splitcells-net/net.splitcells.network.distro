@@ -51,6 +51,9 @@ import static net.splitcells.dem.utils.ExecutionException.executionException;
 import static net.splitcells.dem.utils.NotImplementedYet.notImplementedYet;
 import static net.splitcells.network.distro.java.acme.AcmeChallengeFile.acmeChallengeFile;
 
+/**
+ * One can use `https://letsdebug.net/` in order to debug `https://letsencrypt.org/`.
+ */
 public class Certificate {
     public static void main(String... args) {
         Dem.process(() -> {
