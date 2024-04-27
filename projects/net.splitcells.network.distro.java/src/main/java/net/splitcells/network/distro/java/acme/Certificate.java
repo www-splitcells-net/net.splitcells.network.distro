@@ -86,7 +86,11 @@ public class Certificate {
             final var domainKeyPair = domainKeyPair();
             final var session = new Session(sessionUrl);
             final var account = account(session, userKeyPair);
-            return certificate(domain, account, domainKeyPair);
+            final var certificate = certificate(domain, account, domainKeyPair);
+            try (FileWriter fw = new FileWriter(domainKeyPairPath.toFile())) {
+                certificate.writeCertificate(fw);
+            }
+            return certificate;
         } catch (Throwable t) {
             throw executionException(t);
         }
