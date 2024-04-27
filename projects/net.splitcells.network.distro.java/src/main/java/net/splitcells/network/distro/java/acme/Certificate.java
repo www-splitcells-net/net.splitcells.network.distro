@@ -112,7 +112,12 @@ public class Certificate {
                 final var now = Instant.now();
                 final var updateTime = order.fetch().orElseGet(() -> Instant.now().plusSeconds(TIME_BETWEEN_CHECKS));
                 final var waitDuration = now.until(updateTime, ChronoUnit.MILLIS);
-                logs().append("Waiting " + waitDuration + " milliseconds for challenge update from `" + sessionUrl + "`.");
+                logs().append("Waiting "
+                                + waitDuration
+                                + " milliseconds for certificate to be provided by `"
+                                + sessionUrl
+                                + "`."
+                        , LogLevel.INFO);
                 sleepAtLeast(waitDuration);
             }
         } catch (Throwable t) {
@@ -134,7 +139,8 @@ public class Certificate {
             for (int i = 0; i < MAX_CHECK_TIME; ++i) {
                 logs().append(perspective("Waiting for `" + sessionUrl + "` to execute the challenge.")
                                 .withProperty("status", challenge.getStatus().toString())
-                                .withProperty("error", challenge.getError().map(e -> e.toString()).orElse("No error is present."))
+                                .withProperty("error", challenge.getError().map(e -> e.toString())
+                                        .orElse("No error is present."))
                                 .withProperty("status check count", "" + i)
                         , LogLevel.INFO);
                 if (Status.INVALID.equals(challenge.getStatus())) {
@@ -145,7 +151,14 @@ public class Certificate {
                 }
                 final var now = Instant.now();
                 final var updateTime = challenge.fetch().orElseGet(() -> Instant.now().plusSeconds(TIME_BETWEEN_CHECKS));
-                sleepAtLeast(now.until(updateTime, ChronoUnit.MILLIS));
+                final var waitDuration = now.until(updateTime, ChronoUnit.MILLIS);
+                logs().append("Waiting "
+                                + waitDuration
+                                + " milliseconds for challenge update from `"
+                                + sessionUrl
+                                + "`."
+                        , LogLevel.INFO);
+                sleepAtLeast(waitDuration);
             }
         } catch (Throwable t) {
             throw executionException(t);
