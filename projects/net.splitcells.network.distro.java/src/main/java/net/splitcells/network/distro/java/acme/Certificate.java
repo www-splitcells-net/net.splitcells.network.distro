@@ -53,6 +53,7 @@ import static net.splitcells.network.distro.java.acme.AcmeChallengeFile.acmeChal
 
 /**
  * One can use `https://letsdebug.net/` in order to debug `https://letsencrypt.org/`.
+ * Published certificates can be found via `https://crt.sh/`.
  */
 public class Certificate {
     public static void main(String... args) {
