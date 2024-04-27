@@ -73,8 +73,7 @@ public class Certificate {
     }
 
     private static final long TIME_BETWEEN_CHECKS = 3l;
-
-    private final String sessionUrl = "acme://letsencrypt.org";
+    private final String sessionUrl = "acme://letsencrypt.org/staging"; // TODO Use productive system: "acme://letsencrypt.org";
     private final String email;
     // TODO Create portable file storage concept.
     private final Path userKeyPairPath = Paths.userHome(".local", "state", configValue(ProgramName.class), "acme-user-key-pair");
@@ -110,7 +109,7 @@ public class Certificate {
             // From experience this can take a lot of time. So any time limit, does not make any sense for now.
             int i = 0;
             while (true) {
-                ++i
+                ++i;
                 logs().append(perspective("Waiting for `" + sessionUrl + "` to provide certificate.")
                                 .withProperty("status", order.getStatus().toString())
                                 .withProperty("error", order.getError().map(e -> e.toString()).orElse("No error is present."))
