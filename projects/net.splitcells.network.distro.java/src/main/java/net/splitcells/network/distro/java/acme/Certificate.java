@@ -67,6 +67,9 @@ public class Certificate {
         System.out.println("Retrieved certificate: " + new Certificate("contacts@splitcells.net").certificate("live.splitcells.net"));
     }
 
+    private static final int MAX_CHECK_TIME = 100;
+    private static final long TIME_BETWEEN_CHECKS = 3l;
+
     private final String sessionUrl = "acme://letsencrypt.org";
     private final String email;
     private final Path userKeyPairPath = Paths.userHome("acme-user-key-pair");
@@ -94,8 +97,8 @@ public class Certificate {
             final var order = account.newOrder().domain(domain).create();
             order.getAuthorizations().forEach(this::authorize);
             order.execute(domainKeyPair);
-            for (int i = 0; i < 100; ++i) {
-                logs().append(perspective("Waiting for `" + sessionUrl + "` to execute the challenge.")
+            for (int i = 0; i < MAX_CHECK_TIME; ++i) {
+                logs().append(perspective("Waiting for `" + sessionUrl + "` to provide certificate.")
                                 .withProperty("status", order.getStatus().toString())
                                 .withProperty("error", order.getError().map(e -> e.toString()).orElse("No error is present."))
                                 .withProperty("status check count", "" + i)
@@ -107,7 +110,7 @@ public class Certificate {
                     return order.getCertificate();
                 }
                 final var now = Instant.now();
-                final var updateTime = order.fetch().orElseGet(() -> Instant.now().plusSeconds(3L));
+                final var updateTime = order.fetch().orElseGet(() -> Instant.now().plusSeconds(TIME_BETWEEN_CHECKS));
                 final var waitDuration = now.until(updateTime, ChronoUnit.MILLIS);
                 logs().append("Waiting " + waitDuration + " milliseconds for challenge update from `" + sessionUrl + "`.");
                 sleepAtLeast(waitDuration);
@@ -125,8 +128,15 @@ public class Certificate {
             }
             configValue(CurrentAcmeAuthorization.class).withValue(Optional.of(auth));
             final var challenge = auth.findChallenge(Http01Challenge.class).orElseThrow();
-            System.out.println(challenge.getToken());
-            for (int i = 0; i < 50; ++i) {
+            logs().append(perspective("Waiting for `" + sessionUrl + "` to execute the challenge.")
+                            .withProperty("token", challenge.getToken())
+                    , LogLevel.INFO);
+            for (int i = 0; i < MAX_CHECK_TIME; ++i) {
+                logs().append(perspective("Waiting for `" + sessionUrl + "` to execute the challenge.")
+                                .withProperty("status", challenge.getStatus().toString())
+                                .withProperty("error", challenge.getError().map(e -> e.toString()).orElse("No error is present."))
+                                .withProperty("status check count", "" + i)
+                        , LogLevel.INFO);
                 if (Status.INVALID.equals(challenge.getStatus())) {
                     throw executionException("Could not complete ACME challenge.");
                 }
@@ -134,7 +144,7 @@ public class Certificate {
                     return;
                 }
                 final var now = Instant.now();
-                final var updateTime = challenge.fetch().orElseGet(() -> Instant.now().plusSeconds(3L));
+                final var updateTime = challenge.fetch().orElseGet(() -> Instant.now().plusSeconds(TIME_BETWEEN_CHECKS));
                 sleepAtLeast(now.until(updateTime, ChronoUnit.MILLIS));
             }
         } catch (Throwable t) {
