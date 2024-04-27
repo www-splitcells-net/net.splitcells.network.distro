@@ -21,6 +21,7 @@ import net.splitcells.dem.resource.communication.log.LogLevel;
 import net.splitcells.dem.resource.communication.log.Logs;
 import net.splitcells.network.distro.java.Distro;
 import net.splitcells.website.server.projects.extension.ProjectsRendererExtensions;
+import org.apache.commons.collections4.functors.WhileClosure;
 import org.bouncycastle.jce.provider.BouncyCastleProvider;
 import org.shredzone.acme4j.Account;
 import org.shredzone.acme4j.AccountBuilder;
@@ -67,7 +68,6 @@ public class Certificate {
         System.out.println("Retrieved certificate: " + new Certificate("contacts@splitcells.net").certificate("live.splitcells.net"));
     }
 
-    private static final int MAX_CHECK_TIME = 100;
     private static final long TIME_BETWEEN_CHECKS = 3l;
 
     private final String sessionUrl = "acme://letsencrypt.org";
@@ -97,7 +97,8 @@ public class Certificate {
             final var order = account.newOrder().domain(domain).create();
             order.getAuthorizations().forEach(this::authorize);
             order.execute(domainKeyPair);
-            for (int i = 0; i < MAX_CHECK_TIME; ++i) {
+            // From experience this can take a lot of time. So any time limit, does not make any sense for now.
+            while (true) {
                 logs().append(perspective("Waiting for `" + sessionUrl + "` to provide certificate.")
                                 .withProperty("status", order.getStatus().toString())
                                 .withProperty("error", order.getError().map(e -> e.toString()).orElse("No error is present."))
@@ -123,7 +124,6 @@ public class Certificate {
         } catch (Throwable t) {
             throw executionException(t);
         }
-        throw executionException("Could not fetch certificate.");
     }
 
     private void authorize(Authorization auth) {
@@ -136,7 +136,8 @@ public class Certificate {
             logs().append(perspective("Waiting for `" + sessionUrl + "` to execute the challenge.")
                             .withProperty("token", challenge.getToken())
                     , LogLevel.INFO);
-            for (int i = 0; i < MAX_CHECK_TIME; ++i) {
+            // From experience this can take a lot of time. So any time limit, does not make any sense for now.
+            while (true) {
                 logs().append(perspective("Waiting for `" + sessionUrl + "` to execute the challenge.")
                                 .withProperty("status", challenge.getStatus().toString())
                                 .withProperty("error", challenge.getError().map(e -> e.toString())
@@ -163,7 +164,6 @@ public class Certificate {
         } catch (Throwable t) {
             throw executionException(t);
         }
-        throw executionException("Could not fetch certificate.");
     }
 
     public KeyPair userKeyPair() {
