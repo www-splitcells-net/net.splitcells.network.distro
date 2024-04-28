@@ -147,6 +147,8 @@ public class Certificate {
             final var challenge = auth.findChallenge(Http01Challenge.class).orElseThrow();
             logs().append(perspective("Waiting for `" + sessionUrl + "` to execute the challenge.")
                             .withProperty("token", challenge.getToken())
+                            .withProperty("identifier", auth.getIdentifier().getValue())
+                            .withProperty("type of identifier", auth.getIdentifier().getType())
                     , LogLevel.INFO);
             challenge.trigger();
             // From experience this can take a lot of time. So any time limit, does not make any sense for now.
