@@ -148,6 +148,7 @@ public class Certificate {
             logs().append(perspective("Waiting for `" + sessionUrl + "` to execute the challenge.")
                             .withProperty("token", challenge.getToken())
                     , LogLevel.INFO);
+            challenge.trigger();
             // From experience this can take a lot of time. So any time limit, does not make any sense for now.
             int i = 0;
             while (true) {
