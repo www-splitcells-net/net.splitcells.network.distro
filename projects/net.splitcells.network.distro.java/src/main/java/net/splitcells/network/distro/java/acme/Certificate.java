@@ -19,10 +19,8 @@ import net.splitcells.dem.Dem;
 import net.splitcells.dem.environment.config.ProgramName;
 import net.splitcells.dem.resource.Paths;
 import net.splitcells.dem.resource.communication.log.LogLevel;
-import net.splitcells.dem.resource.communication.log.Logs;
 import net.splitcells.network.distro.java.Distro;
 import net.splitcells.website.server.projects.extension.ProjectsRendererExtensions;
-import org.apache.commons.collections4.functors.WhileClosure;
 import org.bouncycastle.jce.provider.BouncyCastleProvider;
 import org.shredzone.acme4j.Account;
 import org.shredzone.acme4j.AccountBuilder;
@@ -32,8 +30,11 @@ import org.shredzone.acme4j.Status;
 import org.shredzone.acme4j.challenge.Http01Challenge;
 import org.shredzone.acme4j.util.KeyPairUtils;
 
+import java.io.ByteArrayOutputStream;
 import java.io.FileReader;
 import java.io.FileWriter;
+import java.io.IOException;
+import java.io.OutputStreamWriter;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.security.KeyPair;
@@ -60,7 +61,7 @@ public class Certificate {
         Dem.process(() -> {
             Distro.service().start();
             sleepAtLeast(3000l);
-            System.out.println(new Certificate("contacts@splitcells.net").certificate("live.splitcells.net"));
+            System.out.println(new Certificate("contacts@splitcells.net").certificatePem("live.splitcells.net"));
         }, env -> {
             env.config()
                     .withInitedOption(CurrentAcmeAuthorization.class)
@@ -69,8 +70,16 @@ public class Certificate {
         });
     }
 
-    public static void certificate(String domain, String email) {
-        System.out.println("Retrieved certificate: " + new Certificate("contacts@splitcells.net").certificate("live.splitcells.net"));
+    public static byte[] certificatePem(String domain, String email) {
+        final var certificateStream = new ByteArrayOutputStream();
+        final var certificateWriter = new OutputStreamWriter(certificateStream);
+        try {
+            new Certificate("contacts@splitcells.net").certificatePem("live.splitcells.net").writeCertificate(certificateWriter);
+            certificateWriter.flush();
+        } catch (IOException e) {
+            throw executionException(e);
+        }
+        return certificateStream.toByteArray();
     }
 
     private static final long TIME_BETWEEN_CHECKS = 3l;
@@ -86,13 +95,13 @@ public class Certificate {
         email = emailArg;
     }
 
-    public org.shredzone.acme4j.Certificate certificate(String domain) {
+    public org.shredzone.acme4j.Certificate certificatePem(String domain) {
         try {
             final var userKeyPair = userKeyPair();
             final var domainKeyPair = domainKeyPair();
             final var session = new Session(sessionUrl);
             final var account = account(session, userKeyPair);
-            final var certificate = certificate(domain, account, domainKeyPair);
+            final var certificate = certificatePem(domain, account, domainKeyPair);
             try (FileWriter fw = new FileWriter(domainKeyPairPath.toFile())) {
                 certificate.writeCertificate(fw);
             }
@@ -102,7 +111,7 @@ public class Certificate {
         }
     }
 
-    private org.shredzone.acme4j.Certificate certificate(String domain, Account account, KeyPair domainKeyPair) {
+    private org.shredzone.acme4j.Certificate certificatePem(String domain, Account account, KeyPair domainKeyPair) {
         try {
             final var order = account.newOrder().domain(domain).create();
             order.getAuthorizations().forEach(this::authorize);
