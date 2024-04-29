@@ -89,6 +89,7 @@ public class Certificate {
     private final Path userKeyPairPath = Paths.userHome(".local", "state", configValue(ProgramName.class), "acme-user-key-pair");
     // TODO Create portable file storage concept.
     private final Path domainKeyPairPath = Paths.userHome(".local", "state", configValue(ProgramName.class), "acme-domain-key-pair");
+    private final Path acmeCertificatePath = Paths.userHome(".local", "state", configValue(ProgramName.class), "acme-certificate.pem");
 
     private Certificate(String emailArg) {
         Security.addProvider(new BouncyCastleProvider());
@@ -102,7 +103,7 @@ public class Certificate {
             final var session = new Session(sessionUrl);
             final var account = account(session, userKeyPair);
             final var certificate = certificatePem(domain, account, domainKeyPair);
-            try (FileWriter fw = new FileWriter(domainKeyPairPath.toFile())) {
+            try (FileWriter fw = new FileWriter(acmeCertificatePath.toFile())) {
                 certificate.writeCertificate(fw);
             }
             return certificate;
