@@ -17,7 +17,6 @@ package net.splitcells.network.distro.java.acme;
 
 import net.splitcells.dem.Dem;
 import net.splitcells.dem.environment.config.ProgramName;
-import net.splitcells.dem.resource.Files;
 import net.splitcells.dem.resource.Paths;
 import net.splitcells.dem.resource.communication.log.LogLevel;
 import net.splitcells.dem.utils.StringUtils;
@@ -56,18 +55,17 @@ import static net.splitcells.dem.resource.communication.log.Logs.logs;
 import static net.splitcells.dem.utils.ExecutionException.executionException;
 import static net.splitcells.dem.utils.NotImplementedYet.notImplementedYet;
 import static net.splitcells.network.distro.java.acme.AcmeChallengeFile.acmeChallengeFile;
-import static net.splitcells.network.distro.java.acme.PublicKeyCryptoConfig.publicKeyCryptoConfig;
 
 /**
  * One can use `https://letsdebug.net/` in order to debug `https://letsencrypt.org/`.
  * Published certificates can be found via `https://crt.sh/`.
  */
-public class Certificate {
+public class PublicKeyCrypto {
     public static void main(String... args) {
         Dem.process(() -> {
             Distro.service().start();
             sleepAtLeast(3000l);
-            System.out.println(new Certificate("contacts@splitcells.net").certificatePem("live.splitcells.net"));
+            System.out.println(new PublicKeyCrypto("contacts@splitcells.net").publicKeyCryptoConfig("live.splitcells.net"));
         }, env -> {
             env.config()
                     .withInitedOption(CurrentAcmeAuthorization.class)
@@ -76,13 +74,13 @@ public class Certificate {
         });
     }
 
-    public static PublicKeyCryptoConfig certificatePem() {
-        return certificatePem(configValue(PublicDomain.class).orElseThrow()
+    public static PublicKeyCryptoConfig publicKeyCryptoConfig() {
+        return publicKeyCryptoConfig(configValue(PublicDomain.class).orElseThrow()
                 , configValue(PublicContactEMailAddress.class).orElseThrow());
     }
 
-    private static PublicKeyCryptoConfig certificatePem(String domain, String email) {
-        final var publicKeyCryptoConfig = new Certificate(email).certificatePem(domain);
+    private static PublicKeyCryptoConfig publicKeyCryptoConfig(String domain, String email) {
+        final var publicKeyCryptoConfig = new PublicKeyCrypto(email).publicKeyCryptoConfig(domain);
         logs().append(perspective("Using the following certificate PEM:")
                         .withProperty("public certificate chain", StringUtils.parseString(publicKeyCryptoConfig.publicPem()))
                         .withProperty("private key", StringUtils.parseString(publicKeyCryptoConfig.privatePem()))
@@ -113,22 +111,22 @@ public class Certificate {
      */
     private final Path acmeCertificatePath = Paths.userHome(".local", "state", configValue(ProgramName.class), "acme-certificate.pem");
 
-    private Certificate(String emailArg) {
+    private PublicKeyCrypto(String emailArg) {
         Security.addProvider(new BouncyCastleProvider());
         email = emailArg;
     }
 
-    public PublicKeyCryptoConfig certificatePem(String domain) {
+    public PublicKeyCryptoConfig publicKeyCryptoConfig(String domain) {
         try {
             if (fileExists(acmeCertificatePath)) {
-                return publicKeyCryptoConfig(readFileAsBytes(domainKeyPairPath)
+                return PublicKeyCryptoConfig.publicKeyCryptoConfig(readFileAsBytes(domainKeyPairPath)
                         , readFileAsBytes(acmeCertificatePath));
             }
             final var userKeyPair = userKeyPair();
             final var domainKeyPair = domainKeyPair();
             final var session = new Session(sessionUrl);
             final var account = account(session, userKeyPair);
-            final var certificate = certificatePem(domain, account, domainKeyPair);
+            final var certificate = publicKeyCryptoConfig(domain, account, domainKeyPair);
             try (FileWriter fw = new FileWriter(acmeCertificatePath.toFile())) {
                 certificate.writeCertificate(fw);
             }
@@ -140,13 +138,13 @@ public class Certificate {
             } catch (IOException e) {
                 throw executionException(e);
             }
-            return publicKeyCryptoConfig(readFileAsBytes(domainKeyPairPath), certificateStream.toByteArray());
+            return PublicKeyCryptoConfig.publicKeyCryptoConfig(readFileAsBytes(domainKeyPairPath), certificateStream.toByteArray());
         } catch (Throwable t) {
             throw executionException(t);
         }
     }
 
-    private org.shredzone.acme4j.Certificate certificatePem(String domain, Account account, KeyPair domainKeyPair) {
+    private org.shredzone.acme4j.Certificate publicKeyCryptoConfig(String domain, Account account, KeyPair domainKeyPair) {
         try {
             final var order = account.newOrder().domain(domain).create();
             order.getAuthorizations().forEach(this::authorize);
