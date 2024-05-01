@@ -18,10 +18,11 @@ package net.splitcells.network.distro.java.acme;
 import net.splitcells.dem.environment.config.framework.Option;
 
 /**
- * For production the URI `acme://letsencrypt.org/` might be used,
+ * For production the URI {@link #PRODUCTION_ACME_SERVER} might be used,
  * as the default URI is just for testing.
  */
 public class AcmeServerUri implements Option<String> {
+    public static final String PRODUCTION_ACME_SERVER = "acme://letsencrypt.org/";
     @Override
     public String defaultValue() {
         return "acme://letsencrypt.org/staging";
