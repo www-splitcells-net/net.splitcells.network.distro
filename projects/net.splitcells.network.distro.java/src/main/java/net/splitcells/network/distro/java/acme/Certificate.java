@@ -20,6 +20,8 @@ import net.splitcells.dem.environment.config.ProgramName;
 import net.splitcells.dem.resource.Paths;
 import net.splitcells.dem.resource.communication.log.LogLevel;
 import net.splitcells.network.distro.java.Distro;
+import net.splitcells.website.server.config.PublicContactEMailAddress;
+import net.splitcells.website.server.config.PublicDomain;
 import net.splitcells.website.server.projects.extension.ProjectsRendererExtensions;
 import org.bouncycastle.jce.provider.BouncyCastleProvider;
 import org.shredzone.acme4j.Account;
@@ -70,11 +72,18 @@ public class Certificate {
         });
     }
 
-    public static byte[] certificatePem(String domain, String email) {
+    public static byte[] certificatePem() {
+        return certificatePem(configValue(PublicDomain.class).orElseThrow()
+                , configValue(PublicContactEMailAddress.class).orElseThrow());
+    }
+
+    private static byte[] certificatePem(String domain, String email) {
         final var certificateStream = new ByteArrayOutputStream();
         final var certificateWriter = new OutputStreamWriter(certificateStream);
         try {
-            new Certificate("contacts@splitcells.net").certificatePem("live.splitcells.net").writeCertificate(certificateWriter);
+            new Certificate(email)
+                    .certificatePem(domain)
+                    .writeCertificate(certificateWriter);
             certificateWriter.flush();
         } catch (IOException e) {
             throw executionException(e);
@@ -83,7 +92,7 @@ public class Certificate {
     }
 
     private static final long TIME_BETWEEN_CHECKS = 3l;
-    private final String sessionUrl = "acme://letsencrypt.org/staging"; // TODO Use productive system: "acme://letsencrypt.org";
+    private final String sessionUrl = configValue(AcmeServerUri.class);
     private final String email;
     // TODO Create portable file storage concept.
     private final Path userKeyPairPath = Paths.userHome(".local", "state", configValue(ProgramName.class), "acme-user-key-pair");
