@@ -50,10 +50,13 @@ import static net.splitcells.dem.Dem.configValue;
 import static net.splitcells.dem.Dem.sleepAtLeast;
 import static net.splitcells.dem.data.set.Sets.setOfUniques;
 import static net.splitcells.dem.lang.perspective.PerspectiveI.perspective;
+import static net.splitcells.dem.resource.Files.fileExists;
+import static net.splitcells.dem.resource.Files.readFileAsBytes;
 import static net.splitcells.dem.resource.communication.log.Logs.logs;
 import static net.splitcells.dem.utils.ExecutionException.executionException;
 import static net.splitcells.dem.utils.NotImplementedYet.notImplementedYet;
 import static net.splitcells.network.distro.java.acme.AcmeChallengeFile.acmeChallengeFile;
+import static net.splitcells.network.distro.java.acme.PublicKeyCryptoConfig.publicKeyCryptoConfig;
 
 /**
  * One can use `https://letsdebug.net/` in order to debug `https://letsencrypt.org/`.
@@ -73,17 +76,18 @@ public class Certificate {
         });
     }
 
-    public static byte[] certificatePem() {
+    public static PublicKeyCryptoConfig certificatePem() {
         return certificatePem(configValue(PublicDomain.class).orElseThrow()
                 , configValue(PublicContactEMailAddress.class).orElseThrow());
     }
 
-    private static byte[] certificatePem(String domain, String email) {
-        final var certificatePem = new Certificate(email).certificatePem(domain);
+    private static PublicKeyCryptoConfig certificatePem(String domain, String email) {
+        final var publicKeyCryptoConfig = new Certificate(email).certificatePem(domain);
         logs().append(perspective("Using the following certificate PEM:")
-                        .withProperty("PEM content", StringUtils.parseString(certificatePem))
+                        .withProperty("public certificate chain", StringUtils.parseString(publicKeyCryptoConfig.publicPem()))
+                        .withProperty("private key", StringUtils.parseString(publicKeyCryptoConfig.privatePem()))
                 , LogLevel.DEBUG);
-        return certificatePem;
+        return publicKeyCryptoConfig;
     }
 
     private static final long TIME_BETWEEN_CHECKS = 3l;
@@ -114,10 +118,11 @@ public class Certificate {
         email = emailArg;
     }
 
-    public byte[] certificatePem(String domain) {
+    public PublicKeyCryptoConfig certificatePem(String domain) {
         try {
-            if (Files.fileExists(acmeCertificatePath)) {
-                return Files.readFileAsBytes(acmeCertificatePath);
+            if (fileExists(acmeCertificatePath)) {
+                return publicKeyCryptoConfig(readFileAsBytes(domainKeyPairPath)
+                        , readFileAsBytes(acmeCertificatePath));
             }
             final var userKeyPair = userKeyPair();
             final var domainKeyPair = domainKeyPair();
@@ -135,7 +140,7 @@ public class Certificate {
             } catch (IOException e) {
                 throw executionException(e);
             }
-            return certificateStream.toByteArray();
+            return publicKeyCryptoConfig(readFileAsBytes(domainKeyPairPath), certificateStream.toByteArray());
         } catch (Throwable t) {
             throw executionException(t);
         }
@@ -223,7 +228,7 @@ public class Certificate {
     }
 
     public KeyPair userKeyPair() {
-        if (Files.fileExists(userKeyPairPath)) {
+        if (fileExists(userKeyPairPath)) {
             try (FileReader fileReader = new FileReader(userKeyPairPath.toFile())) {
                 return KeyPairUtils.readKeyPair(fileReader);
             } catch (Throwable t) {
@@ -246,7 +251,7 @@ public class Certificate {
      * @return
      */
     public KeyPair domainKeyPair() {
-        if (Files.fileExists(domainKeyPairPath)) {
+        if (fileExists(domainKeyPairPath)) {
             try (FileReader fileReader = new FileReader(domainKeyPairPath.toFile())) {
                 return KeyPairUtils.readKeyPair(fileReader);
             } catch (Throwable t) {
