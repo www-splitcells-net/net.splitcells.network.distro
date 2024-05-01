@@ -89,10 +89,24 @@ public class Certificate {
     private static final long TIME_BETWEEN_CHECKS = 3l;
     private final String sessionUrl = configValue(AcmeServerUri.class);
     private final String email;
-    // TODO Create portable file storage concept.
+    /**
+     * <p>This is the private key, identifying the account used at {@link #sessionUrl},
+     * in order to publicly sign {@link #acmeCertificatePath}.</p>
+     * <p>TODO Create portable file storage concept.</p>
+     */
     private final Path userKeyPairPath = Paths.userHome(".local", "state", configValue(ProgramName.class), "acme-user-key-pair");
-    // TODO Create portable file storage concept.
+    /**
+     * <p>This is the private key used,
+     * in order to encrypt the messages of the server,
+     * that can be decrypt via {@link #acmeCertificatePath}.</p>
+     * <p>TODO Create portable file storage concept.</p>
+     */
     private final Path domainKeyPairPath = Paths.userHome(".local", "state", configValue(ProgramName.class), "acme-domain-key-pair");
+    /**
+     * <p>This is the public certificate, that can be used,
+     * in order to authenticate the identity of the server.</p>
+     * <p>TODO Create portable file storage concept.</p>
+     */
     private final Path acmeCertificatePath = Paths.userHome(".local", "state", configValue(ProgramName.class), "acme-certificate.pem");
 
     private Certificate(String emailArg) {
