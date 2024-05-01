@@ -17,8 +17,10 @@ package net.splitcells.network.distro.java.acme;
 
 import net.splitcells.dem.Dem;
 import net.splitcells.dem.environment.config.ProgramName;
+import net.splitcells.dem.resource.Files;
 import net.splitcells.dem.resource.Paths;
 import net.splitcells.dem.resource.communication.log.LogLevel;
+import net.splitcells.dem.utils.StringUtils;
 import net.splitcells.network.distro.java.Distro;
 import net.splitcells.website.server.config.PublicContactEMailAddress;
 import net.splitcells.website.server.config.PublicDomain;
@@ -37,7 +39,6 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
-import java.nio.file.Files;
 import java.nio.file.Path;
 import java.security.KeyPair;
 import java.security.Security;
@@ -78,17 +79,11 @@ public class Certificate {
     }
 
     private static byte[] certificatePem(String domain, String email) {
-        final var certificateStream = new ByteArrayOutputStream();
-        final var certificateWriter = new OutputStreamWriter(certificateStream);
-        try {
-            new Certificate(email)
-                    .certificatePem(domain)
-                    .writeCertificate(certificateWriter);
-            certificateWriter.flush();
-        } catch (IOException e) {
-            throw executionException(e);
-        }
-        return certificateStream.toByteArray();
+        final var certificatePem = new Certificate(email).certificatePem(domain);
+        logs().append(perspective("Using the following certificate PEM:")
+                        .withProperty("PEM content", StringUtils.parseString(certificatePem))
+                , LogLevel.DEBUG);
+        return certificatePem;
     }
 
     private static final long TIME_BETWEEN_CHECKS = 3l;
@@ -105,8 +100,11 @@ public class Certificate {
         email = emailArg;
     }
 
-    public org.shredzone.acme4j.Certificate certificatePem(String domain) {
+    public byte[] certificatePem(String domain) {
         try {
+            if (Files.fileExists(acmeCertificatePath)) {
+                return Files.readFileAsBytes(acmeCertificatePath);
+            }
             final var userKeyPair = userKeyPair();
             final var domainKeyPair = domainKeyPair();
             final var session = new Session(sessionUrl);
@@ -115,7 +113,15 @@ public class Certificate {
             try (FileWriter fw = new FileWriter(acmeCertificatePath.toFile())) {
                 certificate.writeCertificate(fw);
             }
-            return certificate;
+            final var certificateStream = new ByteArrayOutputStream();
+            final var certificateWriter = new OutputStreamWriter(certificateStream);
+            try {
+                certificate.writeCertificate(certificateWriter);
+                certificateWriter.flush();
+            } catch (IOException e) {
+                throw executionException(e);
+            }
+            return certificateStream.toByteArray();
         } catch (Throwable t) {
             throw executionException(t);
         }
@@ -203,7 +209,7 @@ public class Certificate {
     }
 
     public KeyPair userKeyPair() {
-        if (Files.exists(userKeyPairPath)) {
+        if (Files.fileExists(userKeyPairPath)) {
             try (FileReader fileReader = new FileReader(userKeyPairPath.toFile())) {
                 return KeyPairUtils.readKeyPair(fileReader);
             } catch (Throwable t) {
@@ -226,7 +232,7 @@ public class Certificate {
      * @return
      */
     public KeyPair domainKeyPair() {
-        if (Files.exists(domainKeyPairPath)) {
+        if (Files.fileExists(domainKeyPairPath)) {
             try (FileReader fileReader = new FileReader(domainKeyPairPath.toFile())) {
                 return KeyPairUtils.readKeyPair(fileReader);
             } catch (Throwable t) {
