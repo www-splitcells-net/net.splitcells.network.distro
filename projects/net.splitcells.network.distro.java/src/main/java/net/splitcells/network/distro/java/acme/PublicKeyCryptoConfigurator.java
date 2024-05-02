@@ -60,12 +60,12 @@ import static net.splitcells.network.distro.java.acme.AcmeChallengeFile.acmeChal
  * One can use `https://letsdebug.net/` in order to debug `https://letsencrypt.org/`.
  * Published certificates can be found via `https://crt.sh/`.
  */
-public class PublicKeyCrypto {
+public class PublicKeyCryptoConfigurator {
     public static void main(String... args) {
         Dem.process(() -> {
             Distro.service().start();
             sleepAtLeast(3000l);
-            System.out.println(new PublicKeyCrypto("contacts@splitcells.net").publicKeyCryptoConfig("live.splitcells.net"));
+            System.out.println(new PublicKeyCryptoConfigurator("contacts@splitcells.net").publicKeyCryptoConfig("live.splitcells.net"));
         }, env -> {
             env.config()
                     .withInitedOption(CurrentAcmeAuthorization.class)
@@ -80,7 +80,7 @@ public class PublicKeyCrypto {
     }
 
     private static PublicKeyCryptoConfig publicKeyCryptoConfig(String domain, String email) {
-        final var publicKeyCryptoConfig = new PublicKeyCrypto(email).publicKeyCryptoConfig(domain);
+        final var publicKeyCryptoConfig = new PublicKeyCryptoConfigurator(email).publicKeyCryptoConfig(domain);
         logs().append(perspective("Using the following certificate PEM:")
                         .withProperty("public certificate chain", StringUtils.parseString(publicKeyCryptoConfig.publicPem()))
                         .withProperty("private key", StringUtils.parseString(publicKeyCryptoConfig.privatePem()))
@@ -111,7 +111,7 @@ public class PublicKeyCrypto {
      */
     private final Path acmeCertificatePath = Paths.userHome(".local", "state", configValue(ProgramName.class), "acme-certificate.pem");
 
-    private PublicKeyCrypto(String emailArg) {
+    private PublicKeyCryptoConfigurator(String emailArg) {
         Security.addProvider(new BouncyCastleProvider());
         email = emailArg;
     }
