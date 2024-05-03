@@ -25,6 +25,8 @@ import net.splitcells.website.server.config.PublicContactEMailAddress;
 import net.splitcells.website.server.config.PublicDomain;
 import net.splitcells.website.server.projects.extension.ProjectsRendererExtensions;
 import org.bouncycastle.jce.provider.BouncyCastleProvider;
+import org.bouncycastle.openssl.jcajce.JcaPEMWriter;
+import org.bouncycastle.util.io.pem.PemObject;
 import org.shredzone.acme4j.Account;
 import org.shredzone.acme4j.AccountBuilder;
 import org.shredzone.acme4j.Authorization;
@@ -38,6 +40,7 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
+import java.io.StringWriter;
 import java.nio.file.Path;
 import java.security.KeyPair;
 import java.security.Security;
@@ -61,17 +64,8 @@ import static net.splitcells.network.distro.java.acme.AcmeChallengeFile.acmeChal
  * Published certificates can be found via `https://crt.sh/`.
  */
 public class PublicKeyCryptoConfigurator {
-    public static void main(String... args) {
-        Dem.process(() -> {
-            Distro.service().start();
-            sleepAtLeast(3000l);
-            System.out.println(new PublicKeyCryptoConfigurator("contacts@splitcells.net").publicKeyCryptoConfig("live.splitcells.net"));
-        }, env -> {
-            env.config()
-                    .withInitedOption(CurrentAcmeAuthorization.class)
-                    .configValue(ProjectsRendererExtensions.class)
-                    .withAppended(acmeChallengeFile());
-        });
+    {
+        Security.addProvider(new BouncyCastleProvider());
     }
 
     public static PublicKeyCryptoConfig publicKeyCryptoConfig() {
@@ -112,7 +106,6 @@ public class PublicKeyCryptoConfigurator {
     private final Path acmeCertificatePath = Paths.userHome(".local", "state", configValue(ProgramName.class), "acme-certificate.pem");
 
     private PublicKeyCryptoConfigurator(String emailArg) {
-        Security.addProvider(new BouncyCastleProvider());
         email = emailArg;
     }
 
