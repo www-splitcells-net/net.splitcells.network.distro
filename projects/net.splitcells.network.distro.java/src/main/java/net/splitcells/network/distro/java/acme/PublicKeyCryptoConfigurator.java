@@ -17,6 +17,7 @@ package net.splitcells.network.distro.java.acme;
 
 import net.splitcells.dem.Dem;
 import net.splitcells.dem.environment.config.ProgramName;
+import net.splitcells.dem.resource.ConfigFileSystem;
 import net.splitcells.dem.resource.Paths;
 import net.splitcells.dem.resource.communication.log.LogLevel;
 import net.splitcells.dem.utils.StringUtils;
@@ -42,6 +43,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
 import java.io.StringWriter;
+import java.lang.reflect.Array;
 import java.nio.file.Path;
 import java.security.KeyPair;
 import java.security.Security;
@@ -49,8 +51,12 @@ import java.security.cert.CertificateFactory;
 import java.security.cert.X509Certificate;
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.Optional;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import static net.splitcells.dem.Dem.configValue;
 import static net.splitcells.dem.Dem.sleepAtLeast;
@@ -68,6 +74,8 @@ import static net.splitcells.network.distro.java.acme.AcmeChallengeFile.acmeChal
  * Published certificates can be found via `https://crt.sh/`.
  */
 public class PublicKeyCryptoConfigurator {
+    private static final String CONFIG_PATH = "net/splitcells/network/distro/java/acme/publickeycryptoconfigurator";
+
     {
         Security.addProvider(new BouncyCastleProvider());
     }
@@ -89,28 +97,44 @@ public class PublicKeyCryptoConfigurator {
     private static final long TIME_BETWEEN_CHECKS = 3l;
     private final String sessionUrl = configValue(AcmeServerUri.class);
     private final String email;
+
+    private static String[] configPath(String... path) {
+        final var configPath = new ArrayList<String>();
+        configPath.addAll(Arrays.asList(CONFIG_PATH.split("/")));
+        configPath.addAll(Arrays.asList(path));
+        return configPath.toArray(new String[configPath.size()]);
+    }
+
     /**
      * <p>This is the private key, identifying the account used at {@link #sessionUrl},
      * in order to publicly sign {@link #acmeCertificatePath}.</p>
      * <p>TODO Create portable file storage concept.</p>
      */
-    private final Path userKeyPairPath = Paths.userHome(".local", "state", configValue(ProgramName.class), "acme-user-key-pair");
+    private final Path userKeyPairPath = configValue(ConfigFileSystem.class)
+            .javaLegacyPath(Path.of("./", configPath("user-key-pair")))
+            .orElseThrow();
+
     /**
      * <p>This is the private key used,
      * in order to encrypt the messages of the server,
      * that can be decrypt via {@link #acmeCertificatePath}.</p>
      * <p>TODO Create portable file storage concept.</p>
      */
-    private final Path domainKeyPairPath = Paths.userHome(".local", "state", configValue(ProgramName.class), "acme-domain-key-pair");
+    private final Path domainKeyPairPath = configValue(ConfigFileSystem.class)
+            .javaLegacyPath(Path.of("./", configPath("domain-key-pair")))
+            .orElseThrow();
     /**
      * <p>This is the public certificate, that can be used,
      * in order to authenticate the identity of the server.</p>
      * <p>TODO Create portable file storage concept.</p>
      */
-    private final Path acmeCertificatePath = Paths.userHome(".local", "state", configValue(ProgramName.class), "acme-certificate.pem");
+    private final Path acmeCertificatePath = configValue(ConfigFileSystem.class)
+            .javaLegacyPath(Path.of("./", configPath("certificate.pem")))
+            .orElseThrow();
 
     private PublicKeyCryptoConfigurator(String emailArg) {
         email = emailArg;
+        configValue(ConfigFileSystem.class).createDirectoryPath(CONFIG_PATH);
     }
 
     public PublicKeyCryptoConfig publicKeyCryptoConfig(String domain) {
