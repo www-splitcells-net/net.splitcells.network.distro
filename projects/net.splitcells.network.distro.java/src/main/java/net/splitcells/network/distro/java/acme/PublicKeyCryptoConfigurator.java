@@ -35,6 +35,7 @@ import org.shredzone.acme4j.Status;
 import org.shredzone.acme4j.challenge.Http01Challenge;
 import org.shredzone.acme4j.util.KeyPairUtils;
 
+import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.FileReader;
 import java.io.FileWriter;
@@ -44,8 +45,11 @@ import java.io.StringWriter;
 import java.nio.file.Path;
 import java.security.KeyPair;
 import java.security.Security;
+import java.security.cert.CertificateFactory;
+import java.security.cert.X509Certificate;
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
+import java.util.Date;
 import java.util.Optional;
 
 import static net.splitcells.dem.Dem.configValue;
@@ -112,8 +116,22 @@ public class PublicKeyCryptoConfigurator {
     public PublicKeyCryptoConfig publicKeyCryptoConfig(String domain) {
         try {
             if (fileExists(acmeCertificatePath)) {
-                return PublicKeyCryptoConfig.publicKeyCryptoConfig(readFileAsBytes(domainKeyPairPath)
-                        , readFileAsBytes(acmeCertificatePath));
+                final var targetStream = new ByteArrayInputStream(readFileAsBytes(acmeCertificatePath));
+                final var x509certificate = (X509Certificate) CertificateFactory
+                        .getInstance("X509")
+                        .generateCertificate(targetStream);
+                final var currentTime = new Date();
+                try {
+                    x509certificate.checkValidity(currentTime);
+                    return PublicKeyCryptoConfig.publicKeyCryptoConfig(readFileAsBytes(domainKeyPairPath)
+                            , readFileAsBytes(acmeCertificatePath));
+                } catch (Throwable t2) {
+                    logs().appendWarning(perspective("Certificate is invalid, according to the start, end and current time.")
+                                    .withProperty("notBefore", "" + x509certificate.getNotBefore())
+                                    .withProperty("notAfter", "" + x509certificate.getNotAfter())
+                                    .withProperty("current time", "" + currentTime)
+                            , t2);
+                }
             }
             final var userKeyPair = userKeyPair();
             final var domainKeyPair = domainKeyPair();
