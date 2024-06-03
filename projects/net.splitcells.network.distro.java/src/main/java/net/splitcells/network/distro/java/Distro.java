@@ -36,6 +36,7 @@ import net.splitcells.network.distro.java.acme.CurrentAcmeAuthorization;
 import net.splitcells.network.hub.NetworkHubFileSystem;
 import net.splitcells.network.log.NetworkLogFileSystem;
 import net.splitcells.network.media.NetworkMediaFileSystem;
+import net.splitcells.network.presentations.NetworkPresentationsFileSystem;
 import net.splitcells.system.WebsiteViaJar;
 import net.splitcells.website.binaries.BinaryFileSystem;
 import net.splitcells.website.server.Config;
@@ -144,6 +145,8 @@ public class Distro {
                         , configValue(NetworkCommunityFileSystem.class)))
                 .withAdditionalProjectAtStart(projectConfig("/net/splitcells/network/hub/"
                         , configValue(NetworkHubFileSystem.class)))
+                .withAdditionalProject(projectConfig("/"
+                        , configValue(NetworkPresentationsFileSystem.class)))
                 ;
     }
 

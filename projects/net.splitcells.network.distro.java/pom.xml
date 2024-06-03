@@ -67,6 +67,11 @@
             <groupId>com.h2database</groupId>
             <artifactId>h2</artifactId>
         </dependency>
+        <dependency>
+            <groupId>net.splitcells</groupId>
+            <artifactId>network.presentations</artifactId>
+            <version>${revision}</version>
+        </dependency>
     </dependencies>
     <build>
         <finalName>net.splitcells.network.distro</finalName>
