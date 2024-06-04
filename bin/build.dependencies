@@ -11,6 +11,8 @@ cd $reposFolder/net.splitcells.network.media
   mvn clean install
 cd $reposFolder/net.splitcells.network.log
   mvn clean install
+cd $reposFolder/net.splitcells.network.presentations/
+  mvn clean install
 cd $reposFolder/net.splitcells.website.content.binaries
   mvn clean install
 cd $reposFolder/net.splitcells.network.community
