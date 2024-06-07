@@ -54,7 +54,7 @@ import static net.splitcells.dem.Dem.configValue;
 import static net.splitcells.dem.Dem.environment;
 import static net.splitcells.dem.lang.perspective.PerspectiveI.perspective;
 import static net.splitcells.dem.resource.communication.Sender.stringSender;
-import static net.splitcells.dem.resource.communication.log.CommonMarkLog.commonMarkDui;
+import static net.splitcells.dem.resource.communication.log.CommonMarkLogger.commonMarkDui;
 import static net.splitcells.dem.resource.communication.log.LogLevel.TRACE;
 import static net.splitcells.dem.utils.ExecutionException.executionException;
 import static net.splitcells.network.distro.java.acme.AcmeChallengeFile.acmeChallengeFile;
