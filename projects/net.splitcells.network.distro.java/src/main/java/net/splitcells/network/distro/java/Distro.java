@@ -141,7 +141,7 @@ public class Distro {
                         , configValue(NetworkLogFileSystem.class)))
                 .withAdditionalProject(projectConfig("/"
                         , configValue(BinaryFileSystem.class)))
-                .withAdditionalProject(projectConfig("/"
+                .withAdditionalProject(projectConfig("/net/splitcells/network/community/"
                         , configValue(NetworkCommunityFileSystem.class)))
                 .withAdditionalProjectAtStart(projectConfig("/net/splitcells/network/hub/"
                         , configValue(NetworkHubFileSystem.class)))
