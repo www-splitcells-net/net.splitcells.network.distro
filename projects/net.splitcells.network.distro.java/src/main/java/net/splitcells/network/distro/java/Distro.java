@@ -15,19 +15,12 @@
  */
 package net.splitcells.network.distro.java;
 
-import ch.qos.logback.classic.Level;
-import ch.qos.logback.classic.LoggerContext;
-import ch.qos.logback.classic.encoder.PatternLayoutEncoder;
-import ch.qos.logback.core.rolling.RollingFileAppender;
-import ch.qos.logback.core.rolling.TimeBasedRollingPolicy;
-import ch.qos.logback.core.util.FileSize;
 import net.splitcells.dem.Dem;
 import net.splitcells.dem.data.set.list.ListWA;
 import net.splitcells.dem.environment.Environment;
 import net.splitcells.dem.environment.config.ProgramName;
 import net.splitcells.dem.environment.resource.Console;
 import net.splitcells.dem.environment.resource.Service;
-import net.splitcells.dem.resource.Paths;
 import net.splitcells.dem.resource.communication.Sender;
 import net.splitcells.dem.resource.communication.log.Logs;
 import net.splitcells.dem.resource.communication.log.MessageFilter;
@@ -45,14 +38,13 @@ import org.slf4j.LoggerFactory;
 
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
-import java.lang.module.Configuration;
 import java.nio.file.Path;
 import java.util.function.Consumer;
 
 import static ch.qos.logback.classic.util.ContextInitializer.CONFIG_FILE_PROPERTY;
 import static net.splitcells.dem.Dem.configValue;
 import static net.splitcells.dem.Dem.environment;
-import static net.splitcells.dem.lang.perspective.PerspectiveI.perspective;
+import static net.splitcells.dem.lang.tree.TreeI.perspective;
 import static net.splitcells.dem.resource.communication.Sender.stringSender;
 import static net.splitcells.dem.resource.communication.log.CommonMarkLogger.commonMarkDui;
 import static net.splitcells.dem.resource.communication.log.LogLevel.TRACE;

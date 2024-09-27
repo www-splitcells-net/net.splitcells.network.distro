@@ -18,15 +18,12 @@ package net.splitcells.network.distro;
 import net.splitcells.dem.Dem;
 import net.splitcells.dem.environment.Environment;
 import net.splitcells.dem.environment.resource.Service;
-import net.splitcells.network.distro.java.acme.CurrentAcmeAuthorization;
 import net.splitcells.system.WebsiteViaJar;
 import net.splitcells.website.server.Config;
-import net.splitcells.website.server.projects.extension.ProjectsRendererExtensions;
 
 import static net.splitcells.dem.Dem.configValue;
-import static net.splitcells.dem.lang.perspective.PerspectiveI.perspective;
+import static net.splitcells.dem.lang.tree.TreeI.perspective;
 import static net.splitcells.dem.utils.ExecutionException.executionException;
-import static net.splitcells.network.distro.java.acme.AcmeChallengeFile.acmeChallengeFile;
 import static net.splitcells.website.server.ProjectConfig.projectConfig;
 
 public class Distro {

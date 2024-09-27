@@ -15,19 +15,12 @@
  */
 package net.splitcells.network.distro.java.acme;
 
-import net.splitcells.dem.Dem;
-import net.splitcells.dem.environment.config.ProgramName;
 import net.splitcells.dem.resource.ConfigFileSystem;
-import net.splitcells.dem.resource.Paths;
 import net.splitcells.dem.resource.communication.log.LogLevel;
 import net.splitcells.dem.utils.StringUtils;
-import net.splitcells.network.distro.java.Distro;
 import net.splitcells.website.server.config.PublicContactEMailAddress;
 import net.splitcells.website.server.config.PublicDomain;
-import net.splitcells.website.server.projects.extension.ProjectsRendererExtensions;
 import org.bouncycastle.jce.provider.BouncyCastleProvider;
-import org.bouncycastle.openssl.jcajce.JcaPEMWriter;
-import org.bouncycastle.util.io.pem.PemObject;
 import org.shredzone.acme4j.Account;
 import org.shredzone.acme4j.AccountBuilder;
 import org.shredzone.acme4j.Authorization;
@@ -42,8 +35,6 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
-import java.io.StringWriter;
-import java.lang.reflect.Array;
 import java.nio.file.Path;
 import java.security.KeyPair;
 import java.security.Security;
@@ -55,19 +46,16 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.Optional;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 import static net.splitcells.dem.Dem.configValue;
 import static net.splitcells.dem.Dem.sleepAtLeast;
 import static net.splitcells.dem.data.set.Sets.setOfUniques;
-import static net.splitcells.dem.lang.perspective.PerspectiveI.perspective;
+import static net.splitcells.dem.lang.tree.TreeI.perspective;
 import static net.splitcells.dem.resource.Files.fileExists;
 import static net.splitcells.dem.resource.Files.readFileAsBytes;
 import static net.splitcells.dem.resource.communication.log.Logs.logs;
 import static net.splitcells.dem.utils.ExecutionException.executionException;
 import static net.splitcells.dem.utils.NotImplementedYet.notImplementedYet;
-import static net.splitcells.network.distro.java.acme.AcmeChallengeFile.acmeChallengeFile;
 
 /**
  * One can use `https://letsdebug.net/` in order to debug `https://letsencrypt.org/`.
