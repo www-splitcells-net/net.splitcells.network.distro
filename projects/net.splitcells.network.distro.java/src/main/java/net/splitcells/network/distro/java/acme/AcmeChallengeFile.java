@@ -22,6 +22,7 @@ import net.splitcells.website.Formats;
 import net.splitcells.website.server.Config;
 import net.splitcells.website.server.processor.BinaryMessage;
 import net.splitcells.website.server.projects.ProjectsRendererI;
+import net.splitcells.website.server.projects.RenderRequest;
 import net.splitcells.website.server.projects.extension.ProjectsRendererExtension;
 import org.shredzone.acme4j.challenge.Http01Challenge;
 
@@ -64,6 +65,11 @@ public class AcmeChallengeFile implements ProjectsRendererExtension {
                     , Formats.TEXT_PLAIN));
         }
         return Optional.empty();
+    }
+
+    @Override
+    public boolean requiresAuthentication(RenderRequest request) {
+        return false;
     }
 
     @Override
