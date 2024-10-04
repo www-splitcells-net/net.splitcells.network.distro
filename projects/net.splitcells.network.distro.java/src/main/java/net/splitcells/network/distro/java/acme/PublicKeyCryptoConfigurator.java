@@ -50,7 +50,7 @@ import java.util.Optional;
 import static net.splitcells.dem.Dem.configValue;
 import static net.splitcells.dem.Dem.sleepAtLeast;
 import static net.splitcells.dem.data.set.Sets.setOfUniques;
-import static net.splitcells.dem.lang.tree.TreeI.perspective;
+import static net.splitcells.dem.lang.tree.TreeI.tree;
 import static net.splitcells.dem.resource.Files.fileExists;
 import static net.splitcells.dem.resource.Files.readFileAsBytes;
 import static net.splitcells.dem.resource.communication.log.Logs.logs;
@@ -75,7 +75,7 @@ public class PublicKeyCryptoConfigurator {
 
     private static PublicKeyCryptoConfig publicKeyCryptoConfig(String domain, String email) {
         final var publicKeyCryptoConfig = new PublicKeyCryptoConfigurator(email).publicKeyCryptoConfig(domain);
-        logs().append(perspective("Using the following certificate PEM:")
+        logs().append(tree("Using the following certificate PEM:")
                         .withProperty("public certificate chain", StringUtils.parseString(publicKeyCryptoConfig.publicPem()))
                         .withProperty("private key", StringUtils.parseString(publicKeyCryptoConfig.privatePem()))
                 , LogLevel.DEBUG);
@@ -138,7 +138,7 @@ public class PublicKeyCryptoConfigurator {
                     return PublicKeyCryptoConfig.publicKeyCryptoConfig(readFileAsBytes(domainKeyPairPath)
                             , readFileAsBytes(acmeCertificatePath));
                 } catch (Throwable t2) {
-                    logs().appendWarning(perspective("Certificate is invalid, according to the start, end and current time.")
+                    logs().appendWarning(tree("Certificate is invalid, according to the start, end and current time.")
                                     .withProperty("notBefore", "" + x509certificate.getNotBefore())
                                     .withProperty("notAfter", "" + x509certificate.getNotAfter())
                                     .withProperty("current time", "" + currentTime)
@@ -176,7 +176,7 @@ public class PublicKeyCryptoConfigurator {
             int i = 0;
             while (true) {
                 ++i;
-                logs().append(perspective("Waiting for `" + sessionUrl + "` to provide certificate.")
+                logs().append(tree("Waiting for `" + sessionUrl + "` to provide certificate.")
                                 .withProperty("status", order.getStatus().toString())
                                 .withProperty("error", order.getError().map(e -> e.toString()).orElse("No error is present."))
                                 .withProperty("status check count", "" + i)
@@ -210,7 +210,7 @@ public class PublicKeyCryptoConfigurator {
             }
             configValue(CurrentAcmeAuthorization.class).withValue(Optional.of(auth));
             final var challenge = auth.findChallenge(Http01Challenge.class).orElseThrow();
-            logs().append(perspective("Waiting for `" + sessionUrl + "` to execute the challenge.")
+            logs().append(tree("Waiting for `" + sessionUrl + "` to execute the challenge.")
                             .withProperty("token", challenge.getToken())
                             .withProperty("identifier", auth.getIdentifier().getValue())
                             .withProperty("type of identifier", auth.getIdentifier().getType())
@@ -220,7 +220,7 @@ public class PublicKeyCryptoConfigurator {
             int i = 0;
             while (true) {
                 ++i;
-                logs().append(perspective("Waiting for `" + sessionUrl + "` to execute the challenge.")
+                logs().append(tree("Waiting for `" + sessionUrl + "` to execute the challenge.")
                                 .withProperty("status", challenge.getStatus().toString())
                                 .withProperty("error", challenge.getError().map(e -> e.toString())
                                         .orElse("No error is present."))
@@ -298,7 +298,7 @@ public class PublicKeyCryptoConfigurator {
                     .useKeyPair(userKeyPair);
             accountBuilder.addEmail(email);
             Account account = accountBuilder.create(session);
-            logs().append(perspective("Created a new account for generating public certificates via ACME.")
+            logs().append(tree("Created a new account for generating public certificates via ACME.")
                             .withProperty("account location", account.getLocation().toString())
                             .withProperty("email", email)
                     , LogLevel.INFO);

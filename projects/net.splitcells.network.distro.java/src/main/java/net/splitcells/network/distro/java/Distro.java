@@ -44,7 +44,7 @@ import java.util.function.Consumer;
 import static ch.qos.logback.classic.util.ContextInitializer.CONFIG_FILE_PROPERTY;
 import static net.splitcells.dem.Dem.configValue;
 import static net.splitcells.dem.Dem.environment;
-import static net.splitcells.dem.lang.tree.TreeI.perspective;
+import static net.splitcells.dem.lang.tree.TreeI.tree;
 import static net.splitcells.dem.resource.communication.Sender.stringSender;
 import static net.splitcells.dem.resource.communication.log.CommonMarkLogger.commonMarkDui;
 import static net.splitcells.dem.resource.communication.log.LogLevel.TRACE;
@@ -91,7 +91,7 @@ public class Distro {
             env.config().withConfigValue(Console.class
                     , stringSender(new FileOutputStream(logFile.toFile())));
         } catch (FileNotFoundException e) {
-            throw executionException(perspective("Could not delete local log file.")
+            throw executionException(tree("Could not delete local log file.")
                     .withProperty("logFile", logFile.toString()), e);
         }
         env.config().withConfigValue(Logs.class, commonMarkDui(environment().config().configValue(Console.class)

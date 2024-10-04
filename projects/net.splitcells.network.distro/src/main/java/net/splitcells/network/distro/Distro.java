@@ -22,7 +22,7 @@ import net.splitcells.system.WebsiteViaJar;
 import net.splitcells.website.server.Config;
 
 import static net.splitcells.dem.Dem.configValue;
-import static net.splitcells.dem.lang.tree.TreeI.perspective;
+import static net.splitcells.dem.lang.tree.TreeI.tree;
 import static net.splitcells.dem.utils.ExecutionException.executionException;
 import static net.splitcells.website.server.ProjectConfig.projectConfig;
 
