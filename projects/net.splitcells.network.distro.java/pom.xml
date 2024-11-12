@@ -20,6 +20,11 @@
         </dependency>
         <dependency>
             <groupId>net.splitcells</groupId>
+            <artifactId>cin.text</artifactId>
+            <version>${revision}</version>
+        </dependency>
+        <dependency>
+            <groupId>net.splitcells</groupId>
             <artifactId>network.community</artifactId>
             <version>${revision}</version>
         </dependency>

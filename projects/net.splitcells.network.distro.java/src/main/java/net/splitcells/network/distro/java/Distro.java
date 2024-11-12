@@ -15,6 +15,7 @@
  */
 package net.splitcells.network.distro.java;
 
+import net.splitcells.cin.text.CinTextFileSystem;
 import net.splitcells.dem.Dem;
 import net.splitcells.dem.data.set.list.ListWA;
 import net.splitcells.dem.environment.Environment;
@@ -139,6 +140,8 @@ public class Distro {
                         , configValue(NetworkHubFileSystem.class)))
                 .withAdditionalProject(projectConfig("/"
                         , configValue(NetworkPresentationsFileSystem.class)))
+                .withAdditionalProject(projectConfig("/net/splitcells/cin/text/"
+                        , configValue(CinTextFileSystem.class)))
                 ;
     }
 
