@@ -142,6 +142,8 @@ public class Distro {
                         , configValue(NetworkPresentationsFileSystem.class)))
                 .withAdditionalProject(projectConfig("/net/splitcells/cin/text/"
                         , configValue(CinTextFileSystem.class)))
+                .withAdditionalJsBackgroundFiles("net/splitcells/website/js/tabulator.min.js")
+                .withAdditionalJsBackgroundFiles("net/splitcells/website/js/tabulator.injection.js")
                 ;
     }
 
