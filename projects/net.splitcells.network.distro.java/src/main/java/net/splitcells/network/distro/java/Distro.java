@@ -144,6 +144,9 @@ public class Distro {
                         , configValue(CinTextFileSystem.class)))
                 .withAdditionalJsBackgroundFiles("net/splitcells/website/js/tabulator.min.js")
                 .withAdditionalJsBackgroundFiles("net/splitcells/website/js/tabulator.injection.js")
+                .withAdditionalJsBackgroundFiles("net/splitcells/website/js/jquery-fancytree-all-deps.min.js")
+                .withAdditionalJsBackgroundFiles("net/splitcells/website/js/jquery-fancytree-all-deps-injection.min.js")
+                .withAdditionalCssFile("net/splitcells/website/css/jquery-fancytree-all-deps.min.css")
                 ;
     }
 
