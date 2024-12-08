@@ -15,6 +15,7 @@
  */
 package net.splitcells.network.distro.java.acme;
 
+import net.splitcells.dem.lang.annotations.JavaLegacyArtifact;
 import net.splitcells.dem.utils.StringUtils;
 import org.bouncycastle.asn1.ASN1ObjectIdentifier;
 import org.bouncycastle.asn1.x500.X500Name;
@@ -36,6 +37,7 @@ import java.security.cert.Certificate;
 import java.util.Calendar;
 import java.util.Date;
 
+@JavaLegacyArtifact
 public class SelfSignedPublicKeyCryptoConfigurator {
     private static final Provider SECURITY_PROVIDER = new BouncyCastleProvider();
 

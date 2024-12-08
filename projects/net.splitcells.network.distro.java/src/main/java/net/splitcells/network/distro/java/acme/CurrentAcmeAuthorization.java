@@ -17,10 +17,12 @@ package net.splitcells.network.distro.java.acme;
 
 import net.splitcells.dem.environment.config.framework.Option;
 import net.splitcells.dem.environment.config.framework.Variable;
+import net.splitcells.dem.lang.annotations.JavaLegacyArtifact;
 import org.shredzone.acme4j.Authorization;
 
 import static net.splitcells.dem.environment.config.framework.Variable.variable;
 
+@JavaLegacyArtifact
 public class CurrentAcmeAuthorization implements Option<Variable<Authorization>> {
     @Override
     public Variable<Authorization> defaultValue() {

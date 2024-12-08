@@ -32,6 +32,7 @@ import javafx.scene.web.WebView;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 import net.splitcells.dem.Dem;
+import net.splitcells.dem.lang.annotations.JavaLegacyArtifact;
 import net.splitcells.network.distro.java.Distro;
 import net.splitcells.network.media.NetworkMediaFileSystem;
 
@@ -43,6 +44,7 @@ import static net.splitcells.dem.utils.ExecutionException.executionException;
  * The user is prevent from opening any page online,
  * in order to avoid confusion and prevent the user from uploading data to the public unknowingly.
  */
+@JavaLegacyArtifact
 public class JavaFxGuiLauncher extends Application {
 
     private static final String BASE_URL = "http://localhost:8443/";

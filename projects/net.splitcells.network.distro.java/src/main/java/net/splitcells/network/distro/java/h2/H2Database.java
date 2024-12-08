@@ -1,8 +1,11 @@
 package net.splitcells.network.distro.java.h2;
 
+import net.splitcells.dem.lang.annotations.JavaLegacyArtifact;
+
 import java.sql.Connection;
 import java.sql.DriverManager;
 
+@JavaLegacyArtifact
 public class H2Database {
     public static void main(String[] a)
             throws Exception {
