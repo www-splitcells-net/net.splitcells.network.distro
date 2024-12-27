@@ -32,7 +32,7 @@ import net.splitcells.network.hub.NetworkHubFileSystem;
 import net.splitcells.network.log.NetworkLogFileSystem;
 import net.splitcells.network.media.NetworkMediaFileSystem;
 import net.splitcells.network.presentations.NetworkPresentationsFileSystem;
-import net.splitcells.system.WebsiteViaJar;
+import net.splitcells.network.system.WebsiteViaJar;
 import net.splitcells.website.binaries.BinaryFileSystem;
 import net.splitcells.website.server.Config;
 import net.splitcells.website.server.projects.extension.ProjectsRendererExtensions;
