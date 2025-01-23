@@ -18,6 +18,7 @@ package net.splitcells.network.distro.java.acme;
 import net.splitcells.dem.lang.annotations.JavaLegacyArtifact;
 import net.splitcells.dem.resource.ConfigFileSystem;
 import net.splitcells.dem.resource.communication.log.LogLevel;
+import net.splitcells.dem.utils.ExecutionException;
 import net.splitcells.dem.utils.StringUtils;
 import net.splitcells.website.server.config.PublicContactEMailAddress;
 import net.splitcells.website.server.config.PublicDomain;
@@ -55,7 +56,7 @@ import static net.splitcells.dem.lang.tree.TreeI.tree;
 import static net.splitcells.dem.resource.Files.fileExists;
 import static net.splitcells.dem.resource.Files.readFileAsBytes;
 import static net.splitcells.dem.resource.communication.log.Logs.logs;
-import static net.splitcells.dem.utils.ExecutionException.executionException;
+import static net.splitcells.dem.utils.ExecutionException.execException;
 import static net.splitcells.dem.utils.NotImplementedYet.notImplementedYet;
 
 /**
@@ -161,11 +162,11 @@ public class PublicKeyCryptoConfigurator {
                 certificate.writeCertificate(certificateWriter);
                 certificateWriter.flush();
             } catch (IOException e) {
-                throw executionException(e);
+                throw execException(e);
             }
             return PublicKeyCryptoConfig.publicKeyCryptoConfig(readFileAsBytes(domainKeyPairPath), certificateStream.toByteArray());
         } catch (Throwable t) {
-            throw executionException(t);
+            throw execException(t);
         }
     }
 
@@ -184,7 +185,7 @@ public class PublicKeyCryptoConfigurator {
                                 .withProperty("status check count", "" + i)
                         , LogLevel.INFO);
                 if (Status.INVALID.equals(order.getStatus())) {
-                    throw executionException("Creating the certificate failed.");
+                    throw ExecutionException.execException("Creating the certificate failed.");
                 }
                 if (Status.VALID.equals(order.getStatus())) {
                     return order.getCertificate();
@@ -201,7 +202,7 @@ public class PublicKeyCryptoConfigurator {
                 sleepAtLeast(waitDuration);
             }
         } catch (Throwable t) {
-            throw executionException(t);
+            throw execException(t);
         }
     }
 
@@ -229,7 +230,7 @@ public class PublicKeyCryptoConfigurator {
                                 .withProperty("status check count", "" + i)
                         , LogLevel.INFO);
                 if (Status.INVALID.equals(challenge.getStatus())) {
-                    throw executionException("Could not complete ACME challenge.");
+                    throw ExecutionException.execException("Could not complete ACME challenge.");
                 }
                 if (Status.VALID.equals(challenge.getStatus())) {
                     return;
@@ -246,7 +247,7 @@ public class PublicKeyCryptoConfigurator {
                 sleepAtLeast(waitDuration);
             }
         } catch (Throwable t) {
-            throw executionException(t);
+            throw execException(t);
         }
     }
 
@@ -255,7 +256,7 @@ public class PublicKeyCryptoConfigurator {
             try (FileReader fileReader = new FileReader(userKeyPairPath.toFile())) {
                 return KeyPairUtils.readKeyPair(fileReader);
             } catch (Throwable t) {
-                throw executionException(t);
+                throw execException(t);
             }
         }
         net.splitcells.dem.resource.Files.createDirectory(userKeyPairPath.getParent());
@@ -264,7 +265,7 @@ public class PublicKeyCryptoConfigurator {
             KeyPairUtils.writeKeyPair(newUserKeypair, fw);
             return newUserKeypair;
         } catch (Throwable t) {
-            throw executionException(t);
+            throw execException(t);
         }
     }
 
@@ -278,7 +279,7 @@ public class PublicKeyCryptoConfigurator {
             try (FileReader fileReader = new FileReader(domainKeyPairPath.toFile())) {
                 return KeyPairUtils.readKeyPair(fileReader);
             } catch (Throwable t) {
-                throw executionException(t);
+                throw execException(t);
             }
         }
         net.splitcells.dem.resource.Files.createDirectory(domainKeyPairPath.getParent());
@@ -287,7 +288,7 @@ public class PublicKeyCryptoConfigurator {
             KeyPairUtils.writeKeyPair(newUserKeypair, fw);
             return newUserKeypair;
         } catch (Throwable t) {
-            throw executionException(t);
+            throw execException(t);
         }
     }
 
@@ -306,7 +307,7 @@ public class PublicKeyCryptoConfigurator {
                     , LogLevel.INFO);
             return account;
         } catch (Throwable t) {
-            throw executionException("Could not generate account for ACME.", t);
+            throw ExecutionException.execException("Could not generate account for ACME.", t);
         }
     }
 }

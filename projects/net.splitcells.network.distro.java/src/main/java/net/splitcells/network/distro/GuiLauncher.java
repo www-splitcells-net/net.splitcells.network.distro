@@ -23,7 +23,7 @@ import java.awt.*;
 import java.net.URI;
 
 import static net.splitcells.dem.resource.communication.log.Logs.logs;
-import static net.splitcells.dem.utils.ExecutionException.executionException;
+import static net.splitcells.dem.utils.ExecutionException.execException;
 
 @JavaLegacyArtifact
 public class GuiLauncher {
@@ -63,7 +63,7 @@ public class GuiLauncher {
                     } catch (Throwable th2) {
                         logs().appendWarning("Could not open the servers website via the desktops Internet browser.", th);
                         logs().appendWarning("Could not open the servers website via the desktops Internet browser.", th2);
-                        throw executionException(th);
+                        throw execException(th);
                     }
                 }
             });

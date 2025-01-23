@@ -26,6 +26,7 @@ import net.splitcells.dem.lang.annotations.JavaLegacyArtifact;
 import net.splitcells.dem.resource.communication.Sender;
 import net.splitcells.dem.resource.communication.log.Logs;
 import net.splitcells.dem.resource.communication.log.MessageFilter;
+import net.splitcells.dem.utils.ExecutionException;
 import net.splitcells.network.community.NetworkCommunityFileSystem;
 import net.splitcells.network.distro.java.acme.CurrentAcmeAuthorization;
 import net.splitcells.network.hub.NetworkHubFileSystem;
@@ -50,7 +51,7 @@ import static net.splitcells.dem.lang.tree.TreeI.tree;
 import static net.splitcells.dem.resource.communication.Sender.stringSender;
 import static net.splitcells.dem.resource.communication.log.CommonMarkLogger.commonMarkDui;
 import static net.splitcells.dem.resource.communication.log.LogLevel.TRACE;
-import static net.splitcells.dem.utils.ExecutionException.executionException;
+import static net.splitcells.dem.utils.ExecutionException.execException;
 import static net.splitcells.network.distro.java.acme.AcmeChallengeFile.acmeChallengeFile;
 import static net.splitcells.website.server.ProjectConfig.projectConfig;
 
@@ -94,7 +95,7 @@ public class Distro {
             env.config().withConfigValue(Console.class
                     , stringSender(new FileOutputStream(logFile.toFile())));
         } catch (FileNotFoundException e) {
-            throw executionException(tree("Could not delete local log file.")
+            throw ExecutionException.execException(tree("Could not delete local log file.")
                     .withProperty("logFile", logFile.toString()), e);
         }
         env.config().withConfigValue(Logs.class, commonMarkDui(environment().config().configValue(Console.class)

@@ -23,7 +23,7 @@ import net.splitcells.website.server.Config;
 
 import static net.splitcells.dem.Dem.configValue;
 import static net.splitcells.dem.lang.tree.TreeI.tree;
-import static net.splitcells.dem.utils.ExecutionException.executionException;
+import static net.splitcells.dem.utils.ExecutionException.execException;
 import static net.splitcells.website.server.ProjectConfig.projectConfig;
 
 public class Distro {

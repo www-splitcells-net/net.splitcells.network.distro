@@ -38,7 +38,7 @@ import net.splitcells.network.media.NetworkMediaFileSystem;
 
 import java.util.concurrent.Semaphore;
 
-import static net.splitcells.dem.utils.ExecutionException.executionException;
+import static net.splitcells.dem.utils.ExecutionException.execException;
 
 /**
  * The user is prevent from opening any page online,
@@ -76,7 +76,7 @@ public class JavaFxGuiLauncher extends Application {
                     try {
                         serviceSemaphore.acquire();
                     } catch (InterruptedException e) {
-                        throw executionException(e);
+                        throw execException(e);
                     }
                 }
             }, Distro::configuratorForLocalUsers);
