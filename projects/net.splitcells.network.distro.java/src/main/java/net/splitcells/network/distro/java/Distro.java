@@ -17,7 +17,7 @@ package net.splitcells.network.distro.java;
 
 import net.splitcells.cin.text.CinTextFileSystem;
 import net.splitcells.dem.Dem;
-import net.splitcells.dem.data.set.list.ListWA;
+import net.splitcells.dem.data.set.list.AppendableList;
 import net.splitcells.dem.environment.Environment;
 import net.splitcells.dem.environment.config.ProgramName;
 import net.splitcells.dem.environment.resource.Console;
@@ -179,7 +179,7 @@ public class Distro {
         env.config().withConfigValue(Console.class
                 , new Sender<>() {
                     @Override
-                    public <R extends ListWA<String>> R append(String arg) {
+                    public <R extends AppendableList<String>> R append(String arg) {
                         logger.info(arg);
                         return (R) this;
                     }
