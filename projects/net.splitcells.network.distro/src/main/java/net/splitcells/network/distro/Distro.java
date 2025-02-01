@@ -18,7 +18,7 @@ package net.splitcells.network.distro;
 import net.splitcells.dem.Dem;
 import net.splitcells.dem.environment.Environment;
 import net.splitcells.dem.environment.resource.Service;
-import net.splitcells.network.system.WebsiteViaJar;
+import net.splitcells.network.system.SystemCell;
 import net.splitcells.website.server.Config;
 
 import static net.splitcells.dem.Dem.configValue;
@@ -53,7 +53,7 @@ public class Distro {
     }
 
     public static Service service() {
-        return WebsiteViaJar.projectsRenderer(config()).httpServer();
+        return SystemCell.projectsRenderer(config()).httpServer();
     }
 
     /**

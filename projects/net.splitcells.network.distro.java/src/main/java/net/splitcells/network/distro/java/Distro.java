@@ -33,7 +33,7 @@ import net.splitcells.network.hub.NetworkHubFileSystem;
 import net.splitcells.network.log.NetworkLogFileSystem;
 import net.splitcells.network.media.NetworkMediaFileSystem;
 import net.splitcells.network.presentations.NetworkPresentationsFileSystem;
-import net.splitcells.network.system.WebsiteViaJar;
+import net.splitcells.network.system.SystemCell;
 import net.splitcells.website.binaries.BinaryFileSystem;
 import net.splitcells.website.server.Config;
 import net.splitcells.website.server.projects.extension.ProjectsRendererExtensions;
@@ -103,7 +103,7 @@ public class Distro {
     }
 
     public static Service service() {
-        return WebsiteViaJar.projectsRenderer(config()).httpServer();
+        return SystemCell.projectsRenderer(config()).httpServer();
     }
 
     /**
@@ -111,7 +111,7 @@ public class Distro {
      * @see #configuratorForLocalUsers(Environment)
      */
     public static Service serviceForLocalUsers() {
-        return WebsiteViaJar.projectsRenderer(configForLocalUsers()).httpServer();
+        return SystemCell.projectsRenderer(configForLocalUsers()).httpServer();
     }
 
     /**
@@ -124,7 +124,7 @@ public class Distro {
 
     @Deprecated
     public static Config config() {
-        return config(WebsiteViaJar.config());
+        return config(SystemCell.config());
     }
 
     public static Config config(Config arg) {
