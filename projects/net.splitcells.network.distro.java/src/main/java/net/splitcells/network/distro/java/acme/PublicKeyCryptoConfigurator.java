@@ -128,6 +128,11 @@ public class PublicKeyCryptoConfigurator {
         configValue(ConfigFileSystem.class).createDirectoryPath(CONFIG_PATH);
     }
 
+    /**
+     *
+     * @param domain
+     * @return Reads the crypto config from the {@link #acmeCertificatePath} on the file system or requests a new one.
+     */
     public PublicKeyCryptoConfig publicKeyCryptoConfig(String domain) {
         try {
             if (fileExists(acmeCertificatePath)) {
@@ -152,7 +157,7 @@ public class PublicKeyCryptoConfigurator {
             final var domainKeyPair = domainKeyPair();
             final var session = new Session(sessionUrl);
             final var account = account(session, userKeyPair);
-            final var certificate = publicKeyCryptoConfig(domain, account, domainKeyPair);
+            final var certificate = requestCertificate(domain, account, domainKeyPair);
             try (FileWriter fw = new FileWriter(acmeCertificatePath.toFile())) {
                 certificate.writeCertificate(fw);
             }
@@ -170,7 +175,7 @@ public class PublicKeyCryptoConfigurator {
         }
     }
 
-    private org.shredzone.acme4j.Certificate publicKeyCryptoConfig(String domain, Account account, KeyPair domainKeyPair) {
+    private org.shredzone.acme4j.Certificate requestCertificate(String domain, Account account, KeyPair domainKeyPair) {
         try {
             final var order = account.newOrder().domain(domain).create();
             order.getAuthorizations().forEach(this::authorize);
