@@ -20,7 +20,9 @@ import net.splitcells.dem.Dem;
 import net.splitcells.dem.environment.Cell;
 import net.splitcells.dem.environment.Environment;
 import net.splitcells.dem.environment.resource.Service;
+import net.splitcells.network.log.NetworkLogFileSystem;
 import net.splitcells.network.system.SystemCell;
+import net.splitcells.network.worker.via.java.NetworkWorkerLogFileSystem;
 import net.splitcells.website.server.Config;
 import net.splitcells.website.server.WebsiteServerCell;
 
@@ -61,6 +63,7 @@ public class DistroCell implements Cell {
      */
     @Deprecated
     public static void configuratorForLocalUsers(Environment env) {
+        env.config().withConfigValue(NetworkWorkerLogFileSystem.class, env.config().configValue(NetworkLogFileSystem.class));
         net.splitcells.network.distro.java.Distro.configuratorForLocalUsers(env);
     }
 

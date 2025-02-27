@@ -34,6 +34,7 @@ import net.splitcells.network.log.NetworkLogFileSystem;
 import net.splitcells.network.media.NetworkMediaFileSystem;
 import net.splitcells.network.presentations.NetworkPresentationsFileSystem;
 import net.splitcells.network.system.SystemCell;
+import net.splitcells.network.worker.via.java.NetworkWorkerLogFileSystem;
 import net.splitcells.website.binaries.BinaryFileSystem;
 import net.splitcells.website.server.Config;
 import net.splitcells.website.server.projects.extension.ProjectsRendererExtensions;
@@ -65,6 +66,7 @@ public class Distro {
     }
 
     public static void configurator(Environment env) {
+        env.config().withConfigValue(NetworkLogFileSystem.class, env.config().configValue(NetworkWorkerLogFileSystem.class));
     }
 
     public static void ensureSslCertificatePresence(Environment env) {
@@ -133,6 +135,8 @@ public class Distro {
                 .withOpenPort(8443)
                 .withAdditionalProject(projectConfig("/",
                         configValue(NetworkMediaFileSystem.class)))
+                .withAdditionalProject(projectConfig("/"
+                        , configValue(NetworkWorkerLogFileSystem.class)))
                 .withAdditionalProject(projectConfig("/"
                         , configValue(NetworkLogFileSystem.class)))
                 .withAdditionalProject(projectConfig("/"
