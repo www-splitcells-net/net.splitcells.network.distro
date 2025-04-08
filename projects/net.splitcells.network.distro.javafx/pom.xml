@@ -152,7 +152,8 @@
                     </execution>
                     <execution>
                         <id>copy-javafx-dependencies-for-macos</id>
-                        <phase>package</phase>
+                        <!-- The Mac version is currently not supported. -->
+                        <phase>disabled-execution</phase>
                         <goals>
                             <goal>copy-dependencies</goal>
                         </goals>
@@ -208,7 +209,8 @@
                     </execution>
                     <execution>
                         <id>assemble-macos-zip</id>
-                        <phase>package</phase>
+                        <!-- The Mac version is currently not supported. -->
+                        <phase>disabled-execution</phase>
                         <goals>
                             <goal>single</goal>
                         </goals>
@@ -264,7 +266,8 @@
                     </execution>
                     <execution>
                         <id>download-macos-jre</id>
-                        <phase>generate-resources</phase>
+                        <!-- The Mac version is currently not supported. -->
+                        <phase>disabled-execution</phase>
                         <goals>
                             <goal>setup-jdks</goal>
                         </goals>
