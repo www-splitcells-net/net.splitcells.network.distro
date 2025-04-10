@@ -28,13 +28,14 @@
             <classifier>windows-zip</classifier>
             <type>zip</type>
         </dependency>
+        <!-- The Mac version is currently not supported.
         <dependency>
             <groupId>net.splitcells</groupId>
             <artifactId>network.distro.javafx</artifactId>
             <version>${revision}</version>
             <classifier>macos-zip</classifier>
             <type>zip</type>
-        </dependency>
+        </dependency>-->
     </dependencies>
     <build>
         <plugins>
