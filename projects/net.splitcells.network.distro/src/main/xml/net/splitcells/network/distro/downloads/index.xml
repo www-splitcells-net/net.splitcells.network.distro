@@ -8,6 +8,11 @@
         No internet connection is required, in order to run this software.
         In order to use the program, download the version corresponding to your type of computer.
     </paragraph>
+    <paragraph>Currently, the executables are not signed.
+        Therefore, Windows creates a warning, when the software is started.
+        Click on <quote>Run anyway</quote> or on <quote>More info</quote> and than on <quote>Run anyway</quote>,
+        in order to start the program on Windows.
+    </paragraph>
     <paragraph>The following downloads are available:</paragraph>
     <list>
         <link>
