@@ -1,7 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<article xmlns="http://splitcells.net/sew.xsd">
+<article xmlns="http://splitcells.net/sew.xsd" xmlns:d="http://splitcells.net/den.xsd">
     <meta>
         <title>Splitcells™ Network Distro Downloads</title>
+        <d:toDo>Version the software in the future, so that support can be done more easily,
+            when there is a relevant amount of support.
+            Start with a date based versioning scheme and also create a version for developers and supporters,
+            which consist of all commit ids and their respective repo, that are used during the build.
+            Real releases, will not be needed at the beginning.
+        </d:toDo>
     </meta>
     <paragraph>
         You can download the Network Distro as an application, that you can run locally on your own computer.
