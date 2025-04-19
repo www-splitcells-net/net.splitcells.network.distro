@@ -1,3 +1,5 @@
+# SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
+# SPDX-FileCopyrightText: Contributors To The `net.splitcells.*` Projects
 FROM docker.io/eclipse-temurin:21-jdk-jammy
 RUN apt update
 # TODO Remove usage of /home/distro/ because the home folder is root.
