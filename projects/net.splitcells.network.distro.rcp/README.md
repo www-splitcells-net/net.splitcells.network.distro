@@ -1,11 +1,17 @@
 # Eclipse RCP Usage Reasons
+This project is obsolete, as it is not suitable for the Splitcells Network.
+Maybe E4 without RCP would be useful, but the JavaFX version is good enough for now.
+
+The README of this was not delete,
+as it contains notes regarding RCP, which might me helpful.
+# Notes
 * Eclipse provides one of few really trustworthy Java GUI launcher binaries (=`eclipse.exe`).
-    It also provides binaries for different operation systems and CPU architectures.
+  It also provides binaries for different operation systems and CPU architectures.
+  -> The binary created by Eclipse, does not have a signature by default, which can also cause problems.
 * Eclipse build process can bundle JRE.
 * The EPL-2.0 license of Eclipse's source code fits to the default license of the network project,
-    which was =EPL-2.0 OR GPL-2.0-or-later during the RCP's creation.
+  which was =EPL-2.0 OR GPL-2.0-or-later during the RCP's creation.
 * Alternatives have a lot lower popularity and therefore a higher chance of being marked as insecure.
-# Notes
 * Keep in mind,
     that the binary executable is not signed and only its popularity prevent issues with security software.
 # Future RCP plans.
@@ -13,6 +19,10 @@
 # RCP Problems
 * Eclipse IDE is not able to build project like Tycho.
     Tycho is the definitive build.
+* When snapshot dependencies are added to the RCP project,
+  Eclipse does not seem to be able to update these,
+  when the snapshots are rebuild before the RCP project is rebuild.
+  This makes development very slow, especially, when the build time of the RCP project is considered as well.
 # RCP Development Guidelines
 * `flatten-maven-plugin` is not compatible with Tycho.
 * Build is based on Maven Tycho in order to support automatic builds or builds without Eclipse.
