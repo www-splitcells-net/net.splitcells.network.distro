@@ -235,7 +235,8 @@ public class PublicKeyCryptoConfigurator {
                                 .withProperty("status check count", "" + i)
                         , LogLevel.INFO);
                 if (Status.INVALID.equals(challenge.getStatus())) {
-                    throw ExecutionException.execException("Could not complete ACME challenge.");
+                    throw ExecutionException.execException(tree("Could not complete ACME challenge.")
+                            .withProperty("problem", challenge.getError().map(p -> p.toString()).orElse("No problem.")));
                 }
                 if (Status.VALID.equals(challenge.getStatus())) {
                     return;
