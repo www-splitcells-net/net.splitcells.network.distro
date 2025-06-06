@@ -179,7 +179,7 @@ public class Distro {
      */
     public static void setGlobalUnixStateLogger(Environment env) {
         final var programName = env.config().configValue(ProgramName.class);
-        System.setProperty("net.splitcells.dem.environment.config.ProgramName", programName);
+        System.setProperty("net.splitcells.dem.environment.config.ProgramName", programName.toLowerCase());
         System.setProperty(CONFIG_FILE_PROPERTY, "net/splitcells/network/distro/java/logback/config.xml");
         final var logger = LoggerFactory.getLogger(programName);
         env.config().withConfigValue(Console.class
