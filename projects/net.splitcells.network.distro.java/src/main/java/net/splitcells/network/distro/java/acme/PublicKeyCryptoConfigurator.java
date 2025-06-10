@@ -146,7 +146,7 @@ public class PublicKeyCryptoConfigurator {
                     return PublicKeyCryptoConfig.publicKeyCryptoConfig(readFileAsBytes(domainKeyPairPath)
                             , readFileAsBytes(acmeCertificatePath));
                 } catch (Throwable t2) {
-                    logs().appendWarning(tree("Certificate is invalid, according to the start, end and current time.")
+                    logs().warn(tree("Certificate is invalid, according to the start, end and current time.")
                                     .withProperty("notBefore", "" + x509certificate.getNotBefore())
                                     .withProperty("notAfter", "" + x509certificate.getNotAfter())
                                     .withProperty("current time", "" + currentTime)

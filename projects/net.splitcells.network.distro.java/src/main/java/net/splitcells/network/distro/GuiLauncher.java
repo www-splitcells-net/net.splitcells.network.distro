@@ -61,8 +61,8 @@ public class GuiLauncher {
                     try {
                         Runtime.getRuntime().exec(new String[]{"xdg-open", config.url()}).onExit().join();
                     } catch (Throwable th2) {
-                        logs().appendWarning("Could not open the servers website via the desktops Internet browser.", th);
-                        logs().appendWarning("Could not open the servers website via the desktops Internet browser.", th2);
+                        logs().warn("Could not open the servers website via the desktops Internet browser.", th);
+                        logs().warn("Could not open the servers website via the desktops Internet browser.", th2);
                         throw execException(th);
                     }
                 }
