@@ -1,0 +1,29 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <artifactId>network.distro.swt</artifactId>
+    <!-- TODO Create signed Windows exe, in order to avoid warning, when running the App after download via browser. -->
+    <parent>
+        <groupId>net.splitcells</groupId>
+        <artifactId>pom-java-defaults</artifactId>
+        <version>${revision}</version>
+        <relativePath>../../../net.splitcells.network/projects/net.splitcells.pom.java.defaults/pom.xml</relativePath>
+    </parent>
+    <properties>
+        <javafx.version>21</javafx.version>
+        <javafx.maven.plugin.version>0.0.8</javafx.maven.plugin.version>
+        <net-splitcells-pom-java-defaults-deployable-jar-folder>true</net-splitcells-pom-java-defaults-deployable-jar-folder>
+    </properties>
+    <dependencies>
+        <dependency>
+            <groupId>net.splitcells</groupId>
+            <artifactId>network.distro.java</artifactId>
+            <version>${revision}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.eclipse.platform</groupId>
+            <artifactId>org.eclipse.swt.gtk.linux.x86_64</artifactId>
+            <version>3.130.0</version>
+        </dependency>
+    </dependencies>
+</project>
