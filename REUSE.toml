@@ -10,3 +10,52 @@ path = "README.md"
 precedence = "aggregate"
 SPDX-FileCopyrightText = "Contributors To The `net.splitcells.*` Projects"
 SPDX-License-Identifier = "EPL-2.0 OR GPL-2.0-or-later"
+
+[[annotations]]
+path = "projects/net.splitcells.network.distro.java/README.md"
+precedence = "aggregate"
+SPDX-FileCopyrightText = "Contributors To The `net.splitcells.*` Projects"
+SPDX-License-Identifier = "EPL-2.0 OR GPL-2.0-or-later"
+
+[[annotations]]
+path = "projects/net.splitcells.network.distro.java/CHANGELOG.md"
+precedence = "aggregate"
+SPDX-FileCopyrightText = "Contributors To The `net.splitcells.*` Projects"
+SPDX-License-Identifier = "EPL-2.0 OR GPL-2.0-or-later"
+
+[[annotations]]
+path = "projects/net.splitcells.network.distro.java/icon.svg"
+precedence = "aggregate"
+SPDX-FileCopyrightText = "Contributors To The `net.splitcells.*` Projects"
+SPDX-License-Identifier = "EPL-2.0 OR GPL-2.0-or-later"
+
+[[annotations]]
+path = "projects/net.splitcells.network.distro.java/icon.x180x180.png"
+precedence = "aggregate"
+SPDX-FileCopyrightText = "Contributors To The `net.splitcells.*` Projects"
+SPDX-License-Identifier = "EPL-2.0 OR GPL-2.0-or-later"
+
+[[annotations]]
+path = "projects/net.splitcells.network.distro.java/net.splitcells.distro.flatpak.desktop"
+precedence = "aggregate"
+SPDX-FileCopyrightText = "Contributors To The `net.splitcells.*` Projects"
+SPDX-License-Identifier = "EPL-2.0 OR GPL-2.0-or-later"
+
+[[annotations]]
+path = "projects/net.splitcells.network.distro.java/net.splitcells.distro.flatpak.yml"
+precedence = "aggregate"
+SPDX-FileCopyrightText = "Contributors To The `net.splitcells.*` Projects"
+SPDX-License-Identifier = "EPL-2.0 OR GPL-2.0-or-later"
+
+[[annotations]]
+path = "projects/net.splitcells.network.distro.javafx/README.md"
+precedence = "aggregate"
+SPDX-FileCopyrightText = "Contributors To The `net.splitcells.*` Projects"
+SPDX-License-Identifier = "EPL-2.0 OR GPL-2.0-or-later"
+
+[[annotations]]
+path = "projects/net.splitcells.network.distro.rcp/README.md"
+precedence = "aggregate"
+SPDX-FileCopyrightText = "Contributors To The `net.splitcells.*` Projects"
+SPDX-License-Identifier = "EPL-2.0 OR GPL-2.0-or-later"
+
