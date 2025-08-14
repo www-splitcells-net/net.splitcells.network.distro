@@ -18,7 +18,7 @@ package net.splitcells.network.distro.java.acme;
 import net.splitcells.dem.data.set.Set;
 import net.splitcells.dem.data.set.Sets;
 import net.splitcells.dem.utils.StringUtils;
-import net.splitcells.website.Formats;
+import net.splitcells.website.Format;
 import net.splitcells.website.server.Config;
 import net.splitcells.website.server.processor.BinaryMessage;
 import net.splitcells.website.server.projects.ProjectsRendererI;
@@ -62,7 +62,7 @@ public class AcmeChallengeFile implements ProjectsRendererExtension {
                             .findChallenge(Http01Challenge.class)
                             .orElseThrow()
                             .getAuthorization())
-                    , Formats.TEXT_PLAIN));
+                    , Format.TEXT_PLAIN));
         }
         return Optional.empty();
     }
