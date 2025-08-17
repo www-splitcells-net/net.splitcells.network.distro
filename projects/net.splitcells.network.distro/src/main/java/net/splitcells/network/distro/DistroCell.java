@@ -44,7 +44,7 @@ public class DistroCell implements Cell {
 
     @Deprecated
     public static void configurator(Environment env) {
-        net.splitcells.network.distro.java.Distro.configurator(env);
+        net.splitcells.network.distro.java.DistroCell.configurator(env);
     }
 
     public void configurator2(Environment env) {
@@ -64,7 +64,7 @@ public class DistroCell implements Cell {
     @Deprecated
     public static void configuratorForLocalUsers(Environment env) {
         env.config().withConfigValue(NetworkWorkerLogFileSystem.class, env.config().configValue(NetworkLogFileSystem.class));
-        net.splitcells.network.distro.java.Distro.configuratorForLocalUsers(env);
+        net.splitcells.network.distro.java.DistroCell.configuratorForLocalUsers(env);
     }
 
     public void configuratorForLocalUsers2(Environment env) {
@@ -86,7 +86,7 @@ public class DistroCell implements Cell {
      */
     @Deprecated
     public static Service serviceForLocalUsers() {
-        return net.splitcells.network.distro.java.Distro.serviceForLocalUsers();
+        return net.splitcells.network.distro.java.DistroCell.serviceForLocalUsers();
     }
 
     public Service serviceForLocalUsers2() {
@@ -99,7 +99,7 @@ public class DistroCell implements Cell {
      */
     @Deprecated
     public static Config configForLocalUsers() {
-        return net.splitcells.network.distro.java.Distro.configForLocalUsers();
+        return net.splitcells.network.distro.java.DistroCell.configForLocalUsers();
     }
 
     public Config configForLocalUsers2() {
@@ -108,7 +108,7 @@ public class DistroCell implements Cell {
 
     @Deprecated
     public static Config config() {
-        return config(net.splitcells.network.distro.java.Distro.config());
+        return config(net.splitcells.network.distro.java.DistroCell.config());
     }
 
     public Config config2() {

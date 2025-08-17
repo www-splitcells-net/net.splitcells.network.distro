@@ -33,7 +33,7 @@ import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 import net.splitcells.dem.Dem;
 import net.splitcells.dem.lang.annotations.JavaLegacyArtifact;
-import net.splitcells.network.distro.java.Distro;
+import net.splitcells.network.distro.java.DistroCell;
 import net.splitcells.network.media.NetworkMediaFileSystem;
 
 import java.util.concurrent.Semaphore;
@@ -70,7 +70,7 @@ public class JavaFxGuiLauncher extends Application {
         final var serviceSemaphore = new Semaphore(0);
         final var backendThread = new Thread(() -> {
             Dem.process(() -> {
-                try (final var service = Distro.serviceForLocalUsers()) {
+                try (final var service = DistroCell.serviceForLocalUsers()) {
                     service.start();
                     initSemaphore.release();
                     try {
@@ -79,7 +79,7 @@ public class JavaFxGuiLauncher extends Application {
                         throw execException(e);
                     }
                 }
-            }, Distro::configuratorForLocalUsers);
+            }, DistroCell::configuratorForLocalUsers);
         });
         backendThread.setDaemon(true);
         backendThread.start();

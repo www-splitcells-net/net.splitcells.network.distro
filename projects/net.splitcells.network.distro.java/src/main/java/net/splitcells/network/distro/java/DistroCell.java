@@ -18,6 +18,7 @@ package net.splitcells.network.distro.java;
 import net.splitcells.cin.text.CinTextFileSystem;
 import net.splitcells.dem.Dem;
 import net.splitcells.dem.data.set.list.AppendableList;
+import net.splitcells.dem.environment.Cell;
 import net.splitcells.dem.environment.Environment;
 import net.splitcells.dem.environment.config.ProgramName;
 import net.splitcells.dem.environment.resource.Console;
@@ -57,12 +58,27 @@ import static net.splitcells.network.distro.java.acme.AcmeChallengeFile.acmeChal
 import static net.splitcells.website.server.ProjectConfig.projectConfig;
 
 @JavaLegacyArtifact
-public class Distro {
+public class DistroCell implements Cell {
     public static void main(String... args) {
         Dem.process(() -> {
             service().start();
             Dem.waitIndefinitely();
-        }, Distro::configurator);
+        }, DistroCell::configurator);
+    }
+
+    @Override
+    public String groupId() {
+        return "net.splitcells";
+    }
+
+    @Override
+    public String artifactId() {
+        return "network.distro.java";
+    }
+
+    @Override
+    public void accept(Environment env) {
+
     }
 
     public static void configurator(Environment env) {
