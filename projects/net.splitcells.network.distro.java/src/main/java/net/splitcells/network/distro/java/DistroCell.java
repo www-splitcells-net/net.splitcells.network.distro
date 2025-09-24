@@ -63,7 +63,7 @@ public class DistroCell implements Cell {
         Dem.process(() -> {
             service().start();
             Dem.waitIndefinitely();
-        }, DistroCell::configurator);
+        }, DistroCell.class);
     }
 
     @Override
