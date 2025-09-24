@@ -35,13 +35,6 @@ public class DistroCell implements Cell {
         serve(DistroCell.class);
     }
 
-    public static void deprecatedMain(String... args) {
-        Dem.process(() -> {
-            DistroCell.service().start();
-            Dem.waitIndefinitely();
-        }, DistroCell::configurator);
-    }
-
     @Deprecated
     public static void configurator(Environment env) {
         net.splitcells.network.distro.java.DistroCell.configurator(env);
