@@ -29,9 +29,6 @@
             <text>Splitcells Network Distro JavaFX for Linux</text>
             <file>/net/splitcells/network/distro/downloads/net.splitcells.network.distro.javafx-0.0.1-SNAPSHOT-linux-zip.zip</file>
         </link>
-        <link>
-            <text>Splitcells Network Distro JavaFX for Windows</text>
-            <file>/net/splitcells/network/distro/downloads/net.splitcells.network.distro.javafx-0.0.1-SNAPSHOT-windows-zip.zip</file>
-        </link>
+        <item>Splitcells Network Distro JavaFX for Windows (This is disabled for now, as there are no users for the Windows version at the moment).</item>
     </list>
 </article>
