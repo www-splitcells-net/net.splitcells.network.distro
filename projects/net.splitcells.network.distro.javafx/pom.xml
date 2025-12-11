@@ -9,9 +9,9 @@
     <!-- TODO Create signed Windows exe, in order to avoid warning, when running the App after download via browser. -->
     <parent>
         <groupId>net.splitcells</groupId>
-        <artifactId>pom-java-defaults</artifactId>
+        <artifactId>pom-java-deployable</artifactId>
         <version>${revision}</version>
-        <relativePath>../../../net.splitcells.network/projects/net.splitcells.pom.java.defaults/pom.xml</relativePath>
+        <relativePath>../../../net.splitcells.network/projects/net.splitcells.pom.java.deployable/pom.xml</relativePath>
     </parent>
     <properties>
         <javafx.version>21</javafx.version>
