@@ -38,6 +38,7 @@ import net.splitcells.network.system.SystemCell;
 import net.splitcells.network.worker.via.java.NetworkWorkerLogFileSystem;
 import net.splitcells.website.binaries.BinaryFileSystem;
 import net.splitcells.website.server.Config;
+import net.splitcells.website.server.ServerConfig;
 import net.splitcells.website.server.projects.extension.ProjectsRendererExtensions;
 import org.slf4j.LoggerFactory;
 
@@ -78,7 +79,7 @@ public class DistroCell implements Cell {
 
     @Override
     public void accept(Environment env) {
-
+        config(env.config().configValue(ServerConfig.class));
     }
 
     public static void configurator(Environment env) {
