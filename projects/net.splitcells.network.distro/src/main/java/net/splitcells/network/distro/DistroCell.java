@@ -25,6 +25,7 @@ import net.splitcells.network.log.NetworkLogFileSystem;
 import net.splitcells.network.system.SystemCell;
 import net.splitcells.network.worker.via.java.NetworkWorkerLogFileSystem;
 import net.splitcells.website.server.Config;
+import net.splitcells.website.server.ServerConfig;
 import net.splitcells.website.server.WebsiteServerCell;
 
 import static net.splitcells.dem.Dem.configValue;
@@ -131,5 +132,6 @@ public class DistroCell implements Cell {
     @Override
     public void accept(Environment env) {
         env.withCell(SystemCell.class);
+        net.splitcells.network.distro.java.DistroCell.config(env.config().configValue(ServerConfig.class));
     }
 }
