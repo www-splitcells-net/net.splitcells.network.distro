@@ -20,6 +20,7 @@ import net.splitcells.dem.Dem;
 import net.splitcells.dem.environment.Cell;
 import net.splitcells.dem.environment.Environment;
 import net.splitcells.dem.environment.resource.Service;
+import net.splitcells.gel.ui.GelUiCell;
 import net.splitcells.network.log.NetworkLogFileSystem;
 import net.splitcells.network.system.SystemCell;
 import net.splitcells.network.worker.via.java.NetworkWorkerLogFileSystem;
@@ -129,6 +130,6 @@ public class DistroCell implements Cell {
 
     @Override
     public void accept(Environment env) {
-        env.withCell(WebsiteServerCell.class);
+        env.withCell(SystemCell.class);
     }
 }
