@@ -15,6 +15,7 @@
  */
 package net.splitcells.network.distro.java;
 
+import lombok.val;
 import net.splitcells.cin.text.CinTextFileSystem;
 import net.splitcells.dem.Dem;
 import net.splitcells.dem.data.set.list.AppendableList;
@@ -122,7 +123,8 @@ public class DistroCell implements Cell {
     }
 
     public static Service service() {
-        return SystemCell.projectsRenderer(config()).httpServer();
+        val config = config().withIsSecured(false).withOpenPort(8443);
+        return SystemCell.projectsRenderer(config).httpServer();
     }
 
     /**
@@ -148,8 +150,6 @@ public class DistroCell implements Cell {
 
     public static Config config(Config arg) {
         return arg
-                .withIsSecured(false)
-                .withOpenPort(8443)
                 .withAdditionalProject(projectConfig("/",
                         configValue(NetworkMediaFileSystem.class)))
                 .withAdditionalProject(projectConfig("/"
