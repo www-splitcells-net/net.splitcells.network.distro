@@ -23,12 +23,10 @@
         Click on <quote>Run anyway</quote> or on <quote>More info</quote> and than on <quote>Run anyway</quote>,
         in order to start the program on Windows.
     </paragraph>
-    <paragraph>The following downloads are available:</paragraph>
+    <paragraph>The downloads are currently not available, as providing and maintaining such programs requires man-hours and
+        currently there are no users of the program:</paragraph>
     <list>
-        <link>
-            <text>Splitcells Network Distro JavaFX for Linux</text>
-            <file>/net/splitcells/network/distro/downloads/net.splitcells.network.distro.javafx-0.0.1-SNAPSHOT-linux-zip.zip</file>
-        </link>
-        <item>Splitcells Network Distro JavaFX for Windows (This is disabled for now, as there are no users for the Windows version at the moment).</item>
+        <item>Disabled: Splitcells Network Distro JavaFX for Linux</item>
+        <item>Disabled: Splitcells Network Distro JavaFX for Windows.</item>
     </list>
 </article>
