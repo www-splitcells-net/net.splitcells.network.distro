@@ -14,7 +14,7 @@
         <relativePath>../../../net.splitcells.network/projects/net.splitcells.pom.java.deployable/pom.xml</relativePath>
     </parent>
     <properties>
-        <javafx.version>21</javafx.version>
+        <javafx.version>21.0.10</javafx.version>
         <javafx.maven.plugin.version>0.0.8</javafx.maven.plugin.version>
         <net-splitcells-pom-java-defaults-deployable-jar-folder>true</net-splitcells-pom-java-defaults-deployable-jar-folder>
     </properties>
