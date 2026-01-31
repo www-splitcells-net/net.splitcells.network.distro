@@ -41,7 +41,7 @@ import java.util.concurrent.Semaphore;
 import static net.splitcells.dem.utils.ExecutionException.execException;
 
 /**
- * The user is prevent from opening any page online,
+ * The user is prevented from opening any page online,
  * in order to avoid confusion and prevent the user from uploading data to the public unknowingly.
  */
 @JavaLegacyArtifact
