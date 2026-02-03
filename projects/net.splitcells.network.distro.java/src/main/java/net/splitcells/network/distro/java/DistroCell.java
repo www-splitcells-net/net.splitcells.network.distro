@@ -24,7 +24,7 @@ import net.splitcells.dem.environment.Environment;
 import net.splitcells.dem.environment.config.ProgramName;
 import net.splitcells.dem.environment.resource.Console;
 import net.splitcells.dem.environment.resource.Service;
-import net.splitcells.dem.lang.annotations.JavaLegacyArtifact;
+import net.splitcells.dem.lang.annotations.JavaLegacy;
 import net.splitcells.dem.resource.communication.Sender;
 import net.splitcells.dem.resource.communication.log.Logs;
 import net.splitcells.dem.resource.communication.log.MessageFilter;
@@ -59,7 +59,7 @@ import static net.splitcells.dem.utils.ExecutionException.execException;
 import static net.splitcells.network.distro.java.acme.AcmeChallengeFile.acmeChallengeFile;
 import static net.splitcells.website.server.ProjectConfig.projectConfig;
 
-@JavaLegacyArtifact
+@JavaLegacy
 public class DistroCell implements Cell {
     public static void main(String... args) {
         Dem.process(() -> {

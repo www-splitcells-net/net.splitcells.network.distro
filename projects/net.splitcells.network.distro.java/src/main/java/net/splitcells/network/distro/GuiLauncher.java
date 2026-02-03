@@ -16,7 +16,7 @@
 package net.splitcells.network.distro;
 
 import com.formdev.flatlaf.FlatLightLaf;
-import net.splitcells.dem.lang.annotations.JavaLegacyArtifact;
+import net.splitcells.dem.lang.annotations.JavaLegacy;
 
 import javax.swing.*;
 import java.awt.*;
@@ -25,7 +25,7 @@ import java.net.URI;
 import static net.splitcells.dem.resource.communication.log.Logs.logs;
 import static net.splitcells.dem.utils.ExecutionException.execException;
 
-@JavaLegacyArtifact
+@JavaLegacy
 public class GuiLauncher {
 
     private static final int DEFAULT_MARGIN = 5;

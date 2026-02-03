@@ -15,7 +15,7 @@
  */
 package net.splitcells.network.distro.java.acme;
 
-import net.splitcells.dem.lang.annotations.JavaLegacyArtifact;
+import net.splitcells.dem.lang.annotations.JavaLegacy;
 import net.splitcells.dem.resource.ConfigFileSystem;
 import net.splitcells.dem.resource.communication.log.LogLevel;
 import net.splitcells.dem.utils.ExecutionException;
@@ -63,7 +63,7 @@ import static net.splitcells.dem.utils.NotImplementedYet.notImplementedYet;
  * One can use `https://letsdebug.net/` in order to debug `https://letsencrypt.org/`.
  * Published certificates can be found via `https://crt.sh/`.
  */
-@JavaLegacyArtifact
+@JavaLegacy
 public class PublicKeyCryptoConfigurator {
     private static final String CONFIG_PATH = "net/splitcells/network/distro/java/acme/publickeycryptoconfigurator";
 
