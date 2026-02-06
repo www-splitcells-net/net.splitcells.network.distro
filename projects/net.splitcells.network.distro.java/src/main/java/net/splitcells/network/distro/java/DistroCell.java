@@ -108,7 +108,7 @@ public class DistroCell implements Cell {
         configurator(env);
         env.config().withConfigValue(MessageFilter.class, logMessage -> logMessage.priority().greaterThan(TRACE));
         final var logFile = Path.of("./net.splitcells.network.distro.log.md");
-        if (net.splitcells.dem.resource.Files.is_file(logFile)) {
+        if (net.splitcells.dem.resource.Files.isFile(logFile)) {
             logFile.toFile().delete();
         }
         try {
