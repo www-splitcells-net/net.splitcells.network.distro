@@ -12,10 +12,6 @@
         <version>${revision}</version>
         <relativePath>../../../net.splitcells.network/projects/net.splitcells.pom.java.deployable/pom.xml</relativePath>
     </parent>
-    <properties>
-        <uber_jar>enabled</uber_jar>
-        <main.class>org.springframework.boot.loader.JarLauncher</main.class>
-    </properties>
     <dependencies>
         <dependency>
             <groupId>net.splitcells</groupId>
@@ -82,28 +78,6 @@
             <version>${revision}</version>
         </dependency>
     </dependencies>
-    <build>
-        <finalName>net.splitcells.network.distro</finalName>
-        <plugins>
-            <plugin>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-maven-plugin</artifactId>
-                <version>2.7.16</version>
-                <executions>
-                    <execution>
-                        <goals>
-                            <goal>repackage</goal>
-                        </goals>
-                        <configuration>
-                            <classifier>spring-boot</classifier>
-                            <mainClass>net.splitcells.network.distro.DistroGuiLauncher</mainClass>
-                            <finalName>net.splitcells.network.distro.gui</finalName>
-                        </configuration>
-                    </execution>
-                </executions>
-            </plugin>
-        </plugins>
-    </build>
     <profiles>
         <profile>
             <id>flatpak.build</id>
