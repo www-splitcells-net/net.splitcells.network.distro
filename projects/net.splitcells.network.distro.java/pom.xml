@@ -78,6 +78,73 @@
             <version>${revision}</version>
         </dependency>
     </dependencies>
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.jreleaser</groupId>
+                <artifactId>jdks-maven-plugin</artifactId>
+                <version>1.10.0</version>
+                <!-- Adoptium API: https://api.adoptium.net/q/swagger-ui/#/Assets/searchReleasesByVersion -->
+                <executions>
+                    <execution>
+                        <id>download-linux-jre</id>
+                        <phase>generate-resources</phase>
+                        <goals>
+                            <goal>setup-jdks</goal>
+                        </goals>
+                        <configuration>
+                            <jdks>
+                                <jdk>
+                                    <name>eclipse-adoptium-jre-linux</name>
+                                    <platform>linux</platform>
+                                    <url>${eclipse.adoptium.jre.linux.version.url}</url>
+                                    <checksum>${eclipse.adoptium.jre.linux.version.checksum}</checksum>
+                                </jdk>
+                            </jdks>
+                            <outputDirectory>${project.basedir}/jres</outputDirectory>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>download-windows-jre</id>
+                        <phase>generate-resources</phase>
+                        <goals>
+                            <goal>setup-jdks</goal>
+                        </goals>
+                        <configuration>
+                            <jdks>
+                                <jdk>
+                                    <name>eclipse-adoptium-jre-windows</name>
+                                    <platform>windows</platform>
+                                    <url>${eclipse.adoptium.jre.windows.version.url}</url>
+                                    <checksum>${eclipse.adoptium.jre.windows.version.checksum}</checksum>
+                                </jdk>
+                            </jdks>
+                            <outputDirectory>${project.basedir}/jres</outputDirectory>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>download-macos-jre</id>
+                        <!-- The Mac version is currently not supported. -->
+                        <phase>disabled-execution</phase>
+                        <goals>
+                            <goal>setup-jdks</goal>
+                        </goals>
+                        <configuration>
+                            <jdks>
+                                <jdk>
+                                    <name>eclipse-adoptium-jre-macos</name>
+                                    <platform>osx</platform>
+                                    <url>${eclipse.adoptium.jre.macos.version.url}</url>
+                                    <checksum>${eclipse.adoptium.jre.macos.version.checksum}</checksum>
+                                </jdk>
+                            </jdks>
+                            <outputDirectory>${project.basedir}/jres</outputDirectory>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
     <profiles>
         <profile>
             <id>flatpak.build</id>
@@ -142,7 +209,6 @@
         <profile>
             <id>uber.exe</id>
             <activation>
-                <!-- This requires the profile `uber-jar` in order to create a jar with all of its dependencies. -->
                 <property>
                     <name>uber.exe</name>
                 </property>
