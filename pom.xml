@@ -15,7 +15,6 @@
     <packaging>pom</packaging>
     <modules>
         <module>projects/net.splitcells.network.distro.java</module>
-        <module>projects/net.splitcells.network.distro.javafx</module>
         <module>projects/net.splitcells.network.distro.swt</module>
         <module>projects/net.splitcells.network.distro</module>
     </modules>
