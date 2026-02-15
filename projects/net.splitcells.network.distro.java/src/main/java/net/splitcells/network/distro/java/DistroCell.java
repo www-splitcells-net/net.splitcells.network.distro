@@ -172,7 +172,7 @@ public class DistroCell implements Cell {
                 .withAdditionalJsBackgroundFiles("net/splitcells/website/js/jquery-fancytree-all-deps-injection.min.js")
                 .withAdditionalCssFile("net/splitcells/website/css/jquery-fancytree-all-deps.min.css")
                 .withFrontMenuCommonMarkDescription(configValue(NetworkHubFileSystem.class)
-                        .readString("README-for-users.md"))
+                        .readString("src/main/md/net/splitcells/network/hub/README-for-users.md"))
                 ;
     }
 
