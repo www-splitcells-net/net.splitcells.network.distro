@@ -13,13 +13,13 @@
  * SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
  * SPDX-FileCopyrightText: Contributors To The `net.splitcells.*` Projects
  */
-package net.splitcells.network.distro;
+package net.splitcells.network.distro.java;
 
 import net.splitcells.dem.Dem;
 import net.splitcells.network.distro.java.DistroCell;
 
-import static net.splitcells.network.distro.GuiLauncher.startGuiLauncher;
-import static net.splitcells.network.distro.GuiLauncherConfig.guiLauncherConfig;
+import static net.splitcells.network.distro.java.GuiLauncher.startGuiLauncher;
+import static net.splitcells.network.distro.java.GuiLauncherConfig.guiLauncherConfig;
 
 /**
  * <p>TODO FIX All external image links have to be redirected to a local resource or has to be blocked.
