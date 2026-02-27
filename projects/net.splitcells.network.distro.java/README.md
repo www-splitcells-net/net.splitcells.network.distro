@@ -1,4 +1,7 @@
 # net.splitcells.network.distro
+## Shell based Launcher
+The launcher is a shell script, as Windows allows executing downloaded and not signed shell scripts.
+The same is not true for EXE files.
 ## DistroGuiLauncher does not work in IDE.
 The error is something like `java.lang.NoClassDefFoundError: org/springframework/core/io/support/PathMatchingResourcePatternResolver`.
 Maybe the IDE imported the project at the root folder of this git repo.
