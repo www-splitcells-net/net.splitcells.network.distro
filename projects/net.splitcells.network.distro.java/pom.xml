@@ -104,43 +104,6 @@
                             <outputDirectory>${project.basedir}/jres</outputDirectory>
                         </configuration>
                     </execution>
-                    <execution>
-                        <id>download-windows-jre</id>
-                        <phase>generate-resources</phase>
-                        <goals>
-                            <goal>setup-jdks</goal>
-                        </goals>
-                        <configuration>
-                            <jdks>
-                                <jdk>
-                                    <name>eclipse-adoptium-jre-windows</name>
-                                    <platform>windows</platform>
-                                    <url>${eclipse.adoptium.jre.windows.version.url}</url>
-                                    <checksum>${eclipse.adoptium.jre.windows.version.checksum}</checksum>
-                                </jdk>
-                            </jdks>
-                            <outputDirectory>${project.basedir}/jres</outputDirectory>
-                        </configuration>
-                    </execution>
-                    <execution>
-                        <id>download-macos-jre</id>
-                        <!-- The Mac version is currently not supported. -->
-                        <phase>disabled-execution</phase>
-                        <goals>
-                            <goal>setup-jdks</goal>
-                        </goals>
-                        <configuration>
-                            <jdks>
-                                <jdk>
-                                    <name>eclipse-adoptium-jre-macos</name>
-                                    <platform>osx</platform>
-                                    <url>${eclipse.adoptium.jre.macos.version.url}</url>
-                                    <checksum>${eclipse.adoptium.jre.macos.version.checksum}</checksum>
-                                </jdk>
-                            </jdks>
-                            <outputDirectory>${project.basedir}/jres</outputDirectory>
-                        </configuration>
-                    </execution>
                 </executions>
             </plugin>
         </plugins>
