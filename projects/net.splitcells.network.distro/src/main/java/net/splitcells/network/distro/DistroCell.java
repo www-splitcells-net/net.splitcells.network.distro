@@ -42,10 +42,6 @@ public class DistroCell implements Cell {
         net.splitcells.network.distro.java.DistroCell.configurator(env);
     }
 
-    public void configurator2(Environment env) {
-        configurator(env);
-    }
-
     /**
      * <p>Provides a config for users, that run the software locally, without access to the public.
      * It also helps users to get support by providing log files.
