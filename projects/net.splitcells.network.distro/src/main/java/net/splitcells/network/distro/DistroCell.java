@@ -72,15 +72,6 @@ public class DistroCell implements Cell {
         return net.splitcells.network.distro.java.DistroCell.serviceForLocalUsers();
     }
 
-    /**
-     * @return Provide a webserver configuration for users running this software locally.
-     * @see #configuratorForLocalUsers(Environment)
-     */
-    @Deprecated
-    public static Config configForLocalUsers() {
-        return net.splitcells.network.distro.java.DistroCell.configForLocalUsers();
-    }
-
     @Deprecated
     public static Config config() {
         return config(net.splitcells.network.distro.java.DistroCell.config());
