@@ -58,17 +58,9 @@ public class DistroCell implements Cell {
         net.splitcells.network.distro.java.DistroCell.configuratorForLocalUsers(env);
     }
 
-    public void configuratorForLocalUsers2(Environment env) {
-        configuratorForLocalUsers(env);
-    }
-
     @Deprecated
     public static Service service() {
         return SystemCell.projectsRenderer(config()).httpServer();
-    }
-
-    public Service service2() {
-        return service();
     }
 
     /**
@@ -80,10 +72,6 @@ public class DistroCell implements Cell {
         return net.splitcells.network.distro.java.DistroCell.serviceForLocalUsers();
     }
 
-    public Service serviceForLocalUsers2() {
-        return serviceForLocalUsers();
-    }
-
     /**
      * @return Provide a webserver configuration for users running this software locally.
      * @see #configuratorForLocalUsers(Environment)
@@ -93,26 +81,14 @@ public class DistroCell implements Cell {
         return net.splitcells.network.distro.java.DistroCell.configForLocalUsers();
     }
 
-    public Config configForLocalUsers2() {
-        return configForLocalUsers();
-    }
-
     @Deprecated
     public static Config config() {
         return config(net.splitcells.network.distro.java.DistroCell.config());
     }
 
-    public Config config2() {
-        return config();
-    }
-
     @Deprecated
     public static Config config(Config arg) {
         return arg.withAdditionalProject(projectConfig("/", configValue(NetworkDistroFileSystem.class)));
-    }
-
-    public Config config2(Config arg) {
-        return config(arg);
     }
 
     @Override
