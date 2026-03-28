@@ -126,15 +126,7 @@ public class DistroCell implements Cell {
         val config = config().withIsSecured(false).withOpenPort(8443);
         return SystemCell.projectsRenderer(config).httpServer();
     }
-
-    /**
-     * @return Provide a webserver for users running this software locally.
-     * @see #configuratorForLocalUsers(Environment)
-     */
-    public static Service serviceForLocalUsers() {
-        return SystemCell.projectsRenderer(configForLocalUsers()).httpServer();
-    }
-
+    
     /**
      * @return Provide a webserver configuration for users running this software locally.
      * @see #configuratorForLocalUsers(Environment)

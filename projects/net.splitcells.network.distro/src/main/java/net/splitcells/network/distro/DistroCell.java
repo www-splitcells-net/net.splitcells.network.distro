@@ -38,38 +38,8 @@ public class DistroCell implements Cell {
     }
 
     @Deprecated
-    public static void configurator(Environment env) {
-        net.splitcells.network.distro.java.DistroCell.configurator(env);
-    }
-
-    /**
-     * <p>Provides a config for users, that run the software locally, without access to the public.
-     * It also helps users to get support by providing log files.
-     * This is used for GUI applications for instance.</p>
-     * <p>Logs are written in the user friendly CommonMark format.
-     * Many websites have a nice rendering of CommonMark documents,
-     * which in turn should improve the interactions with non technical users.</p>
-     *
-     * @param env Adapts the given config.
-     */
-    @Deprecated
-    public static void configuratorForLocalUsers(Environment env) {
-        env.config().withConfigValue(NetworkWorkerLogFileSystem.class, env.config().configValue(NetworkLogFileSystem.class));
-        net.splitcells.network.distro.java.DistroCell.configuratorForLocalUsers(env);
-    }
-
-    @Deprecated
     public static Service service() {
         return SystemCell.projectsRenderer(config()).httpServer();
-    }
-
-    /**
-     * @return Provide a webserver for users running this software locally.
-     * @see #configuratorForLocalUsers(Environment)
-     */
-    @Deprecated
-    public static Service serviceForLocalUsers() {
-        return net.splitcells.network.distro.java.DistroCell.serviceForLocalUsers();
     }
 
     @Deprecated
@@ -96,5 +66,6 @@ public class DistroCell implements Cell {
     public void accept(Environment env) {
         env.withCell(SystemCell.class);
         net.splitcells.network.distro.java.DistroCell.config(env.config().configValue(ServerConfig.class));
+        net.splitcells.network.distro.java.DistroCell.configurator(env);
     }
 }
