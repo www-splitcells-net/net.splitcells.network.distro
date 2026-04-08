@@ -1,4 +1,5 @@
-# net.splitcells.network.distro
+# net.splitcells.network.distro.java
+> This is a GUI application, for people to easily run and use the server locally.
 ## Shell based Launcher
 The launcher is a shell script, as Windows allows executing downloaded and not signed shell scripts.
 The same is not true for EXE files.
