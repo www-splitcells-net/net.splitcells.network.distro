@@ -38,16 +38,6 @@ public class DistroCell implements Cell {
     }
 
     @Deprecated
-    public static Service service() {
-        return SystemCell.projectsRenderer(config()).httpServer();
-    }
-
-    @Deprecated
-    public static Config config() {
-        return config(net.splitcells.network.distro.java.DistroCell.config());
-    }
-
-    @Deprecated
     public static Config config(Config arg) {
         return arg.withAdditionalProject(projectConfig("/", configValue(NetworkDistroFileSystem.class)));
     }
