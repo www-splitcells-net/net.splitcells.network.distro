@@ -37,11 +37,6 @@ public class DistroCell implements Cell {
         serve(DistroCell.class);
     }
 
-    @Deprecated
-    public static Config config(Config arg) {
-        return arg.withAdditionalProject(projectConfig("/", configValue(NetworkDistroFileSystem.class)));
-    }
-
     @Override
     public String groupId() {
         return "net.splitcells";
@@ -55,7 +50,8 @@ public class DistroCell implements Cell {
     @Override
     public void accept(Environment env) {
         env.withCell(SystemCell.class);
-        net.splitcells.network.distro.java.DistroCell.config(env.config().configValue(ServerConfig.class));
+        net.splitcells.network.distro.java.DistroCell.config(env.config().configValue(ServerConfig.class))
+                .withAdditionalProject(projectConfig("/", configValue(NetworkDistroFileSystem.class)));
         net.splitcells.network.distro.java.DistroCell.configurator(env);
     }
 }
