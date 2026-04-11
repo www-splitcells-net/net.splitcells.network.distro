@@ -10,3 +10,10 @@ In this case, it could be the cases, that the IDE only loads the dependencies of
 which happened once in Intellij IDEA.
 Import the subproject `net.splitcells.network.distro/projects/net.splitcells.network.distro`
 instead, in order to fix the problem.
+## Swing Choice
+JavaFX's browser seems to be too old for JavaScript and does not look like a local browser,
+where icons are quite different there.
+Therefore, it is best for now to just have a GUI launcher with a window.
+It provides a button, that opens a link to localhost,
+which is automatically opened via the local browser.
+As Swing is provided by Java itself, it is the most portable and easiest way to implement a GUI launcher.
