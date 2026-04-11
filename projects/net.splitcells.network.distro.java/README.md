@@ -17,3 +17,7 @@ Therefore, it is best for now to just have a GUI launcher with a window.
 It provides a button, that opens a link to localhost,
 which is automatically opened via the local browser.
 As Swing is provided by Java itself, it is the most portable and easiest way to implement a GUI launcher.
+
+One could consider using SWT in order to integrate the local browser into the GUI itself,
+which may be the best mix of both worlds.
+Currently, this is not acitvely pursued or decieded to be done.
