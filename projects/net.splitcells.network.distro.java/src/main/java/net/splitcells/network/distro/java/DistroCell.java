@@ -49,8 +49,7 @@ import java.nio.file.Path;
 import java.util.function.Consumer;
 
 import static ch.qos.logback.classic.util.ContextInitializer.CONFIG_FILE_PROPERTY;
-import static net.splitcells.dem.Dem.configValue;
-import static net.splitcells.dem.Dem.environment;
+import static net.splitcells.dem.Dem.*;
 import static net.splitcells.dem.lang.tree.TreeI.tree;
 import static net.splitcells.dem.resource.communication.Sender.stringSender;
 import static net.splitcells.dem.resource.communication.log.CommonMarkLogger.commonMarkDui;
@@ -177,15 +176,13 @@ public class DistroCell implements Cell {
      * and to implement more complex settings, when a concrete need for that arises.</p>
      * <p>IDEA Consider storing logs in database, so that SQL can be used for analysis:
      * https://stackoverflow.com/questions/59573185/springboot-to-store-logs-in-h2-db-logback-configuration-error-detected</p>
-     *
-     * @param env Adjust env to use slf4j as a {@link Console}.
      */
-    public static void setGlobalUnixStateLogger(Environment env) {
-        final var programName = env.config().configValue(ProgramName.class);
+    public void setGlobalUnixStateLogger() {
+        final var programName = configWrite().configValue(ProgramName.class);
         System.setProperty("net.splitcells.dem.environment.config.ProgramName", programName.toLowerCase());
         System.setProperty(CONFIG_FILE_PROPERTY, "net/splitcells/network/distro/java/logback/config.xml");
         final var logger = LoggerFactory.getLogger(programName);
-        env.config().withConfigValue(Console.class
+        configWrite().withConfigValue(Console.class
                 , new Sender<>() {
                     @Override
                     public <R extends AppendableList<String>> R append(String arg) {
