@@ -124,13 +124,8 @@ public class DistroCell implements Cell {
     }
 
     public static Service service() {
-        val config = config().withIsSecured(false).withOpenPort(8443);
+        val config = configValue(ServerConfig.class).withIsSecured(false).withOpenPort(8443);
         return SystemCell.projectsRenderer(config).httpServer();
-    }
-
-    @Deprecated
-    public static Config config() {
-        return config(SystemCell.config());
     }
 
     public static Config config(Config arg) {
