@@ -88,7 +88,7 @@
                 <executions>
                     <execution>
                         <id>download-linux-jre</id>
-                        <phase>generate-resources</phase>
+                        <phase>process-resources</phase>
                         <goals>
                             <goal>setup-jdks</goal>
                         </goals>
@@ -112,7 +112,7 @@
                 <executions>
                     <execution>
                         <id>assemble-linux-zip</id>
-                        <phase>package</phase>
+                        <phase>process-resources</phase>
                         <goals>
                             <goal>single</goal>
                         </goals>
@@ -120,6 +120,8 @@
                             <descriptors>
                                 <descriptor>src/main/assembly/linux-zip.xml</descriptor>
                             </descriptors>
+                            <outputDirectory>${project.build.directory}/classes/net.splitcells.network.distro.java.resources/src/main/resources/html/net/splitcells/network/distro/downloads/</outputDirectory>
+                            <finalName>${project.groupId}.${project.artifactId}</finalName>
                         </configuration>
                     </execution>
                 </executions>
