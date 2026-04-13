@@ -127,14 +127,6 @@ public class DistroCell implements Cell {
         return SystemCell.projectsRenderer(config).httpServer();
     }
 
-    /**
-     * @return Provide a webserver configuration for users running this software locally.
-     * @see #configuratorForLocalUsers(Environment)
-     */
-    public static Config configForLocalUsers() {
-        return config().withIsServerForGeneralPublic(false);
-    }
-
     @Deprecated
     public static Config config() {
         return config(SystemCell.config());
