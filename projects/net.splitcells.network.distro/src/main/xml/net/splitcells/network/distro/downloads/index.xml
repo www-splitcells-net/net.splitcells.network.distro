@@ -26,7 +26,10 @@
     <paragraph>The downloads are currently not available, as providing and maintaining such programs requires man-hours and
         currently there are no users of the program:</paragraph>
     <list>
-        <item>Disabled: Splitcells Network Distro JavaFX for Linux</item>
-        <item>Disabled: Splitcells Network Distro JavaFX for Windows.</item>
+        <link>
+            <text>Splitcells Network Swing Distro for Linux</text>
+            <file>/net/splitcells/network/distro/downloads/net.splitcells.network.distro.java-linux-zip.zip</file>
+        </link>
+        <item>Disabled: Splitcells Network Swing Distro for Windows</item>
     </list>
 </article>
