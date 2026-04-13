@@ -79,10 +79,12 @@ public class DistroCell implements Cell {
 
     @Override
     public void accept(Environment env) {
+        env.withCell(SystemCell.class);
         config(env.config().configValue(ServerConfig.class));
+        configurator(env);
     }
 
-    public static void configurator(Environment env) {
+    private static void configurator(Environment env) {
         env.config().withConfigValue(NetworkLogFileSystem.class, env.config().configValue(NetworkWorkerLogFileSystem.class));
     }
 

@@ -49,9 +49,8 @@ public class DistroCell implements Cell {
 
     @Override
     public void accept(Environment env) {
-        env.withCell(SystemCell.class);
-        net.splitcells.network.distro.java.DistroCell.config(env.config().configValue(ServerConfig.class))
+        env.withCell(net.splitcells.network.distro.java.DistroCell.class);
+        env.config().configValue(ServerConfig.class)
                 .withAdditionalProject(projectConfig("/", configValue(NetworkDistroFileSystem.class)));
-        net.splitcells.network.distro.java.DistroCell.configurator(env);
     }
 }
