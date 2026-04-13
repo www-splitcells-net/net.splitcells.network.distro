@@ -126,7 +126,7 @@ public class DistroCell implements Cell {
         val config = config().withIsSecured(false).withOpenPort(8443);
         return SystemCell.projectsRenderer(config).httpServer();
     }
-    
+
     /**
      * @return Provide a webserver configuration for users running this software locally.
      * @see #configuratorForLocalUsers(Environment)
@@ -158,6 +158,8 @@ public class DistroCell implements Cell {
                         , configValue(NetworkPresentationsFileSystem.class)))
                 .withAdditionalProject(projectConfig("/net/splitcells/cin/text/"
                         , configValue(CinTextFileSystem.class)))
+                .withAdditionalProject(projectConfig("/"
+                        , configValue(NetworkDistroJavaFileSystem.class)))
                 .withAdditionalJsBackgroundFiles("net/splitcells/website/js/tabulator.min.js")
                 .withAdditionalJsBackgroundFiles("net/splitcells/website/js/tabulator.injection.js")
                 .withAdditionalJsBackgroundFiles("net/splitcells/website/js/jquery-fancytree-all-deps.min.js")
