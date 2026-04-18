@@ -81,10 +81,6 @@ public class DistroCell implements Cell {
     public void accept(Environment env) {
         env.withCell(SystemCell.class);
         config(env.config().configValue(ServerConfig.class));
-        configurator(env);
-    }
-
-    private static void configurator(Environment env) {
         env.config().withConfigValue(NetworkLogFileSystem.class, env.config().configValue(NetworkWorkerLogFileSystem.class));
     }
 
@@ -106,7 +102,6 @@ public class DistroCell implements Cell {
      * @param env Adapts the given config.
      */
     public static void configuratorForLocalUsers(Environment env) {
-        configurator(env);
         env.config().withConfigValue(MessageFilter.class, logMessage -> logMessage.priority().greaterThan(TRACE));
         final var logFile = Path.of("./net.splitcells.network.distro.log.md");
         if (net.splitcells.dem.resource.Files.isFile(logFile)) {
