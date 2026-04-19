@@ -3,17 +3,20 @@
  */
 package net.splitcells.network.distro.java;
 
+import lombok.val;
 import net.splitcells.dem.environment.Cell;
 import net.splitcells.dem.environment.Environment;
 import net.splitcells.dem.environment.resource.Console;
 import net.splitcells.dem.resource.communication.log.Logs;
 import net.splitcells.dem.resource.communication.log.MessageFilter;
 import net.splitcells.dem.utils.ExecutionException;
+import net.splitcells.website.server.ServerConfig;
 
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.nio.file.Path;
 
+import static net.splitcells.dem.Dem.configValue;
 import static net.splitcells.dem.Dem.environment;
 import static net.splitcells.dem.lang.tree.TreeI.tree;
 import static net.splitcells.dem.resource.communication.Sender.stringSender;
@@ -38,6 +41,7 @@ public class LocalUserCell implements Cell {
     }
 
     @Override public void accept(Environment env) {
+        env.config().configValue(ServerConfig.class).withIsSecured(false).withOpenPort(8443);
         env.config().withConfigValue(MessageFilter.class, logMessage -> logMessage.priority().greaterThan(TRACE));
         final var logFile = Path.of("./net.splitcells.network.distro.log.md");
         if (net.splitcells.dem.resource.Files.isFile(logFile)) {

@@ -61,10 +61,7 @@ import static net.splitcells.website.server.ProjectConfig.projectConfig;
 @JavaLegacy
 public class DistroCell implements Cell {
     public static void main(String... args) {
-        Dem.process(() -> {
-            service().start();
-            Dem.waitIndefinitely();
-        }, DistroCell.class);
+        Dem.serve(DistroCell.class);
     }
 
     @Override
@@ -82,11 +79,6 @@ public class DistroCell implements Cell {
         env.withCell(SystemCell.class);
         config(env.config().configValue(ServerConfig.class));
         env.config().withConfigValue(NetworkLogFileSystem.class, env.config().configValue(NetworkWorkerLogFileSystem.class));
-    }
-
-    public static Service service() {
-        val config = configValue(ServerConfig.class).withIsSecured(false).withOpenPort(8443);
-        return SystemCell.projectsRenderer(config).httpServer();
     }
 
     public static Config config(Config arg) {
