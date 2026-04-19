@@ -91,33 +91,6 @@ public class DistroCell implements Cell {
                 .withAppended(acmeChallengeFile());
     }
 
-    /**
-     * <p>Provides a config for users, that run the software locally, without access to the public.
-     * It also helps users to get support by providing log files.
-     * This is used for GUI applications for instance.</p>
-     * <p>Logs are written in the user friendly CommonMark format.
-     * Many websites have a nice rendering of CommonMark documents,
-     * which in turn should improve the interactions with non technical users.</p>
-     *
-     * @param env Adapts the given config.
-     */
-    public static void configuratorForLocalUsers(Environment env) {
-        env.config().withConfigValue(MessageFilter.class, logMessage -> logMessage.priority().greaterThan(TRACE));
-        final var logFile = Path.of("./net.splitcells.network.distro.log.md");
-        if (net.splitcells.dem.resource.Files.isFile(logFile)) {
-            logFile.toFile().delete();
-        }
-        try {
-            env.config().withConfigValue(Console.class
-                    , stringSender(new FileOutputStream(logFile.toFile())));
-        } catch (FileNotFoundException e) {
-            throw ExecutionException.execException(tree("Could not delete local log file.")
-                    .withProperty("logFile", logFile.toString()), e);
-        }
-        env.config().withConfigValue(Logs.class, commonMarkDui(environment().config().configValue(Console.class)
-                , environment().config().configValue(MessageFilter.class)));
-    }
-
     public static Service service() {
         val config = configValue(ServerConfig.class).withIsSecured(false).withOpenPort(8443);
         return SystemCell.projectsRenderer(config).httpServer();

@@ -44,9 +44,8 @@ public class DistroGuiLauncher {
                         + "Therefore, the program has to be accessed via an Internet browser: "
                         + "click on the `open` button or insert the `URL` into your favorite browser."));
         Dem.process(() -> {
-                    DistroCell.service().start();
-                    Dem.waitIndefinitely();
-                }, DistroCell::configuratorForLocalUsers
-                , DistroCell.class);
+            DistroCell.service().start();
+            Dem.waitIndefinitely();
+        }, LocalUserCell.class, DistroCell.class);
     }
 }
