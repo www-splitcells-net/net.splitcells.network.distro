@@ -84,13 +84,6 @@ public class DistroCell implements Cell {
         env.config().withConfigValue(NetworkLogFileSystem.class, env.config().configValue(NetworkWorkerLogFileSystem.class));
     }
 
-    public static void ensureSslCertificatePresence(Environment env) {
-        env.config()
-                .withInitedOption(CurrentAcmeAuthorization.class)
-                .configValue(ProjectsRendererExtensions.class)
-                .withAppended(acmeChallengeFile());
-    }
-
     public static Service service() {
         val config = configValue(ServerConfig.class).withIsSecured(false).withOpenPort(8443);
         return SystemCell.projectsRenderer(config).httpServer();
