@@ -22,9 +22,9 @@ import net.splitcells.dem.environment.config.framework.Option;
  * as the default URI is just for testing.
  */
 public class AcmeServerUri implements Option<String> {
-    public static final String PRODUCTION_ACME_SERVER = "acme://letsencrypt.org/";
+    public static final String PRODUCTION_ACME_SERVER = "https://acme-v02.api.letsencrypt.org/directory";
     @Override
     public String defaultValue() {
-        return "acme://letsencrypt.org/staging";
+        return "https://acme-staging-v02.api.letsencrypt.org/directory";
     }
 }
