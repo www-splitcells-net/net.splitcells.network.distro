@@ -15,6 +15,7 @@
  */
 package net.splitcells.network.distro.java.acme;
 
+import lombok.val;
 import net.splitcells.dem.lang.annotations.JavaLegacy;
 import net.splitcells.dem.resource.ConfigFileSystem;
 import net.splitcells.dem.resource.communication.log.LogLevel;
@@ -69,6 +70,15 @@ public class PublicKeyCryptoConfigurator {
 
     {
         Security.addProvider(new BouncyCastleProvider());
+    }
+
+    public static PublicKeyCryptoConfig readPublicKeyCryptoConfig() {
+        val publicKeyCryptoConfig = new PublicKeyCryptoConfigurator(configValue(PublicContactEMailAddress.class).orElseThrow())
+                .readPublicKeyCryptoConfig(configValue(PublicDomain.class).orElseThrow());
+        if (publicKeyCryptoConfig.isPresent()) {
+            return publicKeyCryptoConfig.get();
+        }
+        return PublicKeyCryptoConfig.publicKeyCryptoConfig(new byte[0], new byte[0]);
     }
 
     public static PublicKeyCryptoConfig publicKeyCryptoConfig() {
@@ -128,12 +138,7 @@ public class PublicKeyCryptoConfigurator {
         configValue(ConfigFileSystem.class).createDirectoryPath(CONFIG_PATH);
     }
 
-    /**
-     *
-     * @param domain
-     * @return Reads the crypto config from the {@link #acmeCertificatePath} on the file system or requests a new one.
-     */
-    public PublicKeyCryptoConfig publicKeyCryptoConfig(String domain) {
+    public Optional<PublicKeyCryptoConfig> readPublicKeyCryptoConfig(String domain) {
         try {
             if (fileExists(acmeCertificatePath)) {
                 final var targetStream = new ByteArrayInputStream(readFileAsBytes(acmeCertificatePath));
@@ -143,8 +148,8 @@ public class PublicKeyCryptoConfigurator {
                 final var currentTime = new Date();
                 try {
                     x509certificate.checkValidity(currentTime);
-                    return PublicKeyCryptoConfig.publicKeyCryptoConfig(readFileAsBytes(domainKeyPairPath)
-                            , readFileAsBytes(acmeCertificatePath));
+                    return Optional.of(PublicKeyCryptoConfig.publicKeyCryptoConfig(readFileAsBytes(domainKeyPairPath)
+                            , readFileAsBytes(acmeCertificatePath)));
                 } catch (Throwable t2) {
                     logs().warn(tree("Certificate is invalid, according to the start, end and current time. It will be updated automatically.")
                                     .withProperty("notBefore", "" + x509certificate.getNotBefore())
@@ -152,6 +157,23 @@ public class PublicKeyCryptoConfigurator {
                                     .withProperty("current time", "" + currentTime)
                             , t2);
                 }
+            }
+            return Optional.empty();
+        } catch (Throwable t) {
+            throw execException("Could not read public key crypto config.", t);
+        }
+    }
+
+    /**
+     *
+     * @param domain
+     * @return Reads the crypto config from the {@link #acmeCertificatePath} on the file system or requests a new one.
+     */
+    public PublicKeyCryptoConfig publicKeyCryptoConfig(String domain) {
+        try {
+            val readPublicKeyCryptoConfig = readPublicKeyCryptoConfig(domain);
+            if (readPublicKeyCryptoConfig.isPresent()) {
+                return readPublicKeyCryptoConfig.get();
             }
             final var userKeyPair = userKeyPair();
             final var domainKeyPair = domainKeyPair();
