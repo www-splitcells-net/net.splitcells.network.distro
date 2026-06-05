@@ -17,6 +17,7 @@ package net.splitcells.network.distro.java.acme;
 
 import net.splitcells.dem.data.set.Set;
 import net.splitcells.dem.data.set.Sets;
+import net.splitcells.dem.lang.annotations.JavaLegacy;
 import net.splitcells.dem.utils.StringUtils;
 import net.splitcells.website.Format;
 import net.splitcells.website.server.Config;
@@ -32,6 +33,7 @@ import java.util.Optional;
 import static net.splitcells.dem.Dem.configValue;
 import static net.splitcells.dem.data.set.Sets.setOfUniques;
 
+@JavaLegacy
 public class AcmeChallengeFile implements ProjectsRendererExtension {
     public static AcmeChallengeFile acmeChallengeFile() {
         return new AcmeChallengeFile();

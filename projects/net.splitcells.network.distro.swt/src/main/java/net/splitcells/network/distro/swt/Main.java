@@ -15,11 +15,13 @@
  */
 package net.splitcells.network.distro.swt;
 
+import net.splitcells.dem.lang.annotations.JavaLegacy;
 import org.eclipse.swt.*;
 import org.eclipse.swt.widgets.*;
 import org.eclipse.swt.layout.*;
 
 
+@JavaLegacy
 public class Main {
     public static void main(String[] args) {
         Display display = new Display();

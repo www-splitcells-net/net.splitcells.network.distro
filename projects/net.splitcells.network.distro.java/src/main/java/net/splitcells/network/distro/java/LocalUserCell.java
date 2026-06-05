@@ -7,6 +7,7 @@ import lombok.val;
 import net.splitcells.dem.environment.Cell;
 import net.splitcells.dem.environment.Environment;
 import net.splitcells.dem.environment.resource.Console;
+import net.splitcells.dem.lang.annotations.JavaLegacy;
 import net.splitcells.dem.resource.communication.log.Logs;
 import net.splitcells.dem.resource.communication.log.MessageFilter;
 import net.splitcells.dem.utils.ExecutionException;
@@ -31,6 +32,7 @@ import static net.splitcells.dem.resource.communication.log.LogLevel.TRACE;
  * Many websites have a nice rendering of CommonMark documents,
  * which in turn should improve the interactions with non-technical users.</p>
  */
+@JavaLegacy
 public class LocalUserCell implements Cell {
     @Override public String groupId() {
         return "net.splitcells";

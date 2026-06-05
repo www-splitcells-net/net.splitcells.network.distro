@@ -9,6 +9,7 @@ import net.splitcells.dem.environment.Cell;
 import net.splitcells.dem.environment.Environment;
 import net.splitcells.dem.environment.config.ProgramName;
 import net.splitcells.dem.environment.resource.Console;
+import net.splitcells.dem.lang.annotations.JavaLegacy;
 import net.splitcells.dem.resource.communication.Sender;
 import org.slf4j.LoggerFactory;
 
@@ -33,6 +34,7 @@ import static net.splitcells.dem.Dem.configWrite;
  * <p>IDEA Consider storing logs in database, so that SQL can be used for analysis:
  * https://stackoverflow.com/questions/59573185/springboot-to-store-logs-in-h2-db-logback-configuration-error-detected</p>
  */
+@JavaLegacy
 public class Slf4jCell implements Cell {
     @Override public String groupId() {
         return "net.splitcells";
