@@ -15,22 +15,12 @@
  */
 package net.splitcells.network.distro.java;
 
-import lombok.val;
 import net.splitcells.cin.text.CinTextFileSystem;
 import net.splitcells.dem.Dem;
-import net.splitcells.dem.data.set.list.AppendableList;
 import net.splitcells.dem.environment.Cell;
 import net.splitcells.dem.environment.Environment;
-import net.splitcells.dem.environment.config.ProgramName;
-import net.splitcells.dem.environment.resource.Console;
-import net.splitcells.dem.environment.resource.Service;
 import net.splitcells.dem.lang.annotations.JavaLegacy;
-import net.splitcells.dem.resource.communication.Sender;
-import net.splitcells.dem.resource.communication.log.Logs;
-import net.splitcells.dem.resource.communication.log.MessageFilter;
-import net.splitcells.dem.utils.ExecutionException;
 import net.splitcells.network.community.NetworkCommunityFileSystem;
-import net.splitcells.network.distro.java.acme.CurrentAcmeAuthorization;
 import net.splitcells.network.hub.NetworkHubFileSystem;
 import net.splitcells.network.log.NetworkLogFileSystem;
 import net.splitcells.network.media.NetworkMediaFileSystem;
@@ -40,22 +30,10 @@ import net.splitcells.network.worker.via.java.NetworkWorkerLogFileSystem;
 import net.splitcells.website.binaries.BinaryFileSystem;
 import net.splitcells.website.server.Config;
 import net.splitcells.website.server.ServerConfig;
-import net.splitcells.website.server.projects.extension.ProjectsRendererExtensions;
-import org.slf4j.LoggerFactory;
 
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.nio.file.Path;
-import java.util.function.Consumer;
-
-import static ch.qos.logback.classic.util.ContextInitializer.CONFIG_FILE_PROPERTY;
 import static net.splitcells.dem.Dem.*;
 import static net.splitcells.dem.lang.tree.TreeI.tree;
-import static net.splitcells.dem.resource.communication.Sender.stringSender;
-import static net.splitcells.dem.resource.communication.log.CommonMarkLogger.commonMarkDui;
-import static net.splitcells.dem.resource.communication.log.LogLevel.TRACE;
 import static net.splitcells.dem.utils.ExecutionException.execException;
-import static net.splitcells.network.distro.java.acme.AcmeChallengeFile.acmeChallengeFile;
 import static net.splitcells.website.server.ProjectConfig.projectConfig;
 
 @JavaLegacy
@@ -77,11 +55,11 @@ public class DistroCell implements Cell {
     @Override
     public void accept(Environment env) {
         env.withCell(SystemCell.class);
-        config(env.config().configValue(ServerConfig.class));
+        webConfig(env.config().configValue(ServerConfig.class));
         env.config().withConfigValue(NetworkLogFileSystem.class, env.config().configValue(NetworkWorkerLogFileSystem.class));
     }
 
-    public static Config config(Config arg) {
+    private Config webConfig(Config arg) {
         return arg
                 .withAdditionalProject(projectConfig("/",
                         configValue(NetworkMediaFileSystem.class)))
