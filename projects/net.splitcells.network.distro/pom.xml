@@ -61,7 +61,7 @@
                             <descriptors>
                                 <descriptor>src/main/assembly/linux-zip.xml</descriptor>
                             </descriptors>
-                            <outputDirectory>${project.build.directory}/classes/net.splitcells.network.distro.java.resources/src/main/resources/html/net/splitcells/network/distro/downloads/</outputDirectory>
+                            <outputDirectory>${project.build.directory}/classes/net.splitcells.network.distro.resources/src/main/resources/html/net/splitcells/network/distro/downloads/</outputDirectory>
                             <finalName>${project.groupId}.${project.artifactId}</finalName>
                         </configuration>
                     </execution>
